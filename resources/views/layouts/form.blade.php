@@ -13,10 +13,18 @@
     @stack('styles')
 </head>
 <body class="bg-slate-950 p-8">
-    <aside class="fixed left-0 top-0 h-full w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
-        @include('components.sidebar')
-    </aside>
-    <div class="max-w-5xl mx-auto">
-        @yield('content')
-    </div>
+
+<aside class="fixed left-0 top-0 h-full w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
+    @include('components.sidebar')
+</aside>
+
+<div class="max-w-5xl mx-auto">
+    @include('components.toast')
+
+    @yield('content')
+</div>
+
 </body>
+</html>
+
+@stack('scripts')
