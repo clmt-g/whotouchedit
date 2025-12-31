@@ -174,7 +174,7 @@
                             <!-- Action -->
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="#"
+                                    <a href="{{ route('machine.detail', $machine->idMachine) }}"
                                        class="p-2 text-gray-400 hover:text-blue-400 hover:bg-slate-800 rounded-lg transition">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

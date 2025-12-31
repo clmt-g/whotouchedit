@@ -9,3 +9,4 @@ Route::get('/', [DefaultController::class, 'index'])->name('dashboard');
 
 // ========== Machine ==========
 Route::get('/machine', [MachineController::class, 'show'])->name('machine');
+Route::get('/machine/detail/{id}', [MachineController::class, 'detail'])->name('machine.detail');

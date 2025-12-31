@@ -22,7 +22,8 @@ class Machine extends Model
         'dateInstallation',
         'etat',
         'criticite',
-        'localisation'
+        'localisation',
+        'notes'
     ];
 
     // --- Relations --- à faire plus tard
