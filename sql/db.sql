@@ -18,7 +18,6 @@ CREATE TABLE machines (
                           etat ENUM('opérationnelle', 'en_maintenance', 'planifiée', 'en_panne', 'hors_service') DEFAULT 'opérationnelle',
                           criticite ENUM('faible', 'moyen', 'critique') DEFAULT 'moyen',
                           localisation VARCHAR(200) NOT NULL,
-                          deleted BOOLEAN DEFAULT FALSE
 );
 
 -- Table des interventions

@@ -12,6 +12,11 @@ class DefaultController extends Controller
     public function index() {
         // FIXME : passer les informations nécéssaires
 
-        return view('home');
+        return view('dashboard');
+    }
+
+    // FIXME : a supprimer
+    public function test() {
+        return view('machine.show');
     }
 }
