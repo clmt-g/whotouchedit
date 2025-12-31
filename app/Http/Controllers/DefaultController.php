@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class DefaultController extends Controller
 {
     /** display the home page
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
+     * @return Factory|\Illuminate\Contracts\View\View|View
      */
     public function index() {
         // FIXME : passer les informations nécéssaires
