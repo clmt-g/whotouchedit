@@ -10,6 +10,8 @@ class DefaultController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
     public function index() {
+        // FIXME : passer les informations nécéssaires
+
         return view('home');
     }
 }
