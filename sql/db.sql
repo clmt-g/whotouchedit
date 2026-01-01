@@ -6,7 +6,6 @@ CREATE TABLE user (
                       login VARCHAR(50) UNIQUE NOT NULL,
                       passwd VARCHAR(255) NOT NULL,
                       role ENUM('technicien', 'responsable', 'admin', 'direction') NOT NULL,
-                      deleted BOOLEAN DEFAULT FALSE
 );
 
 -- Table des machines
