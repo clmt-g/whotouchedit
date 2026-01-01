@@ -77,7 +77,7 @@
                     <textarea
                         name="description"
                         rows="4"
-                        placeholder="Informations complémentaires..."
+                        placeholder="Décrire le problème..."
                         class="w-full bg-slate-800 text-white px-4 py-2.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition resize-none"
                         readonly
                     >{{ $intervention->description ?? '' }}</textarea>
@@ -101,7 +101,7 @@
                     >
                 </div>
 
-                <!-- Localisation -->
+                <!-- machine -->
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">
                         Machine
@@ -116,7 +116,7 @@
                     >
                 </div>
 
-                <!-- Criticité -->
+                <!-- utilisateur -->
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">
                         Utilisateur

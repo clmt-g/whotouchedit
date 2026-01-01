@@ -32,5 +32,7 @@ class Intervention extends Model
         return $this->hasOne(Machine::class, 'idMachine', 'idMachine');
     }
 
-    // FIXME : relation intervention - user
+    public function user() : HasOne {
+        return $this->hasOne(User::class, 'idUser', 'idUser');
+    }
 }

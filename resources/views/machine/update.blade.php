@@ -6,7 +6,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between mb-8">
         <div>
-            <h2 class="text-3xl font-bold text-white mb-2">Détail de la machine</h2>
+            <h2 class="text-3xl font-bold text-white mb-2">Modifier la machine</h2>
             <p class="text-gray-400">Informations de la machine</p>
         </div>
         <a href="{{ route('machine') }}"

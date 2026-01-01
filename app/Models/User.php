@@ -5,13 +5,21 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, softDeletes;
+
+    protected $table = 'user';
+    protected $primaryKey = 'idUser';
+    protected $keyType = 'integer';
+    public $incrementing = false;
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +27,12 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'idUser',
+        'nom',
+        'prenom',
+        'login',
         'password',
+        'role'
     ];
 
     /**
@@ -45,5 +56,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // --- Relations ---
+    public function interventions(): HasMany
+    {
+        return $this->hasMany(Intervention::class, 'idUser', 'idUser');
     }
 }

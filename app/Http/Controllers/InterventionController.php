@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Intervention;
 use App\Models\Machine;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class InterventionController extends Controller
@@ -31,6 +32,8 @@ class InterventionController extends Controller
     }
 
     public function add() {
-        return view('intervention.add');
+        $machines = Machine::all();
+        $users = User::all();
+        return view('intervention.add', ['machines' => $machines, 'users' => $users]);
     }
 }
