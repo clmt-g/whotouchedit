@@ -108,6 +108,10 @@ class MachineController extends Controller
         }
     }
 
+    /** delete an intervention
+     * @param $id
+     * @return RedirectResponse
+     */
     public function do_delete($id) {
         try {
             $machine = Machine::findOrFail($id);

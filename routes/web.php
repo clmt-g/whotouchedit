@@ -22,3 +22,6 @@ Route::get('/intervention', [InterventionController::class, 'show'])->name('inte
 Route::get('/intervention/detail/{id}', [InterventionController::class, 'detail'])->name('intervention.detail');
 Route::get('/intervention/add', [InterventionController::class, 'add'])->name('intervention.add');
 Route::post('/intervention/add', [InterventionController::class, 'do_add'])->name('intervention.do_add');
+
+
+Route::delete('/intervention/delete/{id}', [InterventionController::class, 'do_delete'])->name('intervention.do_delete');

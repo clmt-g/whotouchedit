@@ -60,4 +60,23 @@ class InterventionController extends Controller
                 ->with('error', 'Une erreur est survenue lors de la création de l\'intervention');
         }
     }
+
+    /** delete an intervention
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function do_delete($id) {
+        try {
+            $intervention = Intervention::find($id);
+            $intervention->delete();
+
+            return redirect()
+                ->route('intervention')
+                ->with('success', 'Intervention supprimer avec sucès');
+        } catch (\Exception $e) {
+            return redirect()
+            ->route('intervention')
+            ->with('error', 'Une erreur est survenue lors de la suppression de l\'intervention');
+        }
+    }
 }
