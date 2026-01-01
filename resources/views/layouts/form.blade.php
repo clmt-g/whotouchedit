@@ -19,8 +19,6 @@
 </aside>
 
 <div class="max-w-5xl mx-auto">
-    @include('components.toast')
-
     @yield('content')
 </div>
 

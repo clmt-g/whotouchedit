@@ -1,6 +1,6 @@
 @extends('layouts.form')
 
-@section('title', 'WhoTouchedIt - detail')
+@section('title', 'WhoTouchedIt - Ajouter une machine')
 
 @section('content')
     <!-- Header -->

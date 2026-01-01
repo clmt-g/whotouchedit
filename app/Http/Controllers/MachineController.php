@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddMachineRequest;
 use App\Models\Machine;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class MachineController extends Controller
@@ -52,6 +55,26 @@ class MachineController extends Controller
                 ->route('machine')
                 ->with('error', 'Impossible d\'ajouter la machine');
         }
+    }
+
+    /** display the update page with the info of the machine according to the key $id
+     * @param $id
+     * @return Factory|View|RedirectResponse|\Illuminate\View\View
+     */
+    public function update($id) {
+        $machine = Machine::find($id);
+
+        if (!$machine) {
+            return redirect()
+                ->route('machine')
+                ->with('error', 'La machine n\'existe pas');
+        }
+
+        return view('machine.update', ['machine' => $machine]);
+    }
+
+    public function do_update(Request $request, $id) {
+
     }
 
     /** generate a new id based on the last id stored in the database

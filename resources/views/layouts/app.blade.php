@@ -20,6 +20,7 @@
     <main class="ml-64 min-h-screen">
         @include('components.header')
         <div class="p-8">
+            @include('components.toast')
             @yield('content')
         </div>
     </main>
