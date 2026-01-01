@@ -29,7 +29,6 @@ CREATE TABLE interventions (
                                commentaire TEXT,
                                idMachine INT NOT NULL,
                                idUser INT NOT NULL,
-                               deleted BOOLEAN DEFAULT FALSE,
                                FOREIGN KEY (idMachine) REFERENCES machines(idMachine),
                                FOREIGN KEY (idUser) REFERENCES user(idUser)
 );

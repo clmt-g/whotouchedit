@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Machine extends Model
@@ -26,6 +27,10 @@ class Machine extends Model
         'notes'
     ];
 
-    // --- Relations --- à faire plus tard
+    // --- Relations ---
+    // FIXME : quand on clique sur une machine depuis intervention.show, on peut voir toutes les inter d'une machine
+    public function interventions() : HasMany {
+        return $this->hasMany(Intervention::class, 'idMachine', 'idMachine');
+    }
 
 }
