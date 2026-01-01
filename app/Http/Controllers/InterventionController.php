@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddInterventionRequest;
 use App\Models\Intervention;
 use App\Models\Machine;
 use App\Models\User;
@@ -31,9 +32,32 @@ class InterventionController extends Controller
         return view('intervention.detail', ['intervention' => $intervention]);
     }
 
+    /** display the intervention.add page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
+     */
     public function add() {
         $machines = Machine::all();
         $users = User::all();
         return view('intervention.add', ['machines' => $machines, 'users' => $users]);
+    }
+
+    /** create a new intervention
+     * @param AddInterventionRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function do_add(AddInterventionRequest $request) {
+        $validated = $request->validated();
+
+        try {
+            Intervention::create($validated);
+
+            return redirect()
+                ->route('intervention')
+                ->with('success', 'Intervention créer avec suces');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('intervention')
+                ->with('error', 'Une erreur est survenue lors de la création de l\'intervention');
+        }
     }
 }

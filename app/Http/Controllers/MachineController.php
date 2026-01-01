@@ -49,7 +49,6 @@ class MachineController extends Controller
     public function do_add(AddMachineRequest $request)
     {
         $validated = $request->validated();
-        $validated['idMachine'] = $this->generateId();
 
         try {
             Machine::create($validated);
@@ -121,20 +120,5 @@ class MachineController extends Controller
                 ->route('machine')
                 ->with('error', 'Impossible de trouver la machine');
         }
-    }
-
-    /** generate a new id based on the last id stored in the database
-     * @return int
-     */
-    private function generateId() : int {
-        // get the last machine
-        $lastMachine = Machine::orderBy('idMachine', 'desc')->first();
-
-        // nothing in the database
-        if (!$lastMachine) {
-            return 1;
-        }
-
-        return $lastMachine->idMachine + 1;
     }
 }

@@ -42,7 +42,6 @@ CREATE TABLE interventions_planifiees (
                                           statut ENUM('planifiee', 'en_cours', 'terminee', 'annulee') DEFAULT 'planifiee',
                                           frequence ENUM('quotidienne', 'hebdomadaire', 'mensuelle', 'trimestrielle', 'annuelle', 'ponctuelle') NOT NULL,
                                           idMachine INT NOT NULL,
-                                          deleted BOOLEAN DEFAULT FALSE,
                                           FOREIGN KEY (idMachine) REFERENCES machines(idMachine)
 );
 
@@ -50,7 +49,6 @@ CREATE TABLE interventions_planifiees (
 CREATE TABLE intervention_planifiee_techniciens (
                                                     idInterventionPlanifiee INT NOT NULL,
                                                     idUser INT NOT NULL,
-                                                    deleted BOOLEAN DEFAULT FALSE,
                                                     PRIMARY KEY (idInterventionPlanifiee, idUser),
                                                     FOREIGN KEY (idInterventionPlanifiee) REFERENCES interventions_planifiees(idInterventionPlanifiee),
                                                     FOREIGN KEY (idUser) REFERENCES user(idUser)

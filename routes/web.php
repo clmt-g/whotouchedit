@@ -21,3 +21,4 @@ Route::delete('/machine/delete/{id}' , [MachineController::class, 'do_delete'])-
 Route::get('/intervention', [InterventionController::class, 'show'])->name('intervention');
 Route::get('/intervention/detail/{id}', [InterventionController::class, 'detail'])->name('intervention.detail');
 Route::get('/intervention/add', [InterventionController::class, 'add'])->name('intervention.add');
+Route::post('/intervention/add', [InterventionController::class, 'do_add'])->name('intervention.do_add');

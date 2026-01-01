@@ -15,11 +15,11 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, softDeletes;
 
-    protected $table = 'user';
-    protected $primaryKey = 'idUser';
+    protected $table = 'users';
+    protected $primaryKey = 'id';
     protected $keyType = 'integer';
-    public $incrementing = false;
-    public $timestamps = false;
+    public $incrementing = true;
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
@@ -27,10 +27,9 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'idUser',
         'nom',
         'prenom',
-        'login',
+        'email',
         'password',
         'role'
     ];

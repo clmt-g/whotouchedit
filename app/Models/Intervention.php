@@ -13,7 +13,7 @@ class Intervention extends Model
     protected $table = 'interventions';
     protected $primaryKey = 'idIntervention';
     protected $keyType = 'integer';
-    public $incrementing = false;
+    public $incrementing = true;
     public $timestamps = false;
 
     protected $fillable = [
@@ -33,6 +33,6 @@ class Intervention extends Model
     }
 
     public function user() : HasOne {
-        return $this->hasOne(User::class, 'idUser', 'idUser');
+        return $this->hasOne(User::class, 'id', 'idUser');
     }
 }

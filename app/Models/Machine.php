@@ -13,11 +13,10 @@ class Machine extends Model
     protected $table = 'machines';
     protected $primaryKey = 'idMachine';
     protected $keyType = 'integer';
-    public $incrementing = false;
+    public $incrementing = true;
     public $timestamps = false;
 
     protected $fillable = [
-        'idMachine',
         'nom',
         'reference',
         'dateInstallation',
