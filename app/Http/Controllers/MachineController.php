@@ -104,11 +104,13 @@ class MachineController extends Controller
         }
     }
 
-    public function delete($id) {
+    public function do_delete($id) {
         try {
             $machine = Machine::findOrFail($id);
-
-            return view('machine.delete', ['machine' => $machine]);
+            $machine->delete();
+            return redirect()
+                ->route('machine')
+                ->with('success', 'La machine à été supprimer avec success');
         } catch (Exception $e) {
             return redirect()
                 ->route('machine')

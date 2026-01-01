@@ -14,3 +14,6 @@ Route::get('/machine/add', [MachineController::class, 'add'])->name('machine.add
 Route::post('/machine/add', [MachineController::class, 'do_add'])->name('machine.do_add');
 Route::get('/machine/update/{id}' , [MachineController::class, 'update'])->name('machine.update');
 Route::put('/machine/update/{id}' , [MachineController::class, 'do_update'])->name('machine.do_update');
+Route::delete('/machine/delete/{id}' , [MachineController::class, 'do_delete'])->name('machine.do_delete');
+
+// ========== Interventions ==========
