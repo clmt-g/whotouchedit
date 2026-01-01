@@ -21,8 +21,13 @@
     <!-- Form Card -->
     <form action="{{ route('machine.do_update', $machine->idMachine) }}" method="POST">
 
+        <!-- method PUT -->
         @method('PUT')
+        <!-- CSRF token-->
         @csrf
+
+        <!-- toast d'affichage des erreurs lié à la validation des données -->
+        @include('components.validationToast')
 
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-8">
             <!-- Grid 2 colonnes -->
@@ -99,13 +104,18 @@
                             État
                             <span class="text-red-500">*</span>
                         </label>
-                        <input
-                            type="text"
+                        <select
                             name="etat"
-                            value="{{ $machine->etat }}"
                             class="w-full bg-slate-800 text-white px-4 py-2.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                             required
                         >
+                            <option value="">-- Sélectionner --</option>
+                            <option value="opérationnelle" @if($machine->etat == 'opérationnelle') selected @endif>Opérationnelle</option>
+                            <option value="en_maintenance" @if($machine->etat == 'en_maintenance') selected @endif>En maintenance</option>
+                            <option value="planifiée" @if($machine->etat == 'planifiée') selected @endif>Planifiée</option>
+                            <option value="en_panne" @if($machine->etat == 'en_panne') selected @endif>En panne</option>
+                            <option value="hors_service" @if($machine->etat == 'hors_service') selected @endif>Hors service</option>
+                        </select>
                     </div>
 
                     <!-- Localisation -->
@@ -129,13 +139,16 @@
                             Criticité
                             <span class="text-red-500">*</span>
                         </label>
-                        <input
-                            type="text"
+                        <select
                             name="criticite"
-                            value="{{ $machine->criticite }}"
                             class="w-full bg-slate-800 text-white px-4 py-2.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                             required
                         >
+                            <option value="">-- Sélectionner --</option>
+                            <option value="faible" @if($machine->criticite == 'faible') selected @endif>Faible</option>
+                            <option value="moyen" @if($machine->criticite == 'moyen') selected @endif>Moyen</option>
+                            <option value="critique" @if($machine->criticite == 'critique') selected @endif>Critique</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -146,7 +159,7 @@
                     Description / Notes
                 </label>
                 <textarea
-                    name="description"
+                    name="notes"
                     rows="4"
                     placeholder="Informations complémentaires..."
                     class="w-full bg-slate-800 text-white px-4 py-2.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition resize-none"

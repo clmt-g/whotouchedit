@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddMachineRequest;
+use App\Http\Requests\UpdateMachineRequest;
 use App\Models\Machine;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class MachineController extends Controller
 {
@@ -73,8 +75,45 @@ class MachineController extends Controller
         return view('machine.update', ['machine' => $machine]);
     }
 
-    public function do_update(Request $request, $id) {
+    /** update a machine
+     * @param UpdateMachineRequest $request
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function do_update(UpdateMachineRequest $request, $id) {
+        $validated = $request->validated();
 
+        try {
+            Machine::findOrFail($id)->update([
+                'nom' => $validated['nom'],
+                'reference' => $validated['reference'],
+                'dateInstallation' => $validated['dateInstallation'],
+                'etat' => $validated['etat'],
+                'criticite' => $validated['criticite'],
+                'localisation' => $validated['localisation'],
+                'notes' => $validated['notes'] ?? null
+            ]);
+
+            return redirect()
+                ->route('machine')
+                ->with('success', 'Modifications enregistrer avec success');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('machine')
+                ->with('error', 'Erreur lors de l\'enregistrement des modifications');
+        }
+    }
+
+    public function delete($id) {
+        try {
+            $machine = Machine::findOrFail($id);
+
+            return view('machine.delete', ['machine' => $machine]);
+        } catch (Exception $e) {
+            return redirect()
+                ->route('machine')
+                ->with('error', 'Impossible de trouver la machine');
+        }
     }
 
     /** generate a new id based on the last id stored in the database
