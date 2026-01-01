@@ -11,7 +11,7 @@
                 <h2 class="text-3xl font-bold text-white mb-2">Interventions</h2>
                 <p class="text-gray-400">Suivi des interventions techniques</p>
             </div>
-            <a href="#"
+            <a href="{{ route('intervention.add') }}"
                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -141,10 +141,10 @@
                                 </div>
                             </td>
 
-                            <!-- Actions avec effets hover améliorés -->
+                            <!-- Actions avec effets hover -->
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="#" title="Voir les détails"
+                                    <a href="{{ route('intervention.detail', $intervention->idIntervention) }}" title="Voir les détails"
                                        class="p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all duration-200 hover:scale-110">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>

@@ -15,4 +15,22 @@ class InterventionController extends Controller
         $interventions = Intervention::all();
         return view('intervention.show', ['interventions' => $interventions]);
     }
+
+    /** display the detail page of an intervention according to the key $id
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function detail($id) {
+        $intervention = Intervention::find($id);
+        if (!$intervention) {
+            return redirect()
+                ->route('intervention')
+                ->with('error', 'Intervention introuvable');
+        }
+        return view('intervention.detail', ['intervention' => $intervention]);
+    }
+
+    public function add() {
+        return view('intervention.add');
+    }
 }

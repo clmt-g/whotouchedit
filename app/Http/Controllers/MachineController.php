@@ -23,10 +23,15 @@ class MachineController extends Controller
 
     /** display the details page of a machine according to the key $id
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
+     * @return Factory|View|RedirectResponse|\Illuminate\View\View
      */
     public function detail($id) {
         $machine = Machine::find($id);
+        if(!$machine) {
+            return redirect()
+                ->route('machine')
+                ->with('error', 'Machine introuvable');
+        }
         return view('machine.detail', ['machine' => $machine]);
     }
 
