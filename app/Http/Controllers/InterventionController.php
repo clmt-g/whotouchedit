@@ -13,6 +13,6 @@ class InterventionController extends Controller
      */
     public function show() {
         $interventions = Intervention::all();
-        return view('intervention', ['interventionss' => $interventions]);
+        return view('intervention.show', ['interventions' => $interventions]);
     }
 }

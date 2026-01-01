@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InterventionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\MachineController;
@@ -17,3 +18,4 @@ Route::put('/machine/update/{id}' , [MachineController::class, 'do_update'])->na
 Route::delete('/machine/delete/{id}' , [MachineController::class, 'do_delete'])->name('machine.do_delete');
 
 // ========== Interventions ==========
+Route::get('/intervention', [InterventionController::class, 'show'])->name('intervention');

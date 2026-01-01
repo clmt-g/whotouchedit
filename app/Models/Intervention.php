@@ -18,7 +18,8 @@ class Intervention extends Model
 
     protected $fillable = [
         'idIntervention',
-        'dateHeure',
+        'dateHeureDebut',
+        'dateHeureFin',
         'description',
         'statut',
         'commentaire',
