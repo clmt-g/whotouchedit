@@ -28,7 +28,7 @@ class AddInterventionRequest extends FormRequest
             'statut' => 'required|in:en_attente,en_cours,terminee,annulee',
             'commentaire' => 'nullable|string|max:5000',
             'idMachine' => 'required|exists:machines,idMachine',
-            'idUser' => 'required|exists:user,idUser'
+            'idUser' => 'required|exists:users,id'
         ];
     }
 }
