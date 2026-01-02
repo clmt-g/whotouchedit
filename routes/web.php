@@ -38,6 +38,8 @@ Route::delete('/user/delete/{id}', [UserController::class, 'do_delete'])->name('
 Route::get('/user/update_password/{id}' , [UserController::class, 'update_password'])->name('user.update_password');
 Route::put('/user/update_password/{id}' , [UserController::class, 'do_update_password'])->name('user.do_update_password');
 
+// ========== Intervention planifiées ==========
+
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {
     return view('error.404');
