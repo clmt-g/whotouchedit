@@ -33,6 +33,8 @@ Route::get('/user/detail/{id}', [UserController::class, 'detail'])->name('user.d
 Route::get('/user/add', [UserController::class, 'add'])->name('user.add');
 Route::post('/user/add', [UserController::class, 'do_add'])->name('user.do_add');
 Route::get('/user/update/{id}' , [UserController::class, 'update'])->name('user.update');
+Route::put('/user/update/{id}' , [UserController::class, 'do_update'])->name('user.do_update');
+Route::delete('/user/delete/{id}', [UserController::class, 'do_delete'])->name('user.do_delete');
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {

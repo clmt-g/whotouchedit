@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Machine;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -78,5 +79,43 @@ class UserController extends Controller
         }
 
         return view('user.update', ['user' => $user]);
+    }
+
+    /** update the user identifier by the key $id
+     * @param UpdateUserRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function do_update(UpdateUserRequest $request, $id) {
+        $validated = $request->validated();
+
+        try {
+            User::find($id)->update($validated);
+
+            return redirect()
+                ->route('user')
+                ->with('success', 'Modification de l\'utilisateur enregistrer');
+        } catch(Exception $e) {
+            return redirect()
+                ->route('user')
+                ->with('error', 'Erreur lors de la modification de l\'utilisateur');
+        }
+    }
+
+    /** delete a user
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function do_delete($id) {
+        try {
+            User::find($id)->delete();
+            return redirect()
+                ->route('user')
+                ->with('success', 'Utilisateur supprimer avec success');
+        } catch(Exception $e) {
+            return redirect()
+                ->route('user')
+                ->with('error', 'Erreur lors de la suppression de l\'utilisateur');
+        }
     }
 }
