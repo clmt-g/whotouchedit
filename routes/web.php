@@ -29,6 +29,7 @@ Route::delete('/intervention/delete/{id}', [InterventionController::class, 'do_d
 
 // ========== User ==========
 Route::get('/user', [UserController::class, 'show'])->name('user');
+Route::get('/user/detail/{id}', [UserController::class, 'detail'])->name('user.detail');
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {
