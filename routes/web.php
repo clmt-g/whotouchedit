@@ -26,6 +26,7 @@ Route::get('/intervention/update/{id}' , [InterventionController::class, 'update
 Route::put('intervention/update/{id}' , [InterventionController::class, 'do_update'])->name('intervention.do_update');
 Route::delete('/intervention/delete/{id}', [InterventionController::class, 'do_delete'])->name('intervention.do_delete');
 
+// ========== User ==========
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {
