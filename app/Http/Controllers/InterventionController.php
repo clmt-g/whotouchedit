@@ -83,6 +83,11 @@ class InterventionController extends Controller
         return view('intervention.update', ['intervention' => $intervention, 'machines' => $machines, 'users' => $users]);
     }
 
+    /** update an intervention
+     * @param UpdateInterventionRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function do_update(UpdateInterventionRequest $request, $id) {
         $validated = $request->validated();
 

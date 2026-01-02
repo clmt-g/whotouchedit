@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InterventionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\MachineController;
@@ -27,6 +28,7 @@ Route::put('intervention/update/{id}' , [InterventionController::class, 'do_upda
 Route::delete('/intervention/delete/{id}', [InterventionController::class, 'do_delete'])->name('intervention.do_delete');
 
 // ========== User ==========
+Route::get('/user', [UserController::class, 'show'])->name('user');
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {
