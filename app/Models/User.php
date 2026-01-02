@@ -62,4 +62,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Intervention::class, 'idUser', 'id');
     }
+
+    // relation Many-to-many (table pivot : intervention_planifiees_technicien)
+    // Pour récupérer toutes les interventions planifier d'un user par exemple
+    public function interventionsPlanifiees()
+    {
+        return $this->belongsToMany(
+            InterventionPlanifiee::class,
+            'intervention_planifiees_technicien',
+            'technicien_id',
+            'intervention_planifiee_id'
+        );
+    }
 }

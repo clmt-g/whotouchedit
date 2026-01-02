@@ -46,4 +46,16 @@ class InterventionPlanifiee extends Model
     {
         return $this->belongsTo(Machine::class, 'idMachine', 'idMachine');
     }
+
+    // relation Many-to-many avec technicen (table : intervention_planifiee_techniciens)
+    // Pour récupérer tout les technicien d'une intervention planifier
+    public function technicien()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'intervention_planifiee_techniciens', // table pivot
+            'idInterventionPlanifiee',
+            'idUser'
+        );
+    }
 }
