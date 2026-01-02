@@ -31,6 +31,8 @@ Route::delete('/intervention/delete/{id}', [InterventionController::class, 'do_d
 Route::get('/user', [UserController::class, 'show'])->name('user');
 Route::get('/user/detail/{id}', [UserController::class, 'detail'])->name('user.detail');
 Route::get('/user/add', [UserController::class, 'add'])->name('user.add');
+Route::post('/user/add', [UserController::class, 'do_add'])->name('user.do_add');
+Route::get('/user/update/{id}' , [UserController::class, 'update'])->name('user.update');
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {

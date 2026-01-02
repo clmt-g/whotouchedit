@@ -19,8 +19,12 @@
     </div>
 
     <!-- Form Card -->
-    <form action="#" method="POST" id="userForm">
+    <form action="{{ route('user.do_add') }}" method="POST" id="userForm">
+
         @csrf
+
+        <!-- toast d'affichage des erreurs lié à la validation des données -->
+        @include('components.validationToast')
 
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-8">
             <!-- Grid 2 colonnes -->

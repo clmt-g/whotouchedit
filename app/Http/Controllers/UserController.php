@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddUserRequest;
+use App\Models\Machine;
 use App\Models\User;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class UserController extends Controller
 {
@@ -36,5 +39,44 @@ class UserController extends Controller
      */
     public function add() {
         return view('user.add');
+    }
+
+    /** Create a user
+     * @param AddUserRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function do_add(AddUserRequest $request) {
+        $validated = $request->validated();
+
+        try {
+            // haché le password
+            $validated['password'] = bcrypt($validated['password']);
+
+            User::create($validated);
+
+            return redirect()
+                ->route('user')
+                ->with('success', 'L\'utilisateur à bien été enregistrer');
+        } catch (Exception $e) {
+            return redirect()
+                ->route('user')
+                ->with('error', 'Erreur lors de l\'ajout de l\'utilisateur');
+        }
+    }
+
+    /** Display the user.update page
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function update($id) {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()
+                ->route('user')
+                ->with('error', 'Utilisateur introuvable');
+        }
+
+        return view('user.update', ['user' => $user]);
     }
 }
