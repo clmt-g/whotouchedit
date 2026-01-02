@@ -11,7 +11,7 @@
                 <h2 class="text-3xl font-bold text-white mb-2">Utilisateurs</h2>
                 <p class="text-gray-400">Gestion des techniciens et utilisateurs</p>
             </div>
-            <a href="#"
+            <a href="{{ route('user.add') }}"
                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>

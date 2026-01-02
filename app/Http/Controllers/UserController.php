@@ -30,4 +30,11 @@ class UserController extends Controller
 
         return view('user.detail', ['user' => $user]);
     }
+
+    /** display the user.add page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
+     */
+    public function add() {
+        return view('user.add');
+    }
 }
