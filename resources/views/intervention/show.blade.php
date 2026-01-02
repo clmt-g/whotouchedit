@@ -140,7 +140,6 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                         </svg>
                                     </div>
-                                    <!-- Faire un lien ici -->
                                     <span class="text-sm text-blue-400 hover:text-blue-600 font-medium underline decoration-blue-600 hover:decoration-white underline-offset-2 transition-colors">
                                         <a>Tech #{{ $intervention->user->nom }} {{ $intervention->user->prenom }}</a>
                                     </span>

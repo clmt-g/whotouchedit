@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InterventionController;
+use App\Http\Controllers\InterventionPlanifieeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DefaultController;
@@ -39,6 +40,7 @@ Route::get('/user/update_password/{id}' , [UserController::class, 'update_passwo
 Route::put('/user/update_password/{id}' , [UserController::class, 'do_update_password'])->name('user.do_update_password');
 
 // ========== Intervention planifiées ==========
+Route::get('/intervention_planifiee', [InterventionPlanifieeController::class, 'show'])->name('intervention_planifiee');
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {
