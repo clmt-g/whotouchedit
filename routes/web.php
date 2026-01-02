@@ -22,6 +22,12 @@ Route::get('/intervention', [InterventionController::class, 'show'])->name('inte
 Route::get('/intervention/detail/{id}', [InterventionController::class, 'detail'])->name('intervention.detail');
 Route::get('/intervention/add', [InterventionController::class, 'add'])->name('intervention.add');
 Route::post('/intervention/add', [InterventionController::class, 'do_add'])->name('intervention.do_add');
-
-
+Route::get('/intervention/update/{id}' , [InterventionController::class, 'update'])->name('intervention.update');
+Route::put('intervention/update/{id}' , [InterventionController::class, 'do_update'])->name('intervention.do_update');
 Route::delete('/intervention/delete/{id}', [InterventionController::class, 'do_delete'])->name('intervention.do_delete');
+
+
+// ========== Error 404 : doit être la dernière route ==========
+Route::fallback(function () {
+    return view('error.404');
+});

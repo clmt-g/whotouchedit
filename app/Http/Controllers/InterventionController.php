@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddInterventionRequest;
+use App\Http\Requests\UpdateInterventionRequest;
 use App\Models\Intervention;
 use App\Models\Machine;
 use App\Models\User;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class InterventionController extends Controller
 {
@@ -58,6 +60,51 @@ class InterventionController extends Controller
             return redirect()
                 ->route('intervention')
                 ->with('error', 'Une erreur est survenue lors de la création de l\'intervention');
+        }
+    }
+
+    /** display the update page of an intervention identified by the key $id
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function update($id) {
+        // get the intervention that corrspond to the id
+        $intervention = Intervention::find($id);
+        if (!$intervention) {
+            return redirect()
+                ->route('intervention')
+                ->with('error', 'Intervention introuvable');
+        }
+
+        // get the machines and users for the select
+        $machines = Machine::all();
+        $users = User::all();
+
+        return view('intervention.update', ['intervention' => $intervention, 'machines' => $machines, 'users' => $users]);
+    }
+
+    public function do_update(UpdateInterventionRequest $request, $id) {
+        $validated = $request->validated();
+
+        try {
+            Intervention::findOrFail($id)->update([
+                'dateHeureDebut' => $validated['dateHeureDebut'],
+                'dateHeureFin' => $validated['dateHeureFin'],
+                'description' => $validated['description'],
+                'statut' => $validated['statut'],
+                'commentaire' => $validated['commentaire'],
+                'idMachine' => $validated['idMachine'],
+                'idUser' => $validated['idUser']
+            ]);
+
+            return redirect()
+                ->route('intervention')
+                ->with('success', 'Enregistrement des modifications apporté avec succes');
+
+        } catch (Exception $e) {
+            return redirect()
+                ->route('intervention')
+                ->with('error', 'Erreur lors de l\'enregistrement des modifications');
         }
     }
 

@@ -125,7 +125,10 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
                                         </svg>
                                     </div>
-                                    <span class="text-sm text-gray-300 font-medium">{{ $intervention->machine->nom }}</span>
+                                    <a href="{{ route('machine.detail', $intervention->idMachine) }}"
+                                       class="text-sm text-purple-400 hover:text-purple-300 font-medium underline decoration-purple-400/30 hover:decoration-purple-300 underline-offset-2 transition-colors">
+                                        {{ $intervention->machine->nom }}
+                                    </a>
                                 </div>
                             </td>
 
@@ -137,7 +140,10 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                         </svg>
                                     </div>
-                                    <span class="text-sm text-gray-300">Tech #{{ $intervention->user->nom }}</span>
+                                    <!-- Faire un lien ici -->
+                                    <span class="text-sm text-blue-400 hover:text-blue-600 font-medium underline decoration-blue-600 hover:decoration-white underline-offset-2 transition-colors">
+                                        <a>Tech #{{ $intervention->user->nom }} {{ $intervention->user->prenom }}</a>
+                                    </span>
                                 </div>
                             </td>
 
@@ -151,7 +157,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                         </svg>
                                     </a>
-                                    <a href="#" title="Modifier"
+                                    <a href="{{ route('intervention.update', $intervention->idIntervention) }}" title="Modifier"
                                        class="p-2 text-gray-400 hover:text-green-400 hover:bg-green-500/10 rounded-lg transition-all duration-200 hover:scale-110">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>

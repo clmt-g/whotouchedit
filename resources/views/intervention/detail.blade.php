@@ -107,13 +107,25 @@
                         Machine
                         <span class="text-red-500">*</span>
                     </label>
-                    <input
-                        type="text"
-                        name="idMachine"
-                        value="{{ $intervention->machine->nom }}"
-                        class="w-full bg-slate-800 text-white px-4 py-2.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
-                        readonly
-                    >
+                    <a href="{{ route('machine.detail', $intervention->idMachine) }}"
+                       class="block group">
+                        <div class="w-full bg-slate-800 px-4 py-2.5 rounded-lg border border-slate-700 hover:border-purple-500 transition-all duration-200 cursor-pointer group-hover:bg-slate-750">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                                        <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-white font-medium">{{ $intervention->machine->nom }}</span>
+                                </div>
+                                <svg class="w-5 h-5 text-gray-400 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                    <p class="mt-1 text-xs text-gray-400">Cliquez pour voir les détails de la machine</p>
                 </div>
 
                 <!-- utilisateur -->
@@ -122,13 +134,25 @@
                         Utilisateur
                         <span class="text-red-500">*</span>
                     </label>
-                    <input
-                        type="text"
-                        name="idUser"
-                        value="{{ $intervention->user->nom }} {{ $intervention->user->prenom }}"
-                        class="w-full bg-slate-800 text-white px-4 py-2.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
-                        readonly
-                    >
+                    <a href="#"
+                       class="block group">
+                        <div class="w-full bg-slate-800 px-4 py-2.5 rounded-lg border border-slate-700 hover:border-blue-500 transition-all duration-200 cursor-pointer group-hover:bg-slate-750">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+                                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-white font-medium">{{ $intervention->user->nom }} {{ $intervention->user->prenom }}</span>
+                                </div>
+                                <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                    <p class="mt-1 text-xs text-gray-400">Cliquez pour voir le profil de l'utilisateur</p>
                 </div>
 
                 <div class="mt-6">

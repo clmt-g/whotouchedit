@@ -17,7 +17,6 @@ class Intervention extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'idIntervention',
         'dateHeureDebut',
         'dateHeureFin',
         'description',
