@@ -22,6 +22,6 @@
         </div>
     </main>
 
-@stack('scripts')
+    @stack('scripts')
 </body>
 </html>

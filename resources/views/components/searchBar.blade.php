@@ -3,7 +3,7 @@
         <input
             id="machine-search"
             type="text"
-            placeholder="Rechercher une machine (nom, référence, localisation...)"
+            placeholder="Rechercher..."
             class="w-full bg-slate-800 text-white pl-12 pr-4 py-3 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 transition"
         >
 

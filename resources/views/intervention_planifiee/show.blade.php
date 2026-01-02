@@ -123,7 +123,7 @@
                                 </div>
                             </td>
 
-                            <<!-- Techniciens -->
+                            <!-- Techniciens -->
                             <td class="px-6 py-4">
                                 <div class="flex flex-wrap gap-1.5">
                                     @forelse($intervention->techniciens as $technicien)
