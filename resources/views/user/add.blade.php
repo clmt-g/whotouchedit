@@ -141,17 +141,6 @@
                                 </svg>
                             </button>
                         </div>
-
-                        <!-- Indicateur de force du mot de passe -->
-                        <div class="mt-2">
-                            <div class="flex gap-1">
-                                <div id="strength-bar-1" class="h-1 flex-1 rounded-full bg-slate-700 transition-all duration-300"></div>
-                                <div id="strength-bar-2" class="h-1 flex-1 rounded-full bg-slate-700 transition-all duration-300"></div>
-                                <div id="strength-bar-3" class="h-1 flex-1 rounded-full bg-slate-700 transition-all duration-300"></div>
-                                <div id="strength-bar-4" class="h-1 flex-1 rounded-full bg-slate-700 transition-all duration-300"></div>
-                            </div>
-                            <p id="strength-text" class="text-xs text-gray-400 mt-1"></p>
-                        </div>
                     </div>
 
                     <!-- Confirmation mot de passe -->
@@ -351,18 +340,7 @@
             updateRequirement('req-special', requirements.special);
 
             const strength = Object.values(requirements).filter(Boolean).length;
-            const bars = [
-                document.getElementById('strength-bar-1'),
-                document.getElementById('strength-bar-2'),
-                document.getElementById('strength-bar-3'),
-                document.getElementById('strength-bar-4')
-            ];
             const strengthText = document.getElementById('strength-text');
-
-            // Reset bars
-            bars.forEach(bar => {
-                bar.className = 'h-1 flex-1 rounded-full bg-slate-700 transition-all duration-300';
-            });
 
             if (password.length === 0) {
                 strengthText.textContent = '';
@@ -370,22 +348,15 @@
             }
 
             if (strength <= 2) {
-                bars[0].classList.add('bg-red-500');
                 strengthText.textContent = 'Mot de passe faible';
                 strengthText.className = 'text-xs text-red-400 mt-1';
             } else if (strength === 3) {
-                bars[0].classList.add('bg-orange-500');
-                bars[1].classList.add('bg-orange-500');
                 strengthText.textContent = 'Mot de passe moyen';
                 strengthText.className = 'text-xs text-orange-400 mt-1';
             } else if (strength === 4) {
-                bars[0].classList.add('bg-yellow-500');
-                bars[1].classList.add('bg-yellow-500');
-                bars[2].classList.add('bg-yellow-500');
                 strengthText.textContent = 'Mot de passe bon';
                 strengthText.className = 'text-xs text-yellow-400 mt-1';
             } else {
-                bars.forEach(bar => bar.classList.add('bg-green-500'));
                 strengthText.textContent = 'Mot de passe excellent';
                 strengthText.className = 'text-xs text-green-400 mt-1';
             }

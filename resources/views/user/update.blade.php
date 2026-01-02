@@ -137,7 +137,7 @@
                     Retour
                 </a>
                 <div class="flex gap-4">
-                    <a href="#"
+                    <a href="{{ route('user.update_password', $user->id) }}"
                        class="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

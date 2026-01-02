@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddUserRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Machine;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use mysql_xdevapi\Exception;
 
 class UserController extends Controller
@@ -117,5 +119,48 @@ class UserController extends Controller
                 ->route('user')
                 ->with('error', 'Erreur lors de la suppression de l\'utilisateur');
         }
+    }
+
+    /** display the user.update_password page
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function update_password($id) {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()
+                ->route('user')
+                ->with('error', 'Utilisateur introuvable');
+        }
+
+        return view('user.update_password', ['user' => $user]);
+    }
+
+    /** update the password of the user identified by the key $id
+     * @param UpdatePasswordRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function do_update_password(UpdatePasswordRequest $request, $id) {
+        try {
+            $user = User::find($id);
+
+            if (Hash::check($request->get('current_password'), $user->password)) {
+                $user->update(['password' => bcrypt($request->get('password'))]);
+                return redirect()
+                    ->route('user')
+                    ->with('success', 'Mot de passe modifier avec success');
+            } else {
+                return redirect()
+                    ->route('user')
+                    ->with('error', 'L\'ancien mot de passe ne correspond pas');
+            }
+        } catch (Exception $e) {
+                return redirect()
+                    ->route('user')
+                    ->with('error', 'Erreur lors de la modification du mot de passe');
+        }
+
     }
 }

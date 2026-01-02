@@ -60,6 +60,6 @@ class User extends Authenticatable
     // --- Relations ---
     public function interventions(): HasMany
     {
-        return $this->hasMany(Intervention::class, 'idUser', 'idUser');
+        return $this->hasMany(Intervention::class, 'idUser', 'id');
     }
 }
