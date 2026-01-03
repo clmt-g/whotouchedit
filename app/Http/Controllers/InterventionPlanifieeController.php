@@ -42,4 +42,8 @@ class InterventionPlanifieeController extends Controller
 
         return view('intervention_planifiee.add', ['machines' => $machines, 'users' => $users]);
     }
+
+    public function do_add() {
+
+    }
 }
