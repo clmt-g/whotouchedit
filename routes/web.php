@@ -45,6 +45,7 @@ Route::get('/intervention_planifiee.detail/{id}', [InterventionPlanifieeControll
 Route::get('/intervention_planfiee/add', [InterventionPlanifieeController::class, 'add'])->name('intervention_planifiee.add');
 Route::post('/intervention_planifiee/do_add', [InterventionPlanifieeController::class, 'do_add'])->name('intervention_planifiee.do_add');
 Route::get('intervention_planifiee/update/{id}', [InterventionPlanifieeController::class, 'update'])->name('intervention_planifiee.update');
+Route::put('intervention_planifiee/do_update/{id}', [InterventionPlanifieeController::class, 'do_update'])->name('intervention_planifiee.do_update');
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {

@@ -19,7 +19,7 @@
     </div>
 
     <!-- Form Card -->
-    <form action="#" method="POST" class="bg-slate-900 border border-slate-800 rounded-xl p-8">
+    <form action="{{ route('intervention_planifiee.do_update', $intervention->idInterventionPlanifiee) }}" method="POST" class="bg-slate-900 border border-slate-800 rounded-xl p-8">
         @csrf
         @method('PUT')
 
@@ -30,6 +30,22 @@
         <div class="grid grid-cols-2 gap-6">
             <!-- Colonne Gauche -->
             <div class="space-y-6">
+                <!-- Id intervention -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">
+                        ID de l'intervention
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        value="{{ $intervention->idInterventionPlanifiee }}"
+                        name="idInterventionPlanifiee"
+                        class="w-full bg-slate-800 text-white px-4 py-2.5 rounded-lg border border-slate-700 font-mono"
+                        required
+                        readonly
+                    >
+                </div>
+
                 <!-- Type -->
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">

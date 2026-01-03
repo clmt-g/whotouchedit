@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddInterventionPlanifieeRequest;
+use App\Http\Requests\UpdateInterventionPlanifieeRequest;
 use App\Models\InterventionPlanifiee;
 use App\Models\Machine;
 use App\Models\User;
@@ -107,5 +108,38 @@ class InterventionPlanifieeController extends Controller
         return view('intervention_planifiee.update', ['intervention' => $intervention, 'machines' => $machines, 'users' => $users]);
     }
 
+    public function do_update(UpdateInterventionPlanifieeRequest $request, $id) {
+        $validated = $request->validated();
+
+        DB::beginTransaction();
+
+        try {
+            $intervention = InterventionPlanifiee::find($id);
+
+            $intervention->update([
+                'dateDebut' => $validated['dateDebut'],
+                'dateFin' => $validated['dateFin'],
+                'type' => $validated['type'],
+                'description' => $validated['description'] ?? null,
+                'statut' => $validated['statut'],
+                'frequence' => $validated['frequence'],
+                'idMachine' => $validated['idMachine']
+            ]);
+
+            $intervention->techniciens()->sync($validated['techniciens']);
+
+            DB::commit();
+
+            return redirect()
+                ->route('intervention_planifiee')
+                ->with('success', 'Enregistrement des modification effectuer avec succes');
+
+        } catch(Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('intervention_planifiee')
+                ->with('error', 'Erreur lors de la suppression de l\'intervention planifiee');
+        }
+    }
 
 }
