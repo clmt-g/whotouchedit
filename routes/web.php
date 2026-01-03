@@ -41,6 +41,8 @@ Route::put('/user/update_password/{id}' , [UserController::class, 'do_update_pas
 
 // ========== Intervention planifiées ==========
 Route::get('/intervention_planifiee', [InterventionPlanifieeController::class, 'show'])->name('intervention_planifiee');
+Route::get('/intervention_planifiee.detail/{id}', [InterventionPlanifieeController::class, 'detail'])->name('intervention_planifiee.detail');
+Route::get('/intervention_planfiee/add', [InterventionPlanifieeController::class, 'add'])->name('intervention_planifiee.add');
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {

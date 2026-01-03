@@ -11,7 +11,7 @@
                 <h2 class="text-3xl font-bold text-white mb-2">Interventions Planifiées</h2>
                 <p class="text-gray-400">Planification et suivi des interventions préventives</p>
             </div>
-            <a href="#"
+            <a href="{{ route('intervention_planifiee.add') }}"
                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -31,6 +31,9 @@
                     <tr>
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             #
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            Id
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Période
@@ -64,6 +67,18 @@
                                     <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
                                         <span class="text-sm font-bold text-white">{{ $loop->iteration }}</span>
                                     </div>
+                                </div>
+                            </td>
+
+                            <!-- Id -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-sm text-gray-300 font-mono">{{ $intervention->idInterventionPlanifiee }}</span>
                                 </div>
                             </td>
 
@@ -185,7 +200,7 @@
                             <!-- Actions avec effets hover -->
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="#" title="Voir les détails"
+                                    <a href="{{ route('intervention_planifiee.detail', $intervention->idInterventionPlanifiee) }}" title="Voir les détails"
                                        class="p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all duration-200 hover:scale-110">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
