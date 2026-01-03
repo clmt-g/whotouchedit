@@ -237,7 +237,7 @@ class DatabaseSeeder extends Seeder
         $planifiee1 = InterventionPlanifiee::create([
             'dateDebut' => Carbon::now()->addWeek()->setTime(8, 0),
             'dateFin' => Carbon::now()->addWeek()->setTime(12, 0),
-            'type' => 'préventive',
+            'type' => 'preventive',
             'description' => 'Maintenance préventive trimestrielle - Vérification complète',
             'statut' => 'planifiee',
             'frequence' => 'trimestrielle',
@@ -257,7 +257,7 @@ class DatabaseSeeder extends Seeder
         $planifiee3 = InterventionPlanifiee::create([
             'dateDebut' => Carbon::now()->addMonth()->setTime(9, 0),
             'dateFin' => Carbon::now()->addMonth()->setTime(16, 0),
-            'type' => 'contrôle périodique',
+            'type' => 'controle_periodique',
             'description' => 'Contrôle réglementaire de sécurité',
             'statut' => 'planifiee',
             'frequence' => 'annuelle',

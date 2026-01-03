@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddInterventionPlanifieeRequest;
 use App\Models\InterventionPlanifiee;
 use App\Models\Machine;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class InterventionPlanifieeController extends Controller
 {
     /** display the show page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
-    public function show() {
+    public function show()
+    {
         $interventions = InterventionPlanifiee::all();
         return view('intervention_planifiee.show', ['interventions' => $interventions]);
     }
@@ -21,7 +25,8 @@ class InterventionPlanifieeController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function detail($id) {
+    public function detail($id)
+    {
         $intervention = InterventionPlanifiee::find($id);
 
         if (!$intervention) {
@@ -35,7 +40,8 @@ class InterventionPlanifieeController extends Controller
     /** display the intervention_planifiee.add page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
-    public function add() {
+    public function add()
+    {
         // get the necessary data for the selects
         $machines = Machine::all();
         $users = User::all();
@@ -43,7 +49,42 @@ class InterventionPlanifieeController extends Controller
         return view('intervention_planifiee.add', ['machines' => $machines, 'users' => $users]);
     }
 
-    public function do_add() {
+    /** store an intervention in the database
+     * @param AddInterventionPlanifieeRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Throwable
+     */
+    public function do_add(AddInterventionPlanifieeRequest $request)
+    {
+        $validated = $request->validated();
 
+        DB::beginTransaction();
+        try {
+
+            // Créer l'intervention
+            $intervention = InterventionPlanifiee::create([
+                'type' => $validated['type'],
+                'statut' => $validated['statut'],
+                'frequence' => $validated['frequence'],
+                'dateDebut' => $validated['dateDebut'],
+                'dateFin' => $validated['dateFin'],
+                'idMachine' => $validated['idMachine'],
+                'description' => $validated['description'] ?? null,
+            ]);
+
+            // Attacher les techniciens
+            $intervention->technicien()->attach($validated['techniciens']);
+
+            DB::commit();
+
+            return redirect()
+                ->route('intervention_planifiee')
+                ->with('success', 'Intervention planifiée enregistrer avec succes');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('intervention_planifiee')
+                ->with('error', 'Erreur lors de l\'enregistrement de l\'intervention planifiee');
+        }
     }
 }

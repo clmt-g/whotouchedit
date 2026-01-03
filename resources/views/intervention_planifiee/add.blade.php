@@ -19,8 +19,11 @@
     </div>
 
     <!-- Form Card -->
-    <form action="#" method="POST" class="bg-slate-900 border border-slate-800 rounded-xl p-8">
+    <form action="{{ route('intervention_planifiee.do_add') }}" method="POST" class="bg-slate-900 border border-slate-800 rounded-xl p-8">
         @csrf
+
+        <!-- toast d'affichage des erreurs lié à la validation des données -->
+        @include('components.validationToast')
 
         <!-- Grid 2 colonnes -->
         <div class="grid grid-cols-2 gap-6">

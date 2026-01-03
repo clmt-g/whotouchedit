@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id('idInterventionPlanifiee');
             $table->dateTime('dateDebut');
             $table->dateTime('dateFin');
-            $table->enum('type', ['préventive', 'contrôle périodique', 'calibration', 'amelioration']);
-            $table->text('description');
+            $table->enum('type', ['preventive', 'controle_periodique', 'calibration', 'amelioration']);
+            $table->text('description')->nullable();
             $table->enum('statut', ['planifiee', 'en_cours', 'terminee', 'annulee'])->default('planifiee');
             $table->enum('frequence', ['quotidienne', 'hebdomadaire', 'mensuelle', 'trimestrielle', 'annuelle', 'ponctuelle']);
 
