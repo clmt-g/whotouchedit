@@ -73,7 +73,7 @@ class InterventionPlanifieeController extends Controller
             ]);
 
             // Attacher les techniciens
-            $intervention->technicien()->attach($validated['techniciens']);
+            $intervention->techniciens()->attach($validated['techniciens']);
 
             DB::commit();
 
@@ -87,4 +87,25 @@ class InterventionPlanifieeController extends Controller
                 ->with('error', 'Erreur lors de l\'enregistrement de l\'intervention planifiee');
         }
     }
+
+    /** display the intervention_planifiee.update page of the intervention identified by the key $id
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function update($id) {
+        $intervention = InterventionPlanifiee::find($id);
+
+        if (!$intervention) {
+            return redirect()
+                ->route('intervention_planifiee')
+                ->with('error', 'Intervention planifiee introuvable');
+        }
+
+        $machines = Machine::all();
+        $users = User::all();
+
+        return view('intervention_planifiee.update', ['intervention' => $intervention, 'machines' => $machines, 'users' => $users]);
+    }
+
+
 }
