@@ -108,6 +108,12 @@ class InterventionPlanifieeController extends Controller
         return view('intervention_planifiee.update', ['intervention' => $intervention, 'machines' => $machines, 'users' => $users]);
     }
 
+    /** update an intervention_planifiee
+     * @param UpdateInterventionPlanifieeRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Throwable
+     */
     public function do_update(UpdateInterventionPlanifieeRequest $request, $id) {
         $validated = $request->validated();
 
@@ -134,6 +140,33 @@ class InterventionPlanifieeController extends Controller
                 ->route('intervention_planifiee')
                 ->with('success', 'Enregistrement des modification effectuer avec succes');
 
+        } catch(Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('intervention_planifiee')
+                ->with('error', 'Erreur lors de la suppression de l\'intervention planifiee');
+        }
+    }
+
+    /** delete an intervention_planifiee
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Throwable
+     */
+    public function do_delete($id) {
+        DB::beginTransaction();
+        try {
+            $intervention = InterventionPlanifiee::find($id);
+
+            // pas besoin de faire detach(), car soft delete, donc pas de pb d'integriter referenciel
+            //$intervention->techniciens()->detach();
+
+            $intervention->delete();
+
+            DB::commit();
+            return redirect()
+                ->route('intervention_planifiee')
+                ->with('success', 'Intervention planifiee supprimer avec succes');
         } catch(Exception $e) {
             DB::rollBack();
             return redirect()
