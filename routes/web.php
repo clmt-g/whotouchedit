@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\InterventionPlanifieeController;
+use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DefaultController;
@@ -47,6 +48,9 @@ Route::post('/intervention_planifiee/do_add', [InterventionPlanifieeController::
 Route::get('intervention_planifiee/update/{id}', [InterventionPlanifieeController::class, 'update'])->name('intervention_planifiee.update');
 Route::put('intervention_planifiee/do_update/{id}', [InterventionPlanifieeController::class, 'do_update'])->name('intervention_planifiee.do_update');
 Route::delete('intervention_planifiee/delete/{id}', [InterventionPlanifieeController::class, 'do_delete'])->name('intervention_planifiee.do_delete');
+
+// ========== Planning ===========
+Route::get('/planning', [PlanningController::class, 'planning'])->name('planning');
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {
