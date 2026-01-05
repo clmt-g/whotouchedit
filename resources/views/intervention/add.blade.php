@@ -1,4 +1,4 @@
-@extends('layouts.form')
+@extends('layouts.app')
 
 @section('title', 'WhoTouchedIt - Ajouter une intervention')
 
@@ -128,7 +128,7 @@
                             required
                         >
                             <option value="">-- Séléctionner --</option>
-                            @foreach($users as $user)
+                            @foreach($users->where('role', 'technicien') as $user)
                                 <option value="{{ $user->id }}">{{ $user->id }} : {{ $user->nom }} {{ $user->prenom }}</option>
                             @endforeach
                         </select>
