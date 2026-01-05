@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('interventions', function (Blueprint $table) {
             $table->id('idIntervention');
             $table->dateTime('dateHeureDebut');
-            $table->dateTime('dateHeureFin')->nullable();
+            $table->dateTime('dateHeureFin');
             $table->text('description')->nullable();
             $table->enum('statut', ['en_attente', 'en_cours', 'terminee', 'annulee'])->default('en_attente');
             $table->text('commentaire')->nullable();

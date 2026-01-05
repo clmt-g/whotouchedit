@@ -235,15 +235,18 @@
 
     <!-- Filtres -->
     <div class="mb-6 flex gap-2 flex-wrap">
-        <button class="px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded-lg text-sm font-medium hover:bg-yellow-500/20 transition">
+        <button
+            class="px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded-lg text-sm font-medium hover:bg-yellow-500/20 transition">
             <span class="inline-block w-2 h-2 rounded-full bg-yellow-400 mr-2"></span>
             En attente
         </button>
-        <button class="px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-500/20 transition">
+        <button
+            class="px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-500/20 transition">
             <span class="inline-block w-2 h-2 rounded-full bg-blue-400 mr-2"></span>
             En cours
         </button>
-        <button class="px-3 py-1.5 bg-green-500/10 border border-green-500/20 text-green-400 rounded-lg text-sm font-medium hover:bg-green-500/20 transition">
+        <button
+            class="px-3 py-1.5 bg-green-500/10 border border-green-500/20 text-green-400 rounded-lg text-sm font-medium hover:bg-green-500/20 transition">
             <span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-2"></span>
             Terminée
         </button>
@@ -255,7 +258,7 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
@@ -277,43 +280,81 @@
                 editable: true,
                 dayMaxEvents: true,
 
-                // Exemple d'événements (à remplacer par vos données)
+                // interventions
                 events: [
+                        @foreach($interventions as $intervention)
+                        @php
+                            // Emoji rond selon le statut
+                            $statusEmoji = [
+                                'en_attente' => '🟡',
+                                'en_cours' => '🔵',
+                                'terminee' => '🟢',
+                                'annulee' => '🔴',
+                            ];
+                            $emoji = $statusEmoji[$intervention->statut] ?? '⚪';
+                        @endphp
                     {
-                        title: 'Maintenance - Machine A',
-                        start: '2025-01-15T08:00:00',
-                        end: '2025-01-15T10:00:00',
-                        backgroundColor: '#eab308',
-                        borderColor: '#eab308'
+                        title: '{{ $emoji }} {{ $intervention->machine->nom ?? "Intervention" }}',
+                        start: '{{ \Carbon\Carbon::parse($intervention->dateHeureDebut)->format('Y-m-d\TH:i:s') }}',
+                        end: '{{ \Carbon\Carbon::parse($intervention->dateHeureFin)->format('Y-m-d\TH:i:s') }}',
+                        backgroundColor: '#8b5cf6',  // Violet pour interventions
+                        borderColor: '#7c3aed',
+                        textColor: '#ffffff',
+                            url: '{{ route('intervention.detail', $intervention->idIntervention) }}'
                     },
+                        @endforeach
+
+                        @foreach($interventions_planifiees as $inter)
+                        @php
+                            // Couleur selon le type d'intervention planifiée
+                            $typeColors = [
+                                'preventive' => ['bg' => '#3b82f6', 'border' => '#2563eb'],              // Bleu
+                                'controle_periodique' => ['bg' => '#a855f7', 'border' => '#9333ea'],     // Violet
+                                'calibration' => ['bg' => '#f97316', 'border' => '#ea580c'],             // Orange
+                                'amelioration' => ['bg' => '#06b6d4', 'border' => '#0891b2'],            // Cyan
+                                'préventive' => ['bg' => '#3b82f6', 'border' => '#2563eb'],
+                                'contrôle périodique' => ['bg' => '#a855f7', 'border' => '#9333ea'],
+                            ];
+                            $color = $typeColors[$inter->type] ?? ['bg' => '#6b7280', 'border' => '#4b5563'];
+
+                            // Emoji rond selon le statut
+                            $statusEmoji = [
+                                'planifiee' => '🟡',
+                                'en_cours' => '🔵',
+                                'terminee' => '🟢',
+                                'annulee' => '🔴',
+                            ];
+                            $emoji = $statusEmoji[$inter->statut] ?? '⚪';
+                        @endphp
                     {
-                        title: 'Réparation - Machine B',
-                        start: '2025-01-16T09:00:00',
-                        end: '2025-01-16T12:30:00',
-                        backgroundColor: '#3b82f6',
-                        borderColor: '#3b82f6'
-                    },
-                    {
-                        title: 'Calibration - Machine C',
-                        start: '2025-01-10T14:00:00',
-                        end: '2025-01-10T16:00:00',
-                        backgroundColor: '#10b981',
-                        borderColor: '#10b981'
-                    }
+                        title: '{{ $emoji }} {{ $inter->machine->nom ?? "Intervention planifiée" }}',
+                        start: '{{ \Carbon\Carbon::parse($inter->dateDebut)->format('Y-m-d\TH:i:s') }}',
+                        end: '{{ \Carbon\Carbon::parse($inter->dateFin)->format('Y-m-d\TH:i:s') }}',
+                        backgroundColor: '{{ $color['bg'] }}',
+                        borderColor: '{{ $color['border'] }}',
+                        textColor: '#ffffff',
+                            url: '{{ route('intervention_planifiee.detail', $inter->idInterventionPlanifiee) }}'
+                        },
+                    @endforeach
                 ],
 
                 // Clic sur un événement
                 eventClick: function(info) {
-                    alert('Intervention: ' + info.event.title);
-                    // Rediriger vers la page de détail ou ouvrir un modal
-                    // window.location.href = '/intervention/' + info.event.id;
+                    info.jsEvent.preventDefault(); // empêche le comportement par défaut
+                    window.open(info.event.url, '_blank');
                 },
 
-                // Drag & drop (déplacement)
-                eventDrop: function(info) {
+                // Drag & drop (déplacement) FIXME
+                eventDrop: function (info) {
                     console.log('Événement déplacé:', info.event.title);
                     // Appeler votre API Laravel pour mettre à jour
+                },
+
+                // clic sur case vide
+                dateClick: function(info) {
+                    window.location.href = '';
                 }
+
             });
 
             calendar.render();

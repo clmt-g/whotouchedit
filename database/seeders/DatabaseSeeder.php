@@ -179,8 +179,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Intervention::create([
-            'dateHeureDebut' => Carbon::now()->subDay()->setTime(9, 0),
-            'dateHeureFin' => null,
+            'dateHeureDebut' => Carbon::now()->subDay(1)->setTime(9, 0),
+            'dateHeureFin' => Carbon::now()->subDays(1)->setTime(10, 45),
             'description' => 'Remplacement des joints hydrauliques',
             'statut' => 'en_cours',
             'commentaire' => 'Démontage terminé. En attente des nouvelles pièces.',
@@ -189,8 +189,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Intervention::create([
-            'dateHeureDebut' => Carbon::now()->setTime(8, 30),
-            'dateHeureFin' => null,
+            'dateHeureDebut' => Carbon::now()->subDays(2)->setTime(8, 30),
+            'dateHeureFin' => Carbon::now()->subDays(2)->setTime(11, 45),
             'description' => 'Diagnostic du système de refroidissement',
             'statut' => 'en_cours',
             'commentaire' => 'Fuite détectée au niveau du circuit principal',
@@ -200,7 +200,7 @@ class DatabaseSeeder extends Seeder
 
         Intervention::create([
             'dateHeureDebut' => Carbon::now()->addDays(2)->setTime(10, 0),
-            'dateHeureFin' => null,
+            'dateHeureFin' => Carbon::now()->addDay(2)->setTime(13, 45),
             'description' => 'Contrôle qualité post-installation',
             'statut' => 'en_attente',
             'commentaire' => null,
@@ -220,7 +220,7 @@ class DatabaseSeeder extends Seeder
 
         Intervention::create([
             'dateHeureDebut' => Carbon::now()->addDays(5)->setTime(9, 0),
-            'dateHeureFin' => null,
+            'dateHeureFin' => Carbon::now()->addDay(5)->setTime(10, 30),
             'description' => 'Mise à jour du logiciel de contrôle',
             'statut' => 'en_attente',
             'commentaire' => null,
