@@ -17,5 +17,4 @@ class PlanningController extends Controller
 
         return view('planning.planning', ['interventions' => $interventions, 'interventions_planifiees' => $interventions_planifiees]);
     }
-
 }

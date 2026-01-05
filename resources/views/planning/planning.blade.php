@@ -225,7 +225,7 @@
             <p class="text-gray-400">Gérez et visualisez vos interventions planifiées</p>
         </div>
         <button onclick="openInterventionModal()"
-           class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
@@ -235,25 +235,30 @@
 
     <!-- Filtres -->
     <div class="mb-6 flex gap-2 flex-wrap">
-        <button
-            class="px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-red-400 rounded-lg text-sm font-medium hover:bg-yellow-500/20 transition">
+        <button id="filtre-annulee" data-status="annulee"
+                class="px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-red-400 rounded-lg text-sm font-medium hover:bg-yellow-500/20 transition">
             <span class="inline-block w-2 h-2 rounded-full bg-red-400 mr-2"></span>
-            Anulee
+            Annulee
         </button>
-        <button
-            class="px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded-lg text-sm font-medium hover:bg-yellow-500/20 transition">
+        <button id="filtre-en_attente" data-status="en_attente"
+                class="px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded-lg text-sm font-medium hover:bg-yellow-500/20 transition">
             <span class="inline-block w-2 h-2 rounded-full bg-yellow-400 mr-2"></span>
             En attente
         </button>
-        <button
-            class="px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-500/20 transition">
-            <span class="inline-block w-2 h-2 rounded-full bg-blue-400 mr-2"></span>
+        <button id="filtre-en_cours" data-status="en_cours"
+                class="px-3 py-1.5 bg-orange-500/10 border border-orange-500/20 text-orange-400 rounded-lg text-sm font-medium hover:bg-orange-500/20 transition">
+            <span class="inline-block w-2 h-2 rounded-full bg-orange-400 mr-2"></span>
             En cours
         </button>
-        <button
-            class="px-3 py-1.5 bg-green-500/10 border border-green-500/20 text-green-400 rounded-lg text-sm font-medium hover:bg-green-500/20 transition">
+        <button id="filtre-terminee" data-status="terminee"
+                class="px-3 py-1.5 bg-green-500/10 border border-green-500/20 text-green-400 rounded-lg text-sm font-medium hover:bg-green-500/20 transition">
             <span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-2"></span>
             Terminée
+        </button>
+        <button id="filtre-tout" data-status="tout"
+                class="px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-500/20 transition">
+            <span class="inline-block w-2 h-2 rounded-full bg-blue-400 mr-2"></span>
+            Tout affiché
         </button>
     </div>
 
@@ -272,7 +277,8 @@
             </p>
 
             <div class="grid grid-cols-1 gap-4">
-                <button onclick="goToIntervention('curative')" class="flex items-center gap-4 p-4 rounded-lg bg-blue-600/10 border border-blue-600/20 hover:bg-blue-600/20 transition text-left">
+                <button onclick="goToIntervention('curative')"
+                        class="flex items-center gap-4 p-4 rounded-lg bg-blue-600/10 border border-blue-600/20 hover:bg-blue-600/20 transition text-left">
                     <span class="text-2xl">🔧</span>
                     <div>
                         <p class="text-white font-medium">Intervention curative</p>
@@ -280,7 +286,8 @@
                     </div>
                 </button>
 
-                <button onclick="goToIntervention('preventive')" class="flex items-center gap-4 p-4 rounded-lg bg-purple-600/10 border border-purple-600/20 hover:bg-purple-600/20 transition text-left">
+                <button onclick="goToIntervention('preventive')"
+                        class="flex items-center gap-4 p-4 rounded-lg bg-purple-600/10 border border-purple-600/20 hover:bg-purple-600/20 transition text-left">
                     <span class="text-2xl">🛡️</span>
                     <div>
                         <p class="text-white font-medium">Intervention préventive</p>
@@ -297,9 +304,59 @@
 
 @push('scripts')
     <script>
+        let allEvents = [
+                @foreach($interventions as $intervention)
+                @php
+                    // Couleurs selon le statut
+                    $statusColors = [
+                        'en_attente' => ['bg' => '#facc15', 'border' => '#d97706'],  // jaune
+                        'en_cours'   => ['bg' => '#fb923c', 'border' => '#f97316'],  // orange
+                        'terminee'   => ['bg' => '#22c55e', 'border' => '#15803d'],  // vert
+                        'annulee'    => ['bg' => '#ef4444', 'border' => '#b91c1c'],  // rouge
+                    ];
+                    $c = $statusColors[$intervention->statut] ?? ['bg' => '#6b7280', 'border' => '#374151']; // gris si inconnu
+                @endphp
+            {
+                title: '{{ $intervention->machine->nom ?? "Intervention" }}',
+                start: '{{ \Carbon\Carbon::parse($intervention->dateHeureDebut)->format('Y-m-d\TH:i:s') }}',
+                end: '{{ \Carbon\Carbon::parse($intervention->dateHeureFin)->format('Y-m-d\TH:i:s') }}',
+                backgroundColor: '{{ $c['bg'] }}',
+                borderColor: '{{ $c['border'] }}',
+                textColor: '#ffffff',
+                url: '{{ route('intervention.detail', $intervention->idIntervention) }}',
+                status: '{{ $intervention->statut }}'
+            },
+                @endforeach
+
+                @foreach($interventions_planifiees as $inter)
+                @php
+                    // Couleurs selon le statut pour planifiées
+                    $statusColors = [
+                        'planifiee'  => ['bg' => '#facc15', 'border' => '#d97706'],  // jaune
+                        'en_cours'   => ['bg' => '#3b82f6', 'border' => '#2563eb'],  // bleu
+                        'terminee'   => ['bg' => '#22c55e', 'border' => '#15803d'],  // vert
+                        'annulee'    => ['bg' => '#ef4444', 'border' => '#b91c1c'],  // rouge
+                    ];
+                    $c = $statusColors[$inter->statut] ?? ['bg' => '#6b7280', 'border' => '#374151']; // gris si inconnu
+                @endphp
+            {
+                title: '{{ $inter->machine->nom ?? "Intervention planifiée" }}',
+                start: '{{ \Carbon\Carbon::parse($inter->dateDebut)->format('Y-m-d\TH:i:s') }}',
+                end: '{{ \Carbon\Carbon::parse($inter->dateFin)->format('Y-m-d\TH:i:s') }}',
+                backgroundColor: '{{ $c['bg'] }}',
+                borderColor: '{{ $c['border'] }}',
+                textColor: '#ffffff',
+                url: '{{ route('intervention_planifiee.detail', $inter->idInterventionPlanifiee) }}',
+                status: '{{ $inter->statut }}'
+            },
+            @endforeach
+        ];
+
+        let calendar;
+
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            calendar = new FullCalendar.Calendar(calendarEl, {
                 selectable: true,
                 initialView: 'dayGridMonth',
                 locale: 'fr',
@@ -321,55 +378,11 @@
                 dayMaxEvents: true,
 
                 // interventions
-                events: [
-                        @foreach($interventions as $intervention)
-                        @php
-                            // Couleurs selon le statut
-                            $statusColors = [
-                                'en_attente' => ['bg' => '#facc15', 'border' => '#d97706'],  // jaune
-                                'en_cours'   => ['bg' => '#fb923c', 'border' => '#f97316'],  // orange
-                                'terminee'   => ['bg' => '#22c55e', 'border' => '#15803d'],  // vert
-                                'annulee'    => ['bg' => '#ef4444', 'border' => '#b91c1c'],  // rouge
-                            ];
-                            $c = $statusColors[$intervention->statut] ?? ['bg' => '#6b7280', 'border' => '#374151']; // gris si inconnu
-                        @endphp
-                    {
-                        title: '{{ $intervention->machine->nom ?? "Intervention" }}',
-                        start: '{{ \Carbon\Carbon::parse($intervention->dateHeureDebut)->format('Y-m-d\TH:i:s') }}',
-                        end: '{{ \Carbon\Carbon::parse($intervention->dateHeureFin)->format('Y-m-d\TH:i:s') }}',
-                        backgroundColor: '{{ $c['bg'] }}',
-                        borderColor: '{{ $c['border'] }}',
-                        textColor: '#ffffff',
-                        url: '{{ route('intervention.detail', $intervention->idIntervention) }}'
-                    },
-                        @endforeach
-
-                        @foreach($interventions_planifiees as $inter)
-                        @php
-                            // Couleurs selon le statut pour planifiées
-                            $statusColors = [
-                                'planifiee'  => ['bg' => '#facc15', 'border' => '#d97706'],  // jaune
-                                'en_cours'   => ['bg' => '#3b82f6', 'border' => '#2563eb'],  // bleu
-                                'terminee'   => ['bg' => '#22c55e', 'border' => '#15803d'],  // vert
-                                'annulee'    => ['bg' => '#ef4444', 'border' => '#b91c1c'],  // rouge
-                            ];
-                            $c = $statusColors[$inter->statut] ?? ['bg' => '#6b7280', 'border' => '#374151']; // gris si inconnu
-                        @endphp
-                    {
-                        title: '{{ $inter->machine->nom ?? "Intervention planifiée" }}',
-                        start: '{{ \Carbon\Carbon::parse($inter->dateDebut)->format('Y-m-d\TH:i:s') }}',
-                        end: '{{ \Carbon\Carbon::parse($inter->dateFin)->format('Y-m-d\TH:i:s') }}',
-                        backgroundColor: '{{ $c['bg'] }}',
-                        borderColor: '{{ $c['border'] }}',
-                        textColor: '#ffffff',
-                        url: '{{ route('intervention_planifiee.detail', $inter->idInterventionPlanifiee) }}'
-                    },
-                    @endforeach
-                ],
+                events: allEvents,
 
 
                 // Clic sur un événement
-                eventClick: function(info) {
+                eventClick: function (info) {
                     info.jsEvent.preventDefault(); // empêche le comportement par défaut
                     window.open(info.event.url, '_self');
                 },
@@ -381,7 +394,7 @@
                 },
 
                 // clic sur case vide
-                dateClick: function(info) {
+                dateClick: function (info) {
                     window.selectedDate = info.dateStr; // on garde la date
                     const modal = document.getElementById('interventionModal');
                     modal.classList.remove('hidden');
@@ -391,6 +404,30 @@
             });
 
             calendar.render();
+        });
+
+        // filtres
+        const filtres = [
+            'filtre-terminee',
+            'filtre-annulee',
+            'filtre-en_cours',
+            'filtre-en_attente'
+        ];
+
+        filtres.forEach((filtre) => document.getElementById(filtre).addEventListener('click', function() {
+            let status = this.dataset.status;
+
+            // Filtrer les événements
+            let filteredEvents = allEvents.filter(event => event.status === status);
+
+            // Supprimer tous les événements actuels et ajouter les filtrés
+            calendar.removeAllEvents();
+            calendar.addEventSource(filteredEvents);
+        }));
+
+        document.getElementById('filtre-tout').addEventListener('click', function() {
+            calendar.removeAllEvents();
+            calendar.addEventSource(allEvents);
         });
 
         // modal

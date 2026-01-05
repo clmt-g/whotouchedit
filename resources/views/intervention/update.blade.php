@@ -106,7 +106,7 @@
                             <option value="en_attente" @if( $intervention->statut == 'en_attente') selected @endif>En attente</option>
                             <option value="en_cours" @if( $intervention->statut == 'en_cours') selected @endif>En cours</option>
                             <option value="terminee" @if( $intervention->statut == 'terminee') selected @endif>Terminee</option>
-                            <option value="annulee" @if( $intervention->statut == 'anulee') selected @endif>Annulée</option>
+                            <option value="annulee" @if( $intervention->statut == 'annulee') selected @endif>Annulée</option>
                         </select>
                     </div>
 
