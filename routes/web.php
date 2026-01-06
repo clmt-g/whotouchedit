@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalytiqueController;
 use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\InterventionPlanifieeController;
 use App\Http\Controllers\PlanningController;
@@ -42,7 +43,7 @@ Route::put('/user/update_password/{id}' , [UserController::class, 'do_update_pas
 
 // ========== Intervention planifiées ==========
 Route::get('/intervention_planifiee', [InterventionPlanifieeController::class, 'show'])->name('intervention_planifiee');
-Route::get('/intervention_planifiee.detail/{id}', [InterventionPlanifieeController::class, 'detail'])->name('intervention_planifiee.detail');
+Route::get('/intervention_planifiee/detail/{id}', [InterventionPlanifieeController::class, 'detail'])->name('intervention_planifiee.detail');
 Route::get('/intervention_planfiee/add', [InterventionPlanifieeController::class, 'add'])->name('intervention_planifiee.add');
 Route::post('/intervention_planifiee/do_add', [InterventionPlanifieeController::class, 'do_add'])->name('intervention_planifiee.do_add');
 Route::get('intervention_planifiee/update/{id}', [InterventionPlanifieeController::class, 'update'])->name('intervention_planifiee.update');
@@ -51,6 +52,11 @@ Route::delete('intervention_planifiee/delete/{id}', [InterventionPlanifieeContro
 
 // ========== Planning ===========
 Route::get('/planning', [PlanningController::class, 'planning'])->name('planning');
+
+// ========== Analytique ==========
+Route::get('/analytique', [AnalytiqueController::class, 'analytique'])->name('analytique');
+Route::get('/analytique/kpi', [AnalytiqueController::class, 'kpi'])->name('analytique.kpi');
+Route::get('/anaylique/analyse_machine', [AnalytiqueController::class, 'analyse_machine'])->name('analytique.analyse_machine');
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {
