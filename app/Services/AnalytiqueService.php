@@ -324,6 +324,84 @@ class AnalytiqueService
         return $avgTimePerTechnicien ?? [];
     }
 
-    // ===== Predictif =====
+    // ===== kpi =====
 
+    /** return the availability of the machine park in percentage
+     * @return float
+     */
+    public function disponibiliteParc() : float {
+        $machines = Machine::all();
+        $nbMachines = count($machines);
+        $nbMachinesOperatio = $machines->where('etat', 'opérationnelle')->count();
+
+        $disponibilite = $nbMachines > 0 ? ($nbMachinesOperatio / $nbMachines) * 100 : 0;
+
+        return round($disponibilite, 2);
+    }
+
+    /** return the Mean Time To Repair (MTTR) in hours (for the all parc)
+     * @return float
+     */
+    public function mttr() : float {
+        $interventions = Intervention::all()->where('statut', 'terminee');
+        $totalDowntime = 0;
+        $nbInterventions = count($interventions);
+
+        foreach ($interventions as $intervention) {
+            $start = Carbon::parse($intervention->dateHeureDebut);
+            $end = Carbon::parse($intervention->dateHeureFin);
+            $totalDowntime += $start->diffInHours($end);
+        }
+
+        $mttr = $nbInterventions > 0 ? $totalDowntime / $nbInterventions : 0;
+
+        return round($mttr, 2);
+    }
+
+    /** return the Mean Time Between Failures (MTBF) in hours (for the all parc)
+     * @return float
+     */
+    public function mtbf() : float {
+        $interventions = Intervention::all()->where('statut', 'terminee');
+        $totalUptime = 0;
+        $nbInterventions = count($interventions);
+
+        foreach ($interventions as $intervention) {
+            $machine = $intervention->machine;
+            $lastIntervention = Intervention::where('idMachine', $machine->id)
+                ->where('statut', 'terminee')
+                ->where('dateHeureFin', '<', $intervention->dateHeureDebut)
+                ->orderBy('dateHeureFin', 'desc')
+                ->first();
+
+            if ($lastIntervention) {
+                $lastEnd = Carbon::parse($lastIntervention->dateHeureFin);
+                $currentStart = Carbon::parse($intervention->dateHeureDebut);
+                $totalUptime += $lastEnd->diffInHours($currentStart);
+            }
+        }
+
+        $mtbf = $nbInterventions > 0 ? $totalUptime / $nbInterventions : 0;
+
+        return round($mtbf, 2);
+    }
+
+    /** return the Mean Time To Failure (MTTF) in hours (for the all parc)
+     * @return float
+     */
+    public function mttf() : float {
+        $interventions = Intervention::all()->where('statut', 'terminee');
+        $totalDowntime = 0;
+        $nbInterventions = count($interventions);
+
+        foreach ($interventions as $intervention) {
+            $start = Carbon::parse($intervention->dateHeureDebut);
+            $end = Carbon::parse($intervention->dateHeureFin);
+            $totalDowntime += $start->diffInHours($end);
+        }
+
+        $mttf = $nbInterventions > 0 ? $totalDowntime / $nbInterventions : 0;
+
+        return round($mttf, 2);
+    }
 }

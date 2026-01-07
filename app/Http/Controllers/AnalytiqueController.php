@@ -26,10 +26,24 @@ class AnalytiqueController extends Controller
 
     // display the kpi page
     public function kpi() {
+        // disponibilité du parc machine
+        $disponibiliteParc = $this->analytiqueService->disponibiliteParc();
 
+        // mttr
+        $mttr = $this->analytiqueService->mttr();
 
+        // mttf
+        $mttf = $this->analytiqueService->mttf();
 
-        return view('analytique.kpi');
+        // mtbf
+        $mtbf = $this->analytiqueService->mtbf();
+
+        return view('analytique.kpi', [
+            'disponibiliteParc' => $disponibiliteParc,
+            'mttf' => $mttf,
+            'mttr' => $mttr,
+            'mtbf' => $mtbf
+            ]);
     }
 
     // display the analyse_machine page
