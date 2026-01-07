@@ -122,7 +122,7 @@ class AnalytiqueService
      */
     public function nbInterventions() : array {
         $interventions = [];
-        $interventions['Aujourd\'hui'] = Intervention::all()->count();
+        $interventions['Toute'] = Intervention::all()->count();
         // nombre d'interventions cette année, ce mois, cette semaine
         $interventions['Cette année']= Intervention::whereYear('dateHeureDebut', Carbon::now()->year)->count();
         $interventions['Ce mois'] = Intervention::whereMonth('dateHeureDebut', Carbon::now()->month)
@@ -183,7 +183,7 @@ class AnalytiqueService
      */
     public function nbInterventionsPlanifiees() : array {
         $interventions = [];
-        $interventions['Aujourd\'hui'] = InterventionPlanifiee::all()->count();
+        $interventions['Toute'] = InterventionPlanifiee::all()->count();
         // nombre d'interventions cette année, ce mois, cette semaine
         $interventions['Cette année']= InterventionPlanifiee::whereYear('dateDebut', Carbon::now()->year)->count();
         $interventions['Ce mois'] = InterventionPlanifiee::whereMonth('dateDebut', Carbon::now()->month)
