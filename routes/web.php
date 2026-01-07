@@ -58,6 +58,7 @@ Route::get('/analytique', [AnalytiqueController::class, 'analytique'])->name('an
 Route::get('/analytique/kpi', [AnalytiqueController::class, 'kpi'])->name('analytique.kpi');
 Route::get('/anaylique/analyse_machine', [AnalytiqueController::class, 'analyse_machine'])->name('analytique.analyse_machine');
 Route::get('/analytique/analyse_intervention', [AnalytiqueController::class, 'analyse_intervention'])->name('analytique.analyse_intervention');
+Route::get('/analytique/analyse_intervention_planifiee', [AnalytiqueController::class, 'analyse_intervention_planifiee'])->name('analytique.analyse_intervention_planifiee');
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {

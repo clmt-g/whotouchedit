@@ -59,7 +59,7 @@
             </a>
 
             <!-- Interventions Préventives -->
-            <a href="#"
+            <a href="{{ route('analytique.analyse_intervention_planifiee') }}"
                class="group bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 rounded-xl p-6 hover:border-green-500/40 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300 hover:scale-105">
                 <div class="flex items-start justify-between mb-4">
                     <div class="w-14 h-14 rounded-xl bg-green-500/20 flex items-center justify-center group-hover:bg-green-500/30 transition-colors">

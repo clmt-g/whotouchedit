@@ -102,7 +102,7 @@ class AnalytiqueService
     /** return the status of interventions in percentage
      * @return array
      */
-    public function avgStatut() : array {
+    public function avgStatut_intervention() : array {
         $interventions = Intervention::all();
         $nbInterventions = count($interventions);
 
@@ -146,6 +146,67 @@ class AnalytiqueService
         foreach ($interventions as $intervention) {
             $start = Carbon::parse($intervention->dateHeureDebut);
             $end = Carbon::parse($intervention->dateHeureFin);
+            $totalTime += $start->diffInHours($end);
+        }
+
+        // moyenne du temps par intervention
+        $avgTime = $nbInterventions > 0 ? $totalTime / $nbInterventions : 0;
+
+        return [
+            'totalTime' => $totalTime,
+            'avgTime' => round($avgTime, 2)
+        ];
+    }
+
+    // ===== intervention planifiée =====
+
+    /** return the status of planned interventions in percentage
+     * @return array
+     */
+    public function avgStatut_interventionPlanifiee() : array {
+        $interventions = InterventionPlanifiee::all();
+        $nbInterventions = count($interventions);
+
+        $statutIntervention = [];
+
+        $statutIntervention['planifiee'] = round($interventions->where('statut', 'planifiee')->count() / $nbInterventions * 100, 1) ?? 0;
+        $statutIntervention['en_cours'] = round($interventions->where('statut', 'en_cours')->count() / $nbInterventions * 100, 1) ?? 0;
+        $statutIntervention['terminee'] = round($interventions->where('statut', 'terminee')->count() / $nbInterventions * 100, 1) ?? 0;
+        $statutIntervention['annulee'] = round($interventions->where('statut', 'annulee')->count() / $nbInterventions * 100, 1) ?? 0;
+
+        return $statutIntervention;
+    }
+
+    /** return the number of planned interventions overall, this year, this month, this week
+     * @return array
+     */
+    public function nbInterventionsPlanifiees() : array {
+        $interventions = [];
+        $interventions['Aujourd\'hui'] = InterventionPlanifiee::all()->count();
+        // nombre d'interventions cette année, ce mois, cette semaine
+        $interventions['Cette année']= InterventionPlanifiee::whereYear('dateDebut', Carbon::now()->year)->count();
+        $interventions['Ce mois'] = InterventionPlanifiee::whereMonth('dateDebut', Carbon::now()->month)
+            ->whereYear('dateDebut', Carbon::now()->year)
+            ->count();
+        $interventions['Cette semaine'] = InterventionPlanifiee::whereBetween('dateDebut', [
+            Carbon::now()->startOfWeek(),
+            Carbon::now()->endOfWeek()
+        ])->count();
+        return $interventions;
+    }
+
+    /** return the average time of planned interventions in hours
+     * @return array
+     */
+    public function avgTimeByInterventionsPlanifiees() : array {
+        $interventions = InterventionPlanifiee::all();
+        $totalTime = 0;
+        $nbInterventions = count($interventions);
+
+        // calcul du temps total en heures
+        foreach ($interventions as $intervention) {
+            $start = Carbon::parse($intervention->dateDebut);
+            $end = Carbon::parse($intervention->dateFin);
             $totalTime += $start->diffInHours($end);
         }
 

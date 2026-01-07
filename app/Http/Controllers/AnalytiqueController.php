@@ -59,7 +59,7 @@ class AnalytiqueController extends Controller
         $nbInterventions = $this->analytiqueService->nbInterventions();
 
         // moyenne des statuts
-        $avgStatut = $this->analytiqueService->avgStatut();
+        $avgStatut = $this->analytiqueService->avgStatut_intervention();
 
         // temps moyen des interventions
         $avgTime = $this->analytiqueService->avgTimeByInterventions();
@@ -68,6 +68,24 @@ class AnalytiqueController extends Controller
             'nbInterventions' => $nbInterventions,
             'avgStatut' => $avgStatut,
             'avgTime' => $avgTime
+        ]);
+    }
+
+    // display the analyse_intervention_planifiee page
+    public function analyse_intervention_planifiee() {
+        // nb d'interventions planifiées
+        $nbInterventionsPlanifiees = $this->analytiqueService->nbInterventionsPlanifiees();
+
+        // moyenne des statuts
+        $avgStatutPlanifiee = $this->analytiqueService->avgStatut_interventionPlanifiee();
+
+        // temps moyen des interventions planifiées
+        $avgTimePlanifiee = $this->analytiqueService->avgTimeByInterventionsPlanifiees();
+
+        return view('analytique.analyse_intervention_planifiee', [
+            'nbInterventionsPlanifiees' => $nbInterventionsPlanifiees,
+            'avgStatutPlanifiee' => $avgStatutPlanifiee,
+            'avgTimePlanifiee' => $avgTimePlanifiee
         ]);
     }
 }
