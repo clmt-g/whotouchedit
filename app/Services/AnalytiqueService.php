@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Intervention;
 use App\Models\InterventionPlanifiee;
 use App\Models\Machine;
+use Carbon\Carbon;
 
 class AnalytiqueService
 {
@@ -97,6 +98,63 @@ class AnalytiqueService
         return $criticiteParc;
     }
 
-    // ===== kpi =====
+    // ===== intervention curative =====
+    /** return the status of interventions in percentage
+     * @return array
+     */
+    public function avgStatut() : array {
+        $interventions = Intervention::all();
+        $nbInterventions = count($interventions);
 
+        $statutIntervention = [];
+
+        $statutIntervention['en_cours'] = round($interventions->where('statut', 'en_cours')->count() / $nbInterventions * 100, 1) ?? 0;
+        $statutIntervention['terminee'] = round($interventions->where('statut', 'terminee')->count() / $nbInterventions * 100, 1) ?? 0;
+        $statutIntervention['annulee'] = round($interventions->where('statut', 'annulee')->count() / $nbInterventions * 100, 1) ?? 0;
+        $statutIntervention['en_attente'] = round($interventions->where('statut', 'en_attente')->count() / $nbInterventions * 100, 1) ?? 0;
+
+        return $statutIntervention;
+    }
+
+    /** return the number of interventions overall, this year, this month, this week
+     * @return array
+     */
+    public function nbInterventions() : array {
+        $interventions = [];
+        $interventions['Aujourd\'hui'] = Intervention::all()->count();
+        // nombre d'interventions cette année, ce mois, cette semaine
+        $interventions['Cette année']= Intervention::whereYear('dateHeureDebut', Carbon::now()->year)->count();
+        $interventions['Ce mois'] = Intervention::whereMonth('dateHeureDebut', Carbon::now()->month)
+            ->whereYear('dateHeureDebut', Carbon::now()->year)
+            ->count();
+        $interventions['Cette semaine'] = Intervention::whereBetween('dateHeureDebut', [
+            Carbon::now()->startOfWeek(),
+            Carbon::now()->endOfWeek()
+        ])->count();
+        return $interventions;
+    }
+
+    /** return the average time of interventions in hours
+     * @return array
+     */
+    public function avgTimeByInterventions() : array {
+        $interventions = Intervention::all();
+        $totalTime = 0;
+        $nbInterventions = count($interventions);
+
+        // calcul du temps total en heures
+        foreach ($interventions as $intervention) {
+            $start = Carbon::parse($intervention->dateHeureDebut);
+            $end = Carbon::parse($intervention->dateHeureFin);
+            $totalTime += $start->diffInHours($end);
+        }
+
+        // moyenne du temps par intervention
+        $avgTime = $nbInterventions > 0 ? $totalTime / $nbInterventions : 0;
+
+        return [
+            'totalTime' => $totalTime,
+            'avgTime' => round($avgTime, 2)
+        ];
+    }
 }

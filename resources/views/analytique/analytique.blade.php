@@ -36,70 +36,69 @@
                 </div>
             </a>
 
-            <!-- Graphiques temporels -->
-            <a href="#"
-               class="group bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20 rounded-xl p-6 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:scale-105">
+            <!-- Interventions Curatives -->
+            <a href="{{ route('analytique.analyse_intervention') }}"
+               class="group bg-gradient-to-br from-red-500/10 to-red-600/5 border border-red-500/20 rounded-xl p-6 hover:border-red-500/40 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 hover:scale-105">
                 <div class="flex items-start justify-between mb-4">
-                    <div class="w-14 h-14 rounded-xl bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-colors">
-                        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                    <div class="w-14 h-14 rounded-xl bg-red-500/20 flex items-center justify-center group-hover:bg-red-500/30 transition-colors">
+                        <svg class="w-7 h-7 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                         </svg>
                     </div>
-                    <svg class="w-5 h-5 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-red-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">Évolution Temporelle</h3>
-                <p class="text-gray-400 text-sm mb-4">Tendances, heatmaps, comparaisons mensuelles</p>
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">Interventions Curatives</h3>
+                <p class="text-gray-400 text-sm mb-4">Pannes, réparations urgentes, temps d'arrêt</p>
                 <div class="flex flex-wrap gap-2">
-                    <span class="text-xs px-2 py-1 bg-purple-500/10 text-purple-400 rounded-full">Tendances</span>
-                    <span class="text-xs px-2 py-1 bg-purple-500/10 text-purple-400 rounded-full">Heatmaps</span>
-                    <span class="text-xs px-2 py-1 bg-purple-500/10 text-purple-400 rounded-full">Comparaisons</span>
+                    <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Pannes</span>
+                    <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Urgences</span>
+                    <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Downtime</span>
                 </div>
             </a>
 
-            <!-- Répartitions -->
+            <!-- Interventions Préventives -->
             <a href="#"
                class="group bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 rounded-xl p-6 hover:border-green-500/40 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300 hover:scale-105">
                 <div class="flex items-start justify-between mb-4">
                     <div class="w-14 h-14 rounded-xl bg-green-500/20 flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
                         <svg class="w-7 h-7 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                         </svg>
                     </div>
                     <svg class="w-5 h-5 text-green-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">Répartition & Distribution</h3>
-                <p class="text-gray-400 text-sm mb-4">Par type, priorité, technicien, zone</p>
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">Interventions Préventives</h3>
+                <p class="text-gray-400 text-sm mb-4">Maintenance planifiée, conformité, taux de respect</p>
                 <div class="flex flex-wrap gap-2">
-                    <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full">Types</span>
-                    <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full">Priorités</span>
-                    <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full">Zones</span>
+                    <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full">Planification</span>
+                    <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full">Conformité</span>
+                    <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full">ROI</span>
                 </div>
             </a>
 
             <!-- Analyse machines -->
             <a href="{{ route('analytique.analyse_machine') }}"
-               class="group bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-500/20 rounded-xl p-6 hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 hover:scale-105">
+               class="group bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20 rounded-xl p-6 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:scale-105">
                 <div class="flex items-start justify-between mb-4">
-                    <div class="w-14 h-14 rounded-xl bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
-                        <svg class="w-7 h-7 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-14 h-14 rounded-xl bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-colors">
+                        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
                         </svg>
                     </div>
-                    <svg class="w-5 h-5 text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">Analyse des Machines</h3>
-                <p class="text-gray-400 text-sm mb-4">Interventions par machines, etat du parc</p>
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">Analyse des Machines</h3>
+                <p class="text-gray-400 text-sm mb-4">Parc machines, état, criticité, historique</p>
                 <div class="flex flex-wrap gap-2">
-                    <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded-full">Top pannes</span>
-                    <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded-full">Préventif</span>
-                    <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded-full">Coûts</span>
+                    <span class="text-xs px-2 py-1 bg-purple-500/10 text-purple-400 rounded-full">État parc</span>
+                    <span class="text-xs px-2 py-1 bg-purple-500/10 text-purple-400 rounded-full">Criticité</span>
+                    <span class="text-xs px-2 py-1 bg-purple-500/10 text-purple-400 rounded-full">Historique</span>
                 </div>
             </a>
 
@@ -125,91 +124,25 @@
                 </div>
             </a>
 
-            <!-- Coûts & Budget -->
-            <a href="#"
-               class="group bg-gradient-to-br from-yellow-500/10 to-yellow-600/5 border border-yellow-500/20 rounded-xl p-6 hover:border-yellow-500/40 hover:shadow-lg hover:shadow-yellow-500/20 transition-all duration-300 hover:scale-105">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="w-14 h-14 rounded-xl bg-yellow-500/20 flex items-center justify-center group-hover:bg-yellow-500/30 transition-colors">
-                        <svg class="w-7 h-7 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <svg class="w-5 h-5 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">Coûts & Budget</h3>
-                <p class="text-gray-400 text-sm mb-4">Dépenses, ROI préventif, budget utilisé</p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-xs px-2 py-1 bg-yellow-500/10 text-yellow-400 rounded-full">Dépenses</span>
-                    <span class="text-xs px-2 py-1 bg-yellow-500/10 text-yellow-400 rounded-full">ROI</span>
-                    <span class="text-xs px-2 py-1 bg-yellow-500/10 text-yellow-400 rounded-full">Budget</span>
-                </div>
-            </a>
-
             <!-- Prédictif & Alertes -->
             <a href="#"
-               class="group bg-gradient-to-br from-red-500/10 to-red-600/5 border border-red-500/20 rounded-xl p-6 hover:border-red-500/40 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 hover:scale-105">
+               class="group bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-500/20 rounded-xl p-6 hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 hover:scale-105">
                 <div class="flex items-start justify-between mb-4">
-                    <div class="w-14 h-14 rounded-xl bg-red-500/20 flex items-center justify-center group-hover:bg-red-500/30 transition-colors">
-                        <svg class="w-7 h-7 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    <div class="w-14 h-14 rounded-xl bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
+                        <svg class="w-7 h-7 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                         </svg>
                     </div>
-                    <svg class="w-5 h-5 text-red-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">Prédictif & Alertes</h3>
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">Prédictif & Alertes</h3>
                 <p class="text-gray-400 text-sm mb-4">Machines à risque, alertes, prochaines maintenances</p>
                 <div class="flex flex-wrap gap-2">
-                    <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Risques</span>
-                    <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Alertes</span>
-                    <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Planning</span>
-                </div>
-            </a>
-
-            <!-- Dashboard Vue d'ensemble -->
-            <a href=""
-               class="group bg-gradient-to-br from-indigo-500/10 to-indigo-600/5 border border-indigo-500/20 rounded-xl p-6 hover:border-indigo-500/40 hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-105">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="w-14 h-14 rounded-xl bg-indigo-500/20 flex items-center justify-center group-hover:bg-indigo-500/30 transition-colors">
-                        <svg class="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 12a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1v-7z"/>
-                        </svg>
-                    </div>
-                    <svg class="w-5 h-5 text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">Vue d'Ensemble</h3>
-                <p class="text-gray-400 text-sm mb-4">Dashboard récapitulatif et indicateurs clés</p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-xs px-2 py-1 bg-indigo-500/10 text-indigo-400 rounded-full">Récap</span>
-                    <span class="text-xs px-2 py-1 bg-indigo-500/10 text-indigo-400 rounded-full">KPIs</span>
-                    <span class="text-xs px-2 py-1 bg-indigo-500/10 text-indigo-400 rounded-full">Synthèse</span>
-                </div>
-            </a>
-
-            <!-- Rapports personnalisés -->
-            <a href="#"
-               class="group bg-gradient-to-br from-pink-500/10 to-pink-600/5 border border-pink-500/20 rounded-xl p-6 hover:border-pink-500/40 hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="w-14 h-14 rounded-xl bg-pink-500/20 flex items-center justify-center group-hover:bg-pink-500/30 transition-colors">
-                        <svg class="w-7 h-7 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                    </div>
-                    <svg class="w-5 h-5 text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">Rapports Personnalisés</h3>
-                <p class="text-gray-400 text-sm mb-4">Créez et exportez vos rapports sur mesure</p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-xs px-2 py-1 bg-pink-500/10 text-pink-400 rounded-full">PDF</span>
-                    <span class="text-xs px-2 py-1 bg-pink-500/10 text-pink-400 rounded-full">Excel</span>
-                    <span class="text-xs px-2 py-1 bg-pink-500/10 text-pink-400 rounded-full">Custom</span>
+                    <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded-full">Risques</span>
+                    <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded-full">Alertes</span>
+                    <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded-full">Planning</span>
                 </div>
             </a>
 

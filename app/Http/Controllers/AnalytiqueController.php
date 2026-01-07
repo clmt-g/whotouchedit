@@ -6,6 +6,7 @@ use App\Models\Intervention;
 use App\Models\InterventionPlanifiee;
 use App\Models\Machine;
 use App\Services\AnalytiqueService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AnalytiqueController extends Controller
@@ -49,6 +50,24 @@ class AnalytiqueController extends Controller
             'machinesWithInterEnRetard' => $machinesWithInterEnRetard,
             'etatParc' => $etatParc,
             'avgCriticite' => $avgCriticite
+        ]);
+    }
+
+    // display the analyse_intervention page
+    public function analyse_intervention() {
+        // nb d'interventions
+        $nbInterventions = $this->analytiqueService->nbInterventions();
+
+        // moyenne des statuts
+        $avgStatut = $this->analytiqueService->avgStatut();
+
+        // temps moyen des interventions
+        $avgTime = $this->analytiqueService->avgTimeByInterventions();
+
+        return view('analytique.analyse_intervention', [
+            'nbInterventions' => $nbInterventions,
+            'avgStatut' => $avgStatut,
+            'avgTime' => $avgTime
         ]);
     }
 }
