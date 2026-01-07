@@ -231,18 +231,18 @@ class AnalytiqueService
         $nbInterPerTechnicien = [];
 
         foreach ($interventions as $intervention) {
-            if (!isset($nbInterPerTechnicien[$intervention->user->nom])) {
-                $nbInterPerTechnicien[$intervention->user->nom] = 0;
+            if (!isset($nbInterPerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom])) {
+                $nbInterPerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom] = 0;
             }
-            $nbInterPerTechnicien[$intervention->user->nom] += 1;
+            $nbInterPerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom] += 1;
         }
 
         foreach ($interventionsPlanifiees as $interventionPlanifiee) {
             foreach ($interventionPlanifiee->techniciens as $technicien) {
-                if (!isset($nbInterPerTechnicien[$technicien->nom])) {
-                    $nbInterPerTechnicien[$technicien->nom] = 0;
+                if (!isset($nbInterPerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom])) {
+                    $nbInterPerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom] = 0;
                 }
-                $nbInterPerTechnicien[$technicien->nom] += 1;
+                $nbInterPerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom] += 1;
             }
         }
         arsort($nbInterPerTechnicien); // Tri décroissant
@@ -275,7 +275,7 @@ class AnalytiqueService
             }
             // moyenne du temps de rétablissement par technicien
             $nbInterventions = count($technicien->interventions) + count($technicien->interventionsPlanifiees);
-            $avgTimePerTechnicien[$technicien->nom] = $nbInterventions > 0 ? round($totalTime / $nbInterventions, 2) : 0;
+            $avgTimePerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom] = $nbInterventions > 0 ? round($totalTime / $nbInterventions, 2) : 0;
         }
         return $avgTimePerTechnicien ?? [];
     }
@@ -297,7 +297,7 @@ class AnalytiqueService
             }
             // moyenne du temps d'intervention par technicien
             $nbInterventions = count($technicien->interventions);
-            $avgTimePerTechnicien[$technicien->nom] = $nbInterventions > 0 ? round($totalTime / $nbInterventions, 2) : 0;
+            $avgTimePerTechnicien[$technicien->nom . ' ' . $technicien->prenom] = $nbInterventions > 0 ? round($totalTime / $nbInterventions, 2) : 0;
         }
         return $avgTimePerTechnicien ?? [];
     }
@@ -319,8 +319,11 @@ class AnalytiqueService
             }
             // moyenne du temps d'intervention planifiée par technicien
             $nbInterventions = count($technicien->interventionsPlanifiees);
-            $avgTimePerTechnicien[$technicien->nom] = $nbInterventions > 0 ? round($totalTime / $nbInterventions, 2) : 0;
+            $avgTimePerTechnicien[$technicien->nom . ' ' . $technicien->prenom]= $nbInterventions > 0 ? round($totalTime / $nbInterventions, 2) : 0;
         }
         return $avgTimePerTechnicien ?? [];
     }
+
+    // ===== Predictif =====
+
 }

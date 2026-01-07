@@ -115,4 +115,22 @@ class AnalytiqueController extends Controller
             'avgPlanifiedInterventionTimePerTechnicien' => $avgPlanifiedInterventionTimePerTechnicien
         ]);
     }
+
+    // display the predictif page
+    public function predictif() {
+        // machines critiques
+        $riskyMachines = Machine::all()->where('criticite', 'critique');
+
+        // machines en panne
+        $brokenMachines = Machine::all()->where('etat', 'en_panne');
+
+        // next interventions planifiées
+        $nextPlannedInterventions = InterventionPlanifiee::where('dateDebut', '>=', Carbon::now())->orderBy('dateDebut', 'asc')->get();
+
+        return view('analytique.predictif', [
+            'riskyMachines' => $riskyMachines,
+            'brokenMachines' => $brokenMachines,
+            'nextPlannedInterventions' => $nextPlannedInterventions
+        ]);
+    }
 }
