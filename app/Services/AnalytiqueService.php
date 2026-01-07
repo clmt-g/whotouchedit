@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Intervention;
 use App\Models\InterventionPlanifiee;
 use App\Models\Machine;
+use App\Models\User;
 use Carbon\Carbon;
 
 class AnalytiqueService
@@ -217,5 +218,109 @@ class AnalytiqueService
             'totalTime' => $totalTime,
             'avgTime' => round($avgTime, 2)
         ];
+    }
+
+    // ===== Technicien =====
+    /** return the number of interventions completed by technician
+     * @return array
+     */
+    public function nbInterventionsByTechnicien() : array {
+        $interventions = Intervention::all()->where('statut', 'terminee');
+        $interventionsPlanifiees = InterventionPlanifiee::all()->where('statut', 'terminee');
+
+        $nbInterPerTechnicien = [];
+
+        foreach ($interventions as $intervention) {
+            if (!isset($nbInterPerTechnicien[$intervention->user->nom])) {
+                $nbInterPerTechnicien[$intervention->user->nom] = 0;
+            }
+            $nbInterPerTechnicien[$intervention->user->nom] += 1;
+        }
+
+        foreach ($interventionsPlanifiees as $interventionPlanifiee) {
+            foreach ($interventionPlanifiee->techniciens as $technicien) {
+                if (!isset($nbInterPerTechnicien[$technicien->nom])) {
+                    $nbInterPerTechnicien[$technicien->nom] = 0;
+                }
+                $nbInterPerTechnicien[$technicien->nom] += 1;
+            }
+        }
+        arsort($nbInterPerTechnicien); // Tri décroissant
+        return $nbInterPerTechnicien ?? [];
+    }
+
+    /** return the reestablishment time per technician in hours
+     * @return array
+     */
+    public function avgReestablishementTimePerTechnicien() : array {
+        $techniciens = User::all()->where('role','technicien');
+        $avgTimePerTechnicien = [];
+        $totalTime = 0;
+
+        foreach ($techniciens as $technicien) {
+            $totalTime = 0;
+            $nbInterventions = 0;
+
+            foreach($technicien->interventions as $intervention) {
+                // calcul du temps de rétablissement
+                $start = Carbon::parse($intervention->dateHeureDebut);
+                $end = Carbon::parse($intervention->dateHeureFin);
+                $totalTime += $start->diffInHours($end);
+            }
+            foreach($technicien->interventionsPlanifiees as $interventionPlanifiee) {
+                // calcul du temps de rétablissement
+                $start = Carbon::parse($interventionPlanifiee->dateDebut);
+                $end = Carbon::parse($interventionPlanifiee->dateFin);
+                $totalTime += $start->diffInHours($end);
+            }
+            // moyenne du temps de rétablissement par technicien
+            $nbInterventions = count($technicien->interventions) + count($technicien->interventionsPlanifiees);
+            $avgTimePerTechnicien[$technicien->nom] = $nbInterventions > 0 ? round($totalTime / $nbInterventions, 2) : 0;
+        }
+        return $avgTimePerTechnicien ?? [];
+    }
+
+    /** return the average intervention time per technician in hours
+     * @return array
+     */
+    public function avgInterventionTimePerTechnicien() : array {
+        $techniciens = User::all()->where('role','technicien');
+        $avgTimePerTechnicien = [];
+
+        foreach ($techniciens as $technicien) {
+            $totalTime = 0;
+            foreach($technicien->interventions as $intervention) {
+                // calcul du temps d'intervention
+                $start = Carbon::parse($intervention->dateHeureDebut);
+                $end = Carbon::parse($intervention->dateHeureFin);
+                $totalTime += $start->diffInHours($end);
+            }
+            // moyenne du temps d'intervention par technicien
+            $nbInterventions = count($technicien->interventions);
+            $avgTimePerTechnicien[$technicien->nom] = $nbInterventions > 0 ? round($totalTime / $nbInterventions, 2) : 0;
+        }
+        return $avgTimePerTechnicien ?? [];
+    }
+
+    /** return the average planned intervention time per technician in hours
+     * @return array
+     */
+    public function avgPlanifiedInterventionTimePerTechnicien() : array {
+        $techniciens = User::all()->where('role','technicien');
+        $avgTimePerTechnicien = [];
+
+        foreach ($techniciens as $technicien) {
+            $totalTime = 0;
+            foreach($technicien->interventionsPlanifiees as $interventionPlanifiee) {
+                // calcul du temps d'intervention planifiée
+                $start = Carbon::parse($interventionPlanifiee->dateDebut);
+                $end = Carbon::parse($interventionPlanifiee->dateFin);
+                $totalTime += $start->diffInHours($end);
+            }
+            // moyenne du temps d'intervention planifiée par technicien
+            $nbInterventions = count($technicien->interventionsPlanifiees);
+            $avgTimePerTechnicien[$technicien->nom] = $nbInterventions > 0 ? round($totalTime / $nbInterventions, 2) : 0;
+        }
+        return $avgTimePerTechnicien ?? [];
     }
 }

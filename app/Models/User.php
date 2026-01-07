@@ -69,9 +69,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(
             InterventionPlanifiee::class,
-            'intervention_planifiees_technicien',
-            'technicien_id',
-            'intervention_planifiee_id'
+            'intervention_planifiee_techniciens',
+            'idInterventionPlanifiee',
+            'idInterventionPlanifiee'
         );
     }
 }

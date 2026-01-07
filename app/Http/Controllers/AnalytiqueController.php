@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Intervention;
 use App\Models\InterventionPlanifiee;
 use App\Models\Machine;
+use App\Models\User;
 use App\Services\AnalytiqueService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -86,6 +87,32 @@ class AnalytiqueController extends Controller
             'nbInterventionsPlanifiees' => $nbInterventionsPlanifiees,
             'avgStatutPlanifiee' => $avgStatutPlanifiee,
             'avgTimePlanifiee' => $avgTimePlanifiee
+        ]);
+    }
+
+    // display the performance_technicien page
+    public function performance_technicien() {
+        // nb de techniciens
+        $nbTechniciens = User::all()->where('role', 'technicien')->count();
+
+        // nb d'interventions par technicien
+        $interventionsPerTechnicien = $this->analytiqueService->nbInterventionsByTechnicien();
+
+        // moyenne des temps d'intervention (tout confondu) par technicien
+        $avgReestablishementTimePerTechnicien = $this->analytiqueService->avgReestablishementTimePerTechnicien();
+
+        // moyenne des temps d'intervention corrective par technicien
+        $avgInterventionTimePerTechnicien = $this->analytiqueService->avgInterventionTimePerTechnicien();
+
+        // moyenne des temps d'intervention préventive par technicien
+        $avgPlanifiedInterventionTimePerTechnicien = $this->analytiqueService->avgPlanifiedInterventionTimePerTechnicien();
+
+        return view('analytique.performance_technicien', [
+            'nbTechniciens' => $nbTechniciens,
+            'interventionsPerTechnicien' => $interventionsPerTechnicien,
+            'avgReestablishementTimePerTechnicien' => $avgReestablishementTimePerTechnicien,
+            'avgInterventionTimePerTechnicien' => $avgInterventionTimePerTechnicien,
+            'avgPlanifiedInterventionTimePerTechnicien' => $avgPlanifiedInterventionTimePerTechnicien
         ]);
     }
 }

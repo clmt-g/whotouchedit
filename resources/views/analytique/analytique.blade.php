@@ -50,10 +50,10 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">Interventions Curatives</h3>
-                <p class="text-gray-400 text-sm mb-4">Pannes, réparations urgentes, temps d'arrêt</p>
+                <p class="text-gray-400 text-sm mb-4">Nombred d'interventions, statistiques, cumulé</p>
                 <div class="flex flex-wrap gap-2">
-                    <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Pannes</span>
-                    <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Urgences</span>
+                    <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Statut</span>
+                    <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Périodes</span>
                     <span class="text-xs px-2 py-1 bg-red-500/10 text-red-400 rounded-full">Downtime</span>
                 </div>
             </a>
@@ -72,11 +72,11 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">Interventions Préventives</h3>
-                <p class="text-gray-400 text-sm mb-4">Maintenance planifiée, conformité, taux de respect</p>
+                <p class="text-gray-400 text-sm mb-4">Maintenance planifiée, statistiques, taux de respect</p>
                 <div class="flex flex-wrap gap-2">
                     <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full">Planification</span>
                     <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full">Conformité</span>
-                    <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full">ROI</span>
+                    <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full">Périodes</span>
                 </div>
             </a>
 
@@ -103,7 +103,7 @@
             </a>
 
             <!-- Performance techniciens -->
-            <a href="#"
+            <a href="{{ route('analytique.performance_technicien') }}"
                class="group bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 border border-cyan-500/20 rounded-xl p-6 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 hover:scale-105">
                 <div class="flex items-start justify-between mb-4">
                     <div class="w-14 h-14 rounded-xl bg-cyan-500/20 flex items-center justify-center group-hover:bg-cyan-500/30 transition-colors">
