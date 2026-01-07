@@ -35,6 +35,20 @@ class AnalytiqueController extends Controller
         // nb d'inter par machine
         $nbInterPerMachines = $this->analytiqueService->nbInterPerMachines();
 
-        return view('analytique.analyse_machine', ['nbInterPerMachines' => $nbInterPerMachines]);
+        // inter en retard
+        $machinesWithInterEnRetard = $this->analytiqueService->getMachinesInterventionsEnRetard();
+
+        // etat parc machine
+        $etatParc = $this->analytiqueService->etatParc();
+
+        // moyenne des criticites
+        $avgCriticite = $this->analytiqueService->avgCriticite();
+
+        return view('analytique.analyse_machine', [
+            'nbInterPerMachines' => $nbInterPerMachines,
+            'machinesWithInterEnRetard' => $machinesWithInterEnRetard,
+            'etatParc' => $etatParc,
+            'avgCriticite' => $avgCriticite
+        ]);
     }
 }

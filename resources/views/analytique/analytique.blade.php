@@ -95,7 +95,7 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">Analyse des Machines</h3>
-                <p class="text-gray-400 text-sm mb-4">Top problématiques, préventif vs correctif</p>
+                <p class="text-gray-400 text-sm mb-4">Interventions par machines, etat du parc</p>
                 <div class="flex flex-wrap gap-2">
                     <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded-full">Top pannes</span>
                     <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded-full">Préventif</span>
