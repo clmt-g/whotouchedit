@@ -94,7 +94,7 @@
                 {{-- Interventions planifiées --}}
                 @foreach($interventionPlanifieesNonPassees as $interventionPlanifiee)
                     <a href="{{ route('intervention_planifiee.detail', $interventionPlanifiee->idInterventionPlanifiee) }}"
-                        class="flex items-start gap-4 p-4 bg-slate-800/50 rounded-lg border border-blue-500/20 hover:border-blue-500/40 transition">
+                       class="flex items-start gap-4 p-4 bg-slate-800/50 rounded-lg border border-blue-500/20 hover:border-blue-500/40 transition">
                         <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0">
                             <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
                         </div>

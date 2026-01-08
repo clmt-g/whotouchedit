@@ -1,13 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnalytiqueController;
 use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\InterventionPlanifieeController;
 use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\MachineController;
+
 
 // ========== Home ==========
 Route::get('/', [DefaultController::class, 'index'])->name('dashboard');
@@ -61,6 +62,9 @@ Route::get('/analytique/analyse_intervention', [AnalytiqueController::class, 'an
 Route::get('/analytique/analyse_intervention_planifiee', [AnalytiqueController::class, 'analyse_intervention_planifiee'])->name('analytique.analyse_intervention_planifiee');
 Route::get('/analytique/performance_technicien', [AnalytiqueController::class, 'performance_technicien'])->name('analytique.performance_technicien');
 Route::get('/analytique/predictif', [AnalytiqueController::class, 'predictif'])->name('analytique.predictif');
+
+// ========== Routes d'authentification Breeze ==========
+require __DIR__.'/auth.php';
 
 // ========== Error 404 : doit être la dernière route ==========
 Route::fallback(function () {
