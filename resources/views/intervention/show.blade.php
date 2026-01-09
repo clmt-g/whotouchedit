@@ -171,7 +171,7 @@
                             <!-- Actions avec effets hover -->
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end gap-2">
-                                    @can('delete-intervention')
+                                    @can('detail-intervention')
                                         <a href="{{ route('intervention.detail', $intervention->idIntervention) }}"
                                            title="Voir les détails"
                                            class="p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all duration-200 hover:scale-110">
