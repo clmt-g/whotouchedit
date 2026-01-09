@@ -132,13 +132,11 @@ class MachineController extends Controller
     public function do_update_etat(Request $request, $id) {
         $request->validate([
             'etat' => 'required|in:opérationnelle,en_maintenance,planifiée,en_panne,hors_service',
-            'notes' => 'nullable|string|max:5000',
         ]);
 
         try {
             Machine::findOrFail($id)->update([
                 'etat' => $request->input('etat'),
-                'notes' => $request->input('notes') ?? null,
             ]);
 
             return redirect()

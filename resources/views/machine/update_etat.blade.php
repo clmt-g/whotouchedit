@@ -110,23 +110,6 @@
                     Sélectionnez le nouvel état de la machine
                 </p>
             </div>
-
-            <!-- Notes / Commentaires -->
-            <div>
-                <label class="block text-sm font-medium text-gray-300 mb-2">
-                    Commentaire
-                    <span class="text-gray-500 text-xs font-normal">(optionnel)</span>
-                </label>
-                <textarea
-                    name="notes"
-                    rows="4"
-                    placeholder="Raison du changement d'état, observations, détails de l'intervention..."
-                    class="w-full bg-slate-800 text-white px-4 py-2.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition resize-none"
-                ></textarea>
-                <p class="mt-2 text-xs text-gray-400">
-                    Ce commentaire sera enregistré dans l'historique de la machine
-                </p>
-            </div>
         </div>
 
         <!-- Message d'information -->

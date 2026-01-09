@@ -64,6 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::get('intervention_planifiee/update/{id}', [InterventionPlanifieeController::class, 'update'])->name('intervention_planifiee.update');
     Route::put('intervention_planifiee/do_update/{id}', [InterventionPlanifieeController::class, 'do_update'])->name('intervention_planifiee.do_update');
     Route::delete('intervention_planifiee/delete/{id}', [InterventionPlanifieeController::class, 'do_delete'])->name('intervention_planifiee.do_delete');
+    Route::get('/intervention_planifiee/update_statut/{id}', [InterventionPlanifieeController::class, 'update_statut'])->name('intervention_planifiee.update_statut');
+    Route::put('/intervention_planifiee/do_update_statut/{id}', [InterventionPlanifieeController::class, 'do_update_statut'])->name('intervention_planifiee.do_update_statut');
 
     // ========== Planning ===========
     Route::get('/planning', [PlanningController::class, 'planning'])->name('planning');

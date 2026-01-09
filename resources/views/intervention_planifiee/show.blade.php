@@ -160,7 +160,8 @@
                             <td class="px-6 py-4">
                                 <div class="flex flex-wrap gap-1.5">
                                     @forelse($intervention->techniciens as $technicien)
-                                        <a @if($technicien->id == Auth::user()->id) href="{{ route('user.detail', $technicien->id )}}" @endif
+                                        <a @if($technicien->id == Auth::user()->id) href="{{ route('user.detail', $technicien->id )}}"
+                                           @endif
                                            class="inline-flex items-center gap-1.5 px-2 py-1 bg-slate-800 border border-slate-700 rounded-md hover:border-blue-500 hover:bg-slate-750 transition-all group">
                                             <div
                                                 class="w-5 h-5 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
@@ -247,6 +248,16 @@
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                       d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                            </svg>
+                                        </a>
+                                    @endcan
+                                    @can('update-statut-intervention-planifiee')
+                                        <a href="{{ route('intervention_planifiee.update_statut', $intervention->idInterventionPlanifiee) }}"
+                                           class="p-2 text-gray-400 hover:text-blue-400 hover:bg-slate-800/70 rounded-lg transition-all hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
+                                           title="Modifier l'état">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                             </svg>
                                         </a>
                                     @endcan

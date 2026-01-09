@@ -149,6 +149,47 @@ class InterventionPlanifieeController extends Controller
         }
     }
 
+    /** display the intervention_planifiee.update_statut page of the intervention identified by the key $id
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function update_statut($id) {
+        $intervention = InterventionPlanifiee::find($id);
+
+        if (!$intervention) {
+            return redirect()
+                ->route('intervention_planifiee')
+                ->with('error', 'Intervention planifiee introuvable');
+        }
+
+        return view('intervention_planifiee.update_statut', ['intervention' => $intervention]);
+    }
+
+    /** update the statut of an intervention_planifiee
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function do_update_statut(Request $request, $id) {
+        $request->validate([
+            'statut' => 'required|string|in:planifiee,en_cours,terminee,annulee'
+        ]);
+
+        try {
+            InterventionPlanifiee::findOrFail($id)->update([
+                'statut' => $request->input('statut')
+            ]);
+
+            return redirect()
+                ->route('intervention_planifiee')
+                ->with('success', 'Statut de l\'intervention planifiee mis a jour avec succes');
+        } catch(Exception $e) {
+            return redirect()
+                ->route('intervention_planifiee')
+                ->with('error', 'Erreur lors de la mise a jour du statut de l\'intervention planifiee');
+        }
+    }
+
     /** delete an intervention_planifiee
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
