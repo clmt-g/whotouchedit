@@ -8,6 +8,7 @@ use App\Models\InterventionPlanifiee;
 use App\Models\Machine;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Mockery\Exception;
 
@@ -18,7 +19,7 @@ class InterventionPlanifieeController extends Controller
      */
     public function show()
     {
-        $interventions = InterventionPlanifiee::all();
+        $interventions = InterventionPlanifiee::ForUser(Auth::user())->get();
         return view('intervention_planifiee.show', ['interventions' => $interventions]);
     }
 

@@ -26,6 +26,15 @@ class Intervention extends Model
         'idUser'
         ];
 
+    // --- Scopes ---
+    public function scopeForUser($query, $user)
+    {
+        if ($user->role === 'admin') {
+            return $query;
+        }
+        return $query->where('idUser', $user->id);
+    }
+
     // --- Relations ---
     public function machine() : HasOne {
         return $this->hasOne(Machine::class, 'idMachine', 'idMachine');

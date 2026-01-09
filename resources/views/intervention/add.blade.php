@@ -128,7 +128,7 @@
                             required
                         >
                             <option value="">-- Séléctionner --</option>
-                            @foreach($users->where('role', 'technicien') as $user)
+                            @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->id }} : {{ $user->nom }} {{ $user->prenom }}</option>
                             @endforeach
                         </select>

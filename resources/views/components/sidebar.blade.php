@@ -22,41 +22,49 @@
         <span class="font-medium">Dashboard</span>
     </a>
 
-    <a href="{{ route('machine') }}"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('machine.*') | request()->routeIs('machine') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white' }} transition">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-        </svg>
-        <span class="font-medium">Machines</span>
-    </a>
+    @can('manage-machines')
+        <a href="{{ route('machine') }}"
+           class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('machine.*') | request()->routeIs('machine') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white' }} transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+            </svg>
+            <span class="font-medium">Machines</span>
+        </a>
+    @endcan
 
-    <a href="{{ route('intervention') }}"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('intervention.*') | request()->routeIs('intervention') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white' }} transition">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-        </svg>
-        <span class="font-medium">Interventions curatives</span>
-    </a>
+    @can('manage-interventions')
+        <a href="{{ route('intervention') }}"
+           class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('intervention.*') | request()->routeIs('intervention') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white' }} transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+            <span class="font-medium">Interventions curatives</span>
+        </a>
+    @endcan
 
-    <a href="{{ route('intervention_planifiee') }}"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('intervention_planifiee.*') | request()->routeIs('intervention_planifiee') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white' }} transition">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-        </svg>
-        <span class="font-medium">Interventions préventives</span>
-    </a>
+    @can('manage-interventions-planifiees')
+        <a href="{{ route('intervention_planifiee') }}"
+           class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('intervention_planifiee.*') | request()->routeIs('intervention_planifiee') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white' }} transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+            <span class="font-medium">Interventions préventives</span>
+        </a>
+    @endcan
 
-    <a href="{{ route('planning') }}"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('planning.*') | request()->routeIs('planning') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white' }} transition">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-        </svg>
-        <span class="font-medium">Planning</span>
-    </a>
+    @can('manage-planning')
+        <a href="{{ route('planning') }}"
+           class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('planning.*') | request()->routeIs('planning') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white' }} transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <span class="font-medium">Planning</span>
+        </a>
+    @endcan
 
     @can('manage-users')
         <a href="{{ route('user') }}"
@@ -69,14 +77,16 @@
         </a>
     @endcan
 
-    <a href="{{ route('analytique') }}"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('analytique.*') | request()->routeIs('analytique') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white' }} transition">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-        </svg>
-        <span class="font-medium">Analytique</span>
-    </a>
+    @can('manage-analytique')
+        <a href="{{ route('analytique') }}"
+           class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('analytique.*') | request()->routeIs('analytique') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white' }} transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <span class="font-medium">Analytique</span>
+        </a>
+    @endcan
 </nav>
 
 <!-- User Profile -->

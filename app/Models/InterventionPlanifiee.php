@@ -41,6 +41,16 @@ class InterventionPlanifiee extends Model
         );
     }
 
+    // -- Scopes ---
+    public function scopeForUser($query, $user) {
+        if ($user->role === 'admin') {
+            return $query;
+        }
+        return $query->whereHas('techniciens', function ($inter) use ($user) {
+            $inter->where('id', $user->id);
+        });
+    }
+
     // Relation avec Machine
     public function machine()
     {

@@ -286,14 +286,16 @@
                     </div>
                 </button>
 
-                <button onclick="goToIntervention('preventive')"
-                        class="flex items-center gap-4 p-4 rounded-lg bg-purple-600/10 border border-purple-600/20 hover:bg-purple-600/20 transition text-left">
-                    <span class="text-2xl">🛡️</span>
-                    <div>
-                        <p class="text-white font-medium">Intervention préventive</p>
-                        <p class="text-sm text-gray-400">Maintenance planifiée</p>
-                    </div>
-                </button>
+                @can('add-intervention-planifiee')
+                    <button onclick="goToIntervention('preventive')"
+                            class="flex items-center gap-4 p-4 rounded-lg bg-purple-600/10 border border-purple-600/20 hover:bg-purple-600/20 transition text-left">
+                        <span class="text-2xl">🛡️</span>
+                        <div>
+                            <p class="text-white font-medium">Intervention préventive</p>
+                            <p class="text-sm text-gray-400">Maintenance planifiée</p>
+                        </div>
+                    </button>
+                @endcan
             </div>
         </div>
     </div>

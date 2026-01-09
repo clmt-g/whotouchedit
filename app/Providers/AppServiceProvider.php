@@ -98,12 +98,12 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // ===== Planning Gates =====
-        Gate::define('view-planning', function (User $user) {
+        Gate::define('manage-planning', function (User $user) {
             return in_array($user->role, ['admin', 'responsable', 'technicien']);
         });
 
         // ===== Analytique Gates =====
-        Gate::define('view-analytique', function (User $user) {
+        Gate::define('manage-analytique', function (User $user) {
             return in_array($user->role, ['admin', 'responsable', 'direction']);
         });
     }

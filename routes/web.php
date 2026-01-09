@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/machine/add', [MachineController::class, 'do_add'])->name('machine.do_add');
     Route::get('/machine/update/{id}', [MachineController::class, 'update'])->name('machine.update');
     Route::put('/machine/update/{id}', [MachineController::class, 'do_update'])->name('machine.do_update');
+    Route::get('/machine/update_etat/{id}', [MachineController::class, 'update_etat'])->name('machine.update_etat');
+    Route::put('/machine/update_etat/{id}', [MachineController::class, 'do_update_etat'])->name('machine.do_update_etat');
     Route::delete('/machine/delete/{id}', [MachineController::class, 'do_delete'])->name('machine.do_delete');
 
     // ========== Interventions ==========

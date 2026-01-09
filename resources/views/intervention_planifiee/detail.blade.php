@@ -194,7 +194,7 @@
                     <div class="w-full bg-slate-800 px-4 py-3 rounded-lg border border-slate-700">
                         <div class="flex flex-col gap-2">
                             @forelse($intervention->techniciens as $technicien)
-                                <a href="{{ route('user.detail', $technicien->id) }}"
+                                <a @if($technicien->id == Auth::user()->id) href="{{ route('user.detail', $technicien->id )}}" @endif
                                    class="inline-flex items-center gap-2 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg hover:border-blue-500 hover:bg-slate-800 transition-all group">
                                     <div class="w-7 h-7 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                                         <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,13 +224,15 @@
                class="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium rounded-lg transition">
                 Retour
             </a>
-            <a href="{{ route('intervention_planifiee.update', $intervention->idInterventionPlanifiee) }}"
-               class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                </svg>
-                Modifier
-            </a>
+            @can('update-intervention-planifiee')
+                <a href="{{ route('intervention_planifiee.update', $intervention->idInterventionPlanifiee) }}"
+                   class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                    Modifier
+                </a>
+            @endcan
         </div>
     </div>
 @endsection

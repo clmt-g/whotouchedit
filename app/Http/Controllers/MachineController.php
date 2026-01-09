@@ -79,6 +79,22 @@ class MachineController extends Controller
         return view('machine.update', ['machine' => $machine]);
     }
 
+    /** display the update etat page with the info of the machine according to the key $id
+     * @param $id
+     * @return Factory|View|RedirectResponse|\Illuminate\View\View
+     */
+    public function update_etat($id) {
+        $machine = Machine::find($id);
+
+        if (!$machine) {
+            return redirect()
+                ->route('machine')
+                ->with('error', 'La machine n\'existe pas');
+        }
+
+        return view('machine.update_etat', ['machine' => $machine]);
+    }
+
     /** update a machine
      * @param UpdateMachineRequest $request
      * @param $id
@@ -105,6 +121,33 @@ class MachineController extends Controller
             return redirect()
                 ->route('machine')
                 ->with('error', 'Erreur lors de l\'enregistrement des modifications');
+        }
+    }
+
+    /** update the etat of a machine
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function do_update_etat(Request $request, $id) {
+        $request->validate([
+            'etat' => 'required|in:opérationnelle,en_maintenance,planifiée,en_panne,hors_service',
+            'notes' => 'nullable|string|max:5000',
+        ]);
+
+        try {
+            Machine::findOrFail($id)->update([
+                'etat' => $request->input('etat'),
+                'notes' => $request->input('notes') ?? null,
+            ]);
+
+            return redirect()
+                ->route('machine')
+                ->with('success', 'État de la machine mis à jour avec succès');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('machine')
+                ->with('error', 'Erreur lors de la mise à jour de l\'état de la machine');
         }
     }
 

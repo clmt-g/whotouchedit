@@ -8,6 +8,7 @@ use App\Models\Machine;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class DefaultController extends Controller
@@ -18,8 +19,8 @@ class DefaultController extends Controller
     public function index()
     {
         $machines = Machine::all();
-        $interventionPlanifiees = InterventionPlanifiee::all();
-        $interventions = Intervention::all();
+        $interventionPlanifiees = InterventionPlanifiee::ForUser(Auth::user())->get();
+        $interventions = Intervention::ForUser(Auth::user())->get();
 
         // --- nb de machines ---
         $nbMachines = count($machines);

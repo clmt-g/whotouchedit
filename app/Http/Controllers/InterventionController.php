@@ -9,6 +9,7 @@ use App\Models\Machine;
 use App\Models\User;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
+use Illuminate\Support\Facades\Auth;
 
 class InterventionController extends Controller
 {
@@ -16,7 +17,8 @@ class InterventionController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
     public function show() {
-        $interventions = Intervention::all();
+        // get all interventions for the connected user
+        $interventions = Intervention::ForUser(Auth::user())->get();
         return view('intervention.show', ['interventions' => $interventions]);
     }
 
@@ -39,7 +41,14 @@ class InterventionController extends Controller
      */
     public function add() {
         $machines = Machine::all();
-        $users = User::all();
+
+        // if user is technicien, only show technicien users
+        if (Auth::user()->role === 'technicien') {
+            $users = User::where('id', Auth::user()->id)->get();
+        } else {
+            $users = User::where('role', 'technicien')->get();
+        }
+
         return view('intervention.add', ['machines' => $machines, 'users' => $users]);
     }
 
@@ -78,7 +87,13 @@ class InterventionController extends Controller
 
         // get the machines and users for the select
         $machines = Machine::all();
-        $users = User::all();
+
+        // if user is technicien, only show technicien users
+        if (Auth::user()->role === 'technicien') {
+            $users = User::where('id', Auth::user()->id)->get();
+        } else {
+            $users = User::where('role', 'technicien')->get();
+        }
 
         return view('intervention.update', ['intervention' => $intervention, 'machines' => $machines, 'users' => $users]);
     }
