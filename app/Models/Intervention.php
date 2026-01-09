@@ -29,7 +29,7 @@ class Intervention extends Model
     // --- Scopes ---
     public function scopeForUser($query, $user)
     {
-        if ($user->role === 'admin') {
+        if ($user->role === 'admin' || $user->role === 'responsable') {
             return $query;
         }
         return $query->where('idUser', $user->id);

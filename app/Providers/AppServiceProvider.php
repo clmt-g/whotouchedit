@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +18,26 @@ class AppServiceProvider extends ServiceProvider
         // show
         Gate::define('manage-users', function (User $user) {
             return $user->role === 'admin';
+        });
+        // detail
+        Gate::define('detail-user', function (User $currentUser, User $targetUser) {
+            return $currentUser->role === 'admin' || $currentUser->id === $targetUser->id;
+        });
+        // update
+        Gate::define('update-user', function (User $currentUser) {
+            return $currentUser->role === 'admin';
+        });
+        // update-password
+        Gate::define('update-password-user', function (User $currentUser, User $targetUser) {
+            return $currentUser->role === 'admin' || $currentUser->id === $targetUser->id;
+        });
+        // delete
+        Gate::define('delete-user', function (User $user) {
+            return $user->status === 'admin';
+        });
+        // add
+        Gate:define('add-user', function (User $user) {
+            return $user->status === 'admin';
         });
 
         // ===== Machine Gates =====

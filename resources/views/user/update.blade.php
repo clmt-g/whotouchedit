@@ -9,13 +9,6 @@
             <h2 class="text-3xl font-bold text-white mb-2">Modifier l'utilisateur</h2>
             <p class="text-gray-400">Informations du profil</p>
         </div>
-        <a href="{{ route('user') }}"
-           class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-            </svg>
-            Retour
-        </a>
     </div>
 
     <!-- Form Card -->
@@ -105,10 +98,13 @@
                             required
                         >
                             <option value="">-- Sélectionner --</option>
-                            <option value="technicien" @if( $user->role == 'technicien') selected @endif>Technicien</option>
-                            <option value="responsable" @if( $user->role == 'responsable') selected @endif>Responsable</option>
+                            <option value="technicien" @if( $user->role == 'technicien') selected @endif>Technicien
+                            </option>
+                            <option value="responsable" @if( $user->role == 'responsable') selected @endif>Responsable
+                            </option>
                             <option value="admin" @if( $user->role == 'admin') selected @endif>Admin</option>
-                            <option value="direction" @if( $user->role == 'direction') selected @endif>Direction</option>
+                            <option value="direction" @if( $user->role == 'direction') selected @endif>Direction
+                            </option>
                         </select>
                     </div>
 
@@ -132,26 +128,31 @@
 
             <!-- Buttons -->
             <div class="flex items-center justify-between mt-8 pt-6 border-t border-slate-800">
-                <a href="{{ route('user') }}"
+                <a href="{{ url()->previous() }}"
                    class="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium rounded-lg transition">
                     Retour
                 </a>
                 <div class="flex gap-4">
-                    <a href="{{ route('user.update_password', $user->id) }}"
-                       class="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
-                        </svg>
-                        Modifier le mot de passe
-                    </a>
-                    <button type="submit"
-                            class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                        </svg>
-                        Enregistrer les modifications
-                    </button>
+                    @can('update-password-user', $user)
+                        <a href="{{ route('user.update_password', $user->id) }}"
+                           class="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                            </svg>
+                            Modifier le mot de passe
+                        </a>
+                    @endcan
+                    @can('update-user')
+                        <button type="submit"
+                                class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M12 4v16m8-8H4"/>
+                            </svg>
+                            Enregistrer les modifications
+                        </button>
+                    @endcan
                 </div>
             </div>
         </div>

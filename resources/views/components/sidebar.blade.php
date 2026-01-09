@@ -93,15 +93,17 @@
 <div class="p-4 border-t border-slate-800">
     <div class="flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800">
         <!-- Lien vers le profil (toute la partie gauche) -->
-        <a href="{{ route('user.detail', Auth::user()->id) }}" class="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity">
-            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">
-                {{ strtoupper(substr(Auth::user()->prenom, 0, 1)) }}{{ strtoupper(substr(Auth::user()->nom, 0, 1)) }}
-            </div>
-            <div class="flex-1 text-left">
-                <p class="text-sm font-medium text-white">{{ Auth::user()->nom }} {{ Auth::user()->prenom }}</p>
-                <p class="text-xs text-gray-400">{{ Auth::user()->role }}</p>
-            </div>
-        </a>
+        @can('detail-user', Auth::user())
+            <a href="{{ route('user.detail', Auth::user()->id) }}" class="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity">
+                <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">
+                    {{ strtoupper(substr(Auth::user()->prenom, 0, 1)) }}{{ strtoupper(substr(Auth::user()->nom, 0, 1)) }}
+                </div>
+                <div class="flex-1 text-left">
+                    <p class="text-sm font-medium text-white">{{ Auth::user()->nom }} {{ Auth::user()->prenom }}</p>
+                    <p class="text-xs text-gray-400">{{ Auth::user()->role }}</p>
+                </div>
+            </a>
+        @endcan
 
         <!-- Bouton logout (uniquement l'icône) -->
         <form action="{{ route('do_logout') }}" method="POST" class="inline"

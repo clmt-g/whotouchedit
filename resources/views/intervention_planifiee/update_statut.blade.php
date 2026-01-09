@@ -9,13 +9,6 @@
             <h2 class="text-3xl font-bold text-white mb-2">Modifier le statut de l'intervention</h2>
             <p class="text-gray-400">Intervention #{{ $intervention->idInterventionPlanifiee }}</p>
         </div>
-        <a href="{{ route('intervention_planifiee.detail', $intervention->idInterventionPlanifiee) }}"
-           class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-            </svg>
-            Retour
-        </a>
     </div>
 
     <!-- Form Card -->
@@ -138,7 +131,7 @@
 
             <!-- Buttons -->
             <div class="flex items-center justify-end gap-4 mt-8 pt-6 border-t border-slate-800">
-                <a href="{{ route('intervention_planifiee.detail', $intervention->idInterventionPlanifiee) }}"
+                <a href="{{ url()->previous() }}"
                    class="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium rounded-lg transition">
                     Annuler
                 </a>

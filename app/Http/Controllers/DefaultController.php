@@ -18,9 +18,11 @@ class DefaultController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+
         $machines = Machine::all();
-        $interventionPlanifiees = InterventionPlanifiee::ForUser(Auth::user())->get();
-        $interventions = Intervention::ForUser(Auth::user())->get();
+        $interventionPlanifiees = InterventionPlanifiee::forUser($user)->get();
+        $interventions = Intervention::forUser($user)->get();
 
         // --- nb de machines ---
         $nbMachines = count($machines);
@@ -32,12 +34,15 @@ class DefaultController extends Controller
         // --- Machines en panne ---
         $nbMachinesEnPanne = $machines->where('etat', 'en_panne')->count();
 
-        // Dans ton contrôleur
-        $interventionsNonPassees = Intervention::where('dateHeureFin', '>', Carbon::now())
+        // --- Interventions non passées ---
+        $interventionsNonPassees = Intervention::forUser($user)
+            ->where('dateHeureFin', '>', Carbon::now())
             ->orderBy('dateHeureDebut', 'asc')
             ->get();
 
-        $interventionPlanifieesNonPassees = InterventionPlanifiee::where('dateFin', '>', Carbon::now())
+        // --- Interventions planifiées non passées ---
+        $interventionPlanifieesNonPassees = InterventionPlanifiee::forUser($user)
+            ->where('dateFin', '>', Carbon::now())
             ->orderBy('dateDebut', 'asc')
             ->get();
 

@@ -9,13 +9,6 @@
             <h2 class="text-3xl font-bold text-white mb-2">Détail de l'utilisateur</h2>
             <p class="text-gray-400">Informations du profil</p>
         </div>
-        <a href="{{ route('user') }}"
-           class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-            </svg>
-            Retour
-        </a>
     </div>
 
     <!-- Form Card -->
@@ -102,9 +95,11 @@
                         $config = $roleConfig[$user->role] ?? $roleConfig['utilisateur'];
                     @endphp
                     <div class="w-full bg-slate-800 px-4 py-2.5 rounded-lg border border-slate-700">
-                        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border {{ $config['bg'] }} {{ $config['border'] }} {{ $config['text'] }}">
+                        <span
+                            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border {{ $config['bg'] }} {{ $config['border'] }} {{ $config['text'] }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $config['icon'] }}"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="{{ $config['icon'] }}"/>
                             </svg>
                             <span class="text-sm font-medium">{{ ucfirst($user->role) }}</span>
                         </span>
@@ -114,12 +109,15 @@
                 <!-- Info mot de passe -->
                 <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
                     <div class="flex items-start gap-3">
-                        <svg class="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                        <svg class="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                             viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
                         </svg>
                         <div>
                             <h4 class="text-sm font-medium text-blue-400 mb-1">Modification du mot de passe</h4>
-                            <p class="text-xs text-blue-300/70">Pour modifier le mot de passe, veuillez utiliser le bouton "Modifier le mot de passe" ci-dessous.</p>
+                            <p class="text-xs text-blue-300/70">Pour modifier le mot de passe, veuillez utiliser le
+                                bouton "Modifier le mot de passe" ci-dessous.</p>
                         </div>
                     </div>
                 </div>
@@ -128,25 +126,31 @@
 
         <!-- Buttons -->
         <div class="flex items-center justify-between mt-8 pt-6 border-t border-slate-800">
-            <a href="{{ route('user') }}"
+            <a href="{{ url()->previous() }}"
                class="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium rounded-lg transition">
                 Retour
             </a>
             <div class="flex gap-4">
-                <a href="{{ route('user.update_password', $user->id) }}"
-                   class="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
-                    </svg>
-                    Modifier le mot de passe
-                </a>
-                <a href="#"
-                   class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                    </svg>
-                    Modifier
-                </a>
+                @can('update-password-user', $user)
+                    <a href="{{ route('user.update_password', $user->id) }}"
+                       class="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                        </svg>
+                        Modifier le mot de passe
+                    </a>
+                @endcan
+                @can('update-user')
+                    <a href="{{ route('user.update', $user->id) }}"
+                       class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition inline-flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        </svg>
+                        Modifier
+                    </a>
+                @endcan
             </div>
         </div>
     </div>

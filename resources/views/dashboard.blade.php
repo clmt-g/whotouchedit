@@ -57,7 +57,9 @@
         <div class="col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-6">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-lg font-bold text-white">Interventions a venir</h3>
-                <a href="{{ route('planning') }}" class="text-sm text-blue-500 hover:text-blue-400">Voir planning →</a>
+                @can('view-planning')
+                    <a href="{{ route('planning') }}" class="text-sm text-blue-500 hover:text-blue-400">Voir planning →</a>
+                @endcan
             </div>
             <div class="space-y-4">
                 {{-- Interventions non planifiées --}}
@@ -128,7 +130,9 @@
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-lg font-bold text-white">Interventions a venir</h3>
-                <a href="{{ route('machine') }}" class="text-sm text-blue-500 hover:text-blue-400">Voir planning →</a>
+                @can('manage-machines')
+                    <a href="{{ route('machine') }}" class="text-sm text-blue-500 hover:text-blue-400">Voir machines →</a>
+                @endcan
             </div>
             <h3 class="text-lg font-bold text-white mb-6">État du parc</h3>
 
