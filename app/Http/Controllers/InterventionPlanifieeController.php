@@ -19,6 +19,9 @@ class InterventionPlanifieeController extends Controller
      */
     public function show()
     {
+        // check permission
+        $this->authorize('manage-interventions-planifiees');
+
         $interventions = InterventionPlanifiee::ForUser(Auth::user())->get();
         return view('intervention_planifiee.show', ['interventions' => $interventions]);
     }
@@ -29,6 +32,9 @@ class InterventionPlanifieeController extends Controller
      */
     public function detail($id)
     {
+        // check permission
+        $this->authorize('detail-intervention-planifiee');
+
         $intervention = InterventionPlanifiee::find($id);
 
         if (!$intervention) {
@@ -44,6 +50,9 @@ class InterventionPlanifieeController extends Controller
      */
     public function add()
     {
+        // check permission
+        $this->authorize('add-intervention-planifiee');
+
         // get the necessary data for the selects
         $machines = Machine::all();
         $users = User::all();
@@ -58,6 +67,9 @@ class InterventionPlanifieeController extends Controller
      */
     public function do_add(AddInterventionPlanifieeRequest $request)
     {
+        // check permission
+        $this->authorize('add-intervention-planifiee');
+
         $validated = $request->validated();
 
         DB::beginTransaction();
@@ -95,6 +107,9 @@ class InterventionPlanifieeController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function update($id) {
+        // check permission
+        $this->authorize('update-intervention-planifiee');
+
         $intervention = InterventionPlanifiee::find($id);
 
         if (!$intervention) {
@@ -116,6 +131,9 @@ class InterventionPlanifieeController extends Controller
      * @throws \Throwable
      */
     public function do_update(UpdateInterventionPlanifieeRequest $request, $id) {
+        // check permission
+        $this->authorize('update-intervention-planifiee');
+
         $validated = $request->validated();
 
         DB::beginTransaction();
@@ -154,6 +172,9 @@ class InterventionPlanifieeController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function update_statut($id) {
+        // check permission
+        $this->authorize('update-statut-intervention-planifiee');
+
         $intervention = InterventionPlanifiee::find($id);
 
         if (!$intervention) {
@@ -171,6 +192,9 @@ class InterventionPlanifieeController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function do_update_statut(Request $request, $id) {
+        // check permission
+        $this->authorize('update-statut-intervention-planifiee');
+
         $request->validate([
             'statut' => 'required|string|in:planifiee,en_cours,terminee,annulee'
         ]);
@@ -196,6 +220,9 @@ class InterventionPlanifieeController extends Controller
      * @throws \Throwable
      */
     public function do_delete($id) {
+        // check permission
+        $this->authorize('delete-intervention-planifiee');
+
         DB::beginTransaction();
         try {
             $intervention = InterventionPlanifiee::find($id);
