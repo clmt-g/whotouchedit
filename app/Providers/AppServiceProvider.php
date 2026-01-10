@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Intervention;
+use App\Models\InterventionPlanifiee;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -72,8 +74,8 @@ class AppServiceProvider extends ServiceProvider
             return in_array($user->role, ['admin', 'responsable', 'technicien']);
         });
         // detail
-        Gate::define('detail-intervention', function (User $user) {
-            return in_array($user->role, ['admin', 'responsable', 'technicien']);
+        Gate::define('detail-intervention', function (User $user, Intervention $intervention) {
+            return (in_array($user->role, ['admin', 'responsable'])) || (($user->role === 'technicien' && $intervention->technicien_id === $user->id));
         });
         // add
         Gate::define('add-intervention', function (User $user) {
@@ -98,8 +100,17 @@ class AppServiceProvider extends ServiceProvider
             return in_array($user->role, ['admin', 'responsable', 'technicien']);
         });
         // detail
-        Gate::define('detail-intervention-planifiee', function (User $user) {
-            return in_array($user->role, ['admin', 'responsable', 'technicien']);
+        Gate::define('detail-intervention-planifiee', function (User $user, InterventionPlanifiee $interventionPlanifiee) {
+            // Admin et responsable peuvent tout voir
+            if (in_array($user->role, ['admin', 'responsable'])) {
+                return true;
+            }
+            // Technicien peut voir seulement si il est assigné
+            if ($user->role === 'technicien') {
+                return $interventionPlanifiee->techniciens->contains($user->id);
+            }
+            // Sinon, refuser
+            return false;
         });
         // add
         Gate::define('add-intervention-planifiee', function (User $user) {

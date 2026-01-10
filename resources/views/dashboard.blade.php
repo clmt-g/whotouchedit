@@ -58,7 +58,8 @@
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-lg font-bold text-white">Interventions a venir</h3>
                 @can('view-planning')
-                    <a href="{{ route('planning') }}" class="text-sm text-blue-500 hover:text-blue-400">Voir planning →</a>
+                    <a href="{{ route('planning') }}" class="text-sm text-blue-500 hover:text-blue-400">Voir planning
+                        →</a>
                 @endcan
             </div>
             <div class="space-y-4">
@@ -68,26 +69,26 @@
                        class="flex items-start gap-4 p-4 bg-slate-800/50 rounded-lg border border-{{ $intervention->statut == 'critique' ? 'red' : 'orange' }}-500/20 hover:border-{{ $intervention->statut == 'critique' ? 'red' : 'orange' }}-500/40 transition">
                         <div
                             class="w-10 h-10 rounded-lg bg-{{ $intervention->statut == 'critique' ? 'red' : 'orange' }}-500/10 flex items-center justify-center flex-shrink-0">
-                            <span
-                                class="w-2 h-2 bg-{{ $intervention->statut == 'critique' ? 'red' : 'orange' }}-500 rounded-full animate-pulse"></span>
+                                <span
+                                    class="w-2 h-2 bg-{{ $intervention->statut == 'critique' ? 'red' : 'orange' }}-500 rounded-full animate-pulse"></span>
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex items-start justify-between gap-4 mb-2">
                                 <h4 class="font-medium text-white">{{ $intervention->machine->nom ?? 'Machine inconnue' }}</h4>
                                 <span
                                     class="text-xs text-{{ $intervention->statut == 'critique' ? 'red' : 'orange' }}-400 bg-{{ $intervention->statut == 'critique' ? 'red' : 'orange' }}-500/10 px-2 py-1 rounded whitespace-nowrap">
-                        {{ strtoupper($intervention->statut) }}
-                    </span>
+                            {{ strtoupper($intervention->statut) }}
+                        </span>
                             </div>
                             <p class="text-sm text-gray-400 mb-2">{{ $intervention->description }}</p>
                             <div class="flex items-center gap-4 text-xs text-gray-500">
-                                <span class="flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        {{ \Carbon\Carbon::parse($intervention->dateHeureDebut)->format('d/m/Y H:i') }}
-                    </span>
+                                    <span class="flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            {{ \Carbon\Carbon::parse($intervention->dateHeureDebut)->format('d/m/Y H:i') }}
+                        </span>
                             </div>
                         </div>
                     </a>
@@ -131,7 +132,8 @@
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-lg font-bold text-white">Interventions a venir</h3>
                 @can('manage-machines')
-                    <a href="{{ route('machine') }}" class="text-sm text-blue-500 hover:text-blue-400">Voir machines →</a>
+                    <a href="{{ route('machine') }}" class="text-sm text-blue-500 hover:text-blue-400">Voir machines
+                        →</a>
                 @endcan
             </div>
             <h3 class="text-lg font-bold text-white mb-6">État du parc</h3>
@@ -144,7 +146,8 @@
                         <span class="text-sm font-medium text-white">{{ number_format($op, 1) }}%</span>
                     </div>
                     <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-green-500 rounded-full transition-all duration-300" style="width: {{ $op }}%"></div>
+                        <div class="h-full bg-green-500 rounded-full transition-all duration-300"
+                             style="width: {{ $op }}%"></div>
                     </div>
                 </div>
 
@@ -155,7 +158,8 @@
                         <span class="text-sm font-medium text-white">{{ number_format($maintenance, 1) }}%</span>
                     </div>
                     <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-orange-500 rounded-full transition-all duration-300" style="width: {{ $maintenance }}%"></div>
+                        <div class="h-full bg-orange-500 rounded-full transition-all duration-300"
+                             style="width: {{ $maintenance }}%"></div>
                     </div>
                 </div>
 
@@ -166,7 +170,8 @@
                         <span class="text-sm font-medium text-white">{{ number_format($planifiee, 1) }}%</span>
                     </div>
                     <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-blue-500 rounded-full transition-all duration-300" style="width: {{ $planifiee }}%"></div>
+                        <div class="h-full bg-blue-500 rounded-full transition-all duration-300"
+                             style="width: {{ $planifiee }}%"></div>
                     </div>
                 </div>
 
@@ -177,7 +182,8 @@
                         <span class="text-sm font-medium text-white">{{ number_format($panne, 1) }}%</span>
                     </div>
                     <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-red-500 rounded-full transition-all duration-300" style="width: {{ $panne }}%"></div>
+                        <div class="h-full bg-red-500 rounded-full transition-all duration-300"
+                             style="width: {{ $panne }}%"></div>
                     </div>
                 </div>
 
@@ -188,7 +194,8 @@
                         <span class="text-sm font-medium text-white">{{ number_format($hs, 1) }}%</span>
                     </div>
                     <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-gray-500 rounded-full transition-all duration-300" style="width: {{ $hs }}%"></div>
+                        <div class="h-full bg-gray-500 rounded-full transition-all duration-300"
+                             style="width: {{ $hs }}%"></div>
                     </div>
                 </div>
             </div>

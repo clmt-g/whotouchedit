@@ -32,10 +32,9 @@ class InterventionPlanifieeController extends Controller
      */
     public function detail($id)
     {
-        // check permission
-        $this->authorize('detail-intervention-planifiee');
-
         $intervention = InterventionPlanifiee::find($id);
+        // check permission
+        $this->authorize('detail-intervention-planifiee', $intervention);
 
         if (!$intervention) {
             return redirect()

@@ -29,10 +29,10 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function detail($id) {
-        // check permission
-        $this->authorize('detail-user');
-
         $user = User::find($id);
+
+        // check permission
+        $this->authorize('detail-user', $user);
 
         if (!$user) {
             return redirect()
@@ -147,10 +147,10 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function update_password($id) {
-        // check permission
-        $this->authorize('update-password-user');
-
         $user = User::find($id);
+
+        // check permission
+        $this->authorize('update-password-user', $user);
 
         if (!$user) {
             return redirect()
@@ -167,11 +167,12 @@ class UserController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function do_update_password(UpdatePasswordRequest $request, $id) {
+        $user = User::find($id);
+
         // check permission
-        $this->authorize('update-password-user');
+        $this->authorize('update-password-user', $user);
 
         try {
-            $user = User::find($id);
 
             if (Hash::check($request->get('current_password'), $user->password)) {
                 $user->update(['password' => bcrypt($request->get('password'))]);

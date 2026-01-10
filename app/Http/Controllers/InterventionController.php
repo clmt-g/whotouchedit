@@ -30,10 +30,11 @@ class InterventionController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function detail($id) {
-        // check permission
-        $this->authorize('detail-intervention');
-
         $intervention = Intervention::find($id);
+
+        // check permission
+        $this->authorize('detail-intervention', $intervention);
+
         if (!$intervention) {
             return redirect()
                 ->route('intervention')

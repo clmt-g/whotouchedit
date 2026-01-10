@@ -416,7 +416,7 @@
             'filtre-en_attente'
         ];
 
-        filtres.forEach((filtre) => document.getElementById(filtre).addEventListener('click', function() {
+        filtres.forEach((filtre) => document.getElementById(filtre).addEventListener('click', function () {
             let status = this.dataset.status;
 
             // Filtrer les événements
@@ -427,7 +427,7 @@
             calendar.addEventSource(filteredEvents);
         }));
 
-        document.getElementById('filtre-tout').addEventListener('click', function() {
+        document.getElementById('filtre-tout').addEventListener('click', function () {
             calendar.removeAllEvents();
             calendar.addEventSource(allEvents);
         });
