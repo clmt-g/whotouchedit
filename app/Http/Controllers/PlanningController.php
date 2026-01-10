@@ -13,6 +13,9 @@ class PlanningController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
     public function planning() {
+        // check permission
+        $this->authorize('manage-planning');
+
         $interventions = Intervention::ForUser(Auth::user())->get();
         $interventions_planifiees = InterventionPlanifiee::ForUser(Auth::user())->get();
 
