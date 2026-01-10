@@ -17,6 +17,9 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
     public function show() {
+        // check permission
+        $this->authorize('manage-users');
+
         $users = User::all();
         return view('user.show', ['users' => $users]);
     }
@@ -26,6 +29,9 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function detail($id) {
+        // check permission
+        $this->authorize('detail-user');
+
         $user = User::find($id);
 
         if (!$user) {
@@ -41,6 +47,9 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
     public function add() {
+        // check permission
+        $this->authorize('add-user');
+
         return view('user.add');
     }
 
@@ -49,6 +58,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function do_add(AddUserRequest $request) {
+        // check permission
+        $this->authorize('add-users');
+
         $validated = $request->validated();
 
         try {
@@ -72,6 +84,9 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function update($id) {
+        // check permission
+        $this->authorize('update-user');
+
         $user = User::find($id);
 
         if (!$user) {
@@ -89,6 +104,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function do_update(UpdateUserRequest $request, $id) {
+        // check permission
+        $this->authorize('update-user');
+
         $validated = $request->validated();
 
         try {
@@ -109,6 +127,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function do_delete($id) {
+        // check permission
+        $this->authorize('delete-user');
+
         try {
             User::find($id)->delete();
             return redirect()
@@ -126,6 +147,9 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function update_password($id) {
+        // check permission
+        $this->authorize('update-password-user');
+
         $user = User::find($id);
 
         if (!$user) {
@@ -143,6 +167,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function do_update_password(UpdatePasswordRequest $request, $id) {
+        // check permission
+        $this->authorize('update-password-user');
+
         try {
             $user = User::find($id);
 

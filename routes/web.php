@@ -81,6 +81,6 @@ Route::middleware('auth')->group(function () {
 
     // ========== Error 404 : doit être la dernière route ==========
     Route::fallback(function () {
-        return view('error.404');
+        return view('errors.404');
     });
 });
