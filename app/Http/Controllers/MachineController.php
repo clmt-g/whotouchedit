@@ -17,6 +17,9 @@ class MachineController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
     public function show() {
+        // check permission
+        $this->authorize('manage-machines');
+
         $machines = Machine::all();
         return view('machine.show', ['machines' => $machines]);
     }
@@ -26,6 +29,9 @@ class MachineController extends Controller
      * @return Factory|View|RedirectResponse|\Illuminate\View\View
      */
     public function detail($id) {
+        // check permission
+        $this->authorize('detail-machine');
+
         $machine = Machine::find($id);
         if(!$machine) {
             return redirect()
@@ -39,6 +45,9 @@ class MachineController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
     public function add() {
+        // check permission
+        $this->authorize('add-machines');
+
         return view('machine.add');
     }
 
@@ -48,6 +57,9 @@ class MachineController extends Controller
      */
     public function do_add(AddMachineRequest $request)
     {
+        // check permission
+        $this->authorize('add-machines');
+
         $validated = $request->validated();
 
         try {
@@ -68,6 +80,9 @@ class MachineController extends Controller
      * @return Factory|View|RedirectResponse|\Illuminate\View\View
      */
     public function update($id) {
+        // check permission
+        $this->authorize('update-machines');
+
         $machine = Machine::find($id);
 
         if (!$machine) {
@@ -84,6 +99,9 @@ class MachineController extends Controller
      * @return Factory|View|RedirectResponse|\Illuminate\View\View
      */
     public function update_etat($id) {
+        // check permission
+        $this->authorize('update-etat-machine');
+
         $machine = Machine::find($id);
 
         if (!$machine) {
@@ -101,6 +119,9 @@ class MachineController extends Controller
      * @return RedirectResponse
      */
     public function do_update(UpdateMachineRequest $request, $id) {
+        // check permission
+        $this->authorize('update-machines');
+
         $validated = $request->validated();
 
         try {
@@ -130,6 +151,9 @@ class MachineController extends Controller
      * @return RedirectResponse
      */
     public function do_update_etat(Request $request, $id) {
+        // check permission
+        $this->authorize('update-etat-machine');
+
         $request->validate([
             'etat' => 'required|in:opérationnelle,en_maintenance,planifiée,en_panne,hors_service',
         ]);
@@ -154,6 +178,9 @@ class MachineController extends Controller
      * @return RedirectResponse
      */
     public function do_delete($id) {
+        // check permission
+        $this->authorize('delete-machines');
+
         try {
             $machine = Machine::findOrFail($id);
             $machine->delete();
