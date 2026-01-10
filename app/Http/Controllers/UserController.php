@@ -59,7 +59,7 @@ class UserController extends Controller
      */
     public function do_add(AddUserRequest $request) {
         // check permission
-        $this->authorize('add-users');
+        $this->authorize('add-user');
 
         $validated = $request->validated();
 

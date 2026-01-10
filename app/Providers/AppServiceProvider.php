@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @var array<class-string, array<int, class-string>>
      */
-    protected $listen = [
+    protected array $listen = [
         Login::class => [
             LogSuccessfulLogin::class,
         ],
@@ -72,8 +72,8 @@ class AppServiceProvider extends ServiceProvider
             return $user->status === 'admin';
         });
         // add
-        Gate:define('add-user', function (User $user) {
-            return $user->status === 'admin';
+        Gate::define('add-user', function (User $user) {
+            return $user->role === 'admin';
         });
 
         // ===== Machine Gates =====
