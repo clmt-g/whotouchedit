@@ -21,11 +21,17 @@ class AnalytiqueController extends Controller
 
     // display the analytique page
     public function analytique() {
+        // check permission
+        $this->authorize('manage-analytique');
+
         return view('analytique.analytique');
     }
 
     // display the kpi page
     public function kpi() {
+        // check permission
+        $this->authorize('manage-analytique');
+
         // disponibilité du parc machine
         $disponibiliteParc = $this->analytiqueService->disponibiliteParc();
 
@@ -48,6 +54,9 @@ class AnalytiqueController extends Controller
 
     // display the analyse_machine page
     public function analyse_machine() {
+        // check permission
+        $this->authorize('manage-analytique');
+
         // nb d'inter par machine
         $nbInterPerMachines = $this->analytiqueService->nbInterPerMachines();
 
@@ -70,6 +79,9 @@ class AnalytiqueController extends Controller
 
     // display the analyse_intervention page
     public function analyse_intervention() {
+        // check permission
+        $this->authorize('manage-analytique');
+
         // nb d'interventions
         $nbInterventions = $this->analytiqueService->nbInterventions();
 
@@ -88,6 +100,9 @@ class AnalytiqueController extends Controller
 
     // display the analyse_intervention_planifiee page
     public function analyse_intervention_planifiee() {
+        // check permission
+        $this->authorize('manage-analytique');
+
         // nb d'interventions planifiées
         $nbInterventionsPlanifiees = $this->analytiqueService->nbInterventionsPlanifiees();
 
@@ -106,6 +121,9 @@ class AnalytiqueController extends Controller
 
     // display the performance_technicien page
     public function performance_technicien() {
+        // check permission
+        $this->authorize('manage-analytique');
+
         // nb de techniciens
         $nbTechniciens = User::all()->where('role', 'technicien')->count();
 
@@ -132,6 +150,9 @@ class AnalytiqueController extends Controller
 
     // display the predictif page
     public function predictif() {
+        // check permission
+        $this->authorize('manage-analytique');
+
         // machines critiques
         $riskyMachines = Machine::all()->where('criticite', 'critique');
 
