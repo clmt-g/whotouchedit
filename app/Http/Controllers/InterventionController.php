@@ -17,6 +17,9 @@ class InterventionController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
     public function show() {
+        // check permission
+        $this->authorize('manage-interventions');
+
         // get all interventions for the connected user
         $interventions = Intervention::ForUser(Auth::user())->get();
         return view('intervention.show', ['interventions' => $interventions]);
@@ -27,6 +30,9 @@ class InterventionController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function detail($id) {
+        // check permission
+        $this->authorize('detail-intervention');
+
         $intervention = Intervention::find($id);
         if (!$intervention) {
             return redirect()
@@ -40,6 +46,9 @@ class InterventionController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
     public function add() {
+        // check permission
+        $this->authorize('add-intervention');
+
         $machines = Machine::all();
 
         // if user is technicien, only show technicien users
@@ -57,6 +66,9 @@ class InterventionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function do_add(AddInterventionRequest $request) {
+        // check permission
+        $this->authorize('add-intervention');
+
         $validated = $request->validated();
 
         try {
@@ -77,6 +89,9 @@ class InterventionController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function update($id) {
+        // check permission
+        $this->authorize('update-intervention');
+
         // get the intervention that corrspond to the id
         $intervention = Intervention::find($id);
         if (!$intervention) {
@@ -104,6 +119,9 @@ class InterventionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function do_update(UpdateInterventionRequest $request, $id) {
+        // check permission
+        $this->authorize('update-intervention');
+
         $validated = $request->validated();
 
         try {
@@ -133,6 +151,9 @@ class InterventionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function do_delete($id) {
+        // check permission
+        $this->authorize('delete-intervention');
+
         try {
             $intervention = Intervention::find($id);
             $intervention->delete();
