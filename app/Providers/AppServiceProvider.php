@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Listeners\LogFailedLogin;
+use App\Listeners\LogSuccessfulLogin;
+use App\Listeners\LogSuccessfulLogout;
 use App\Models\Intervention;
 use App\Models\InterventionPlanifiee;
 use App\Models\Machine;
@@ -10,12 +13,32 @@ use App\Observers\InterventionObserver;
 use App\Observers\InterventionPlanifieeObserver;
 use App\Observers\MachineObserver;
 use App\Observers\UserObserver;
+use Illuminate\Auth\Events\Failed;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * The event listener mappings for the application.
+     *
+     * @var array<class-string, array<int, class-string>>
+     */
+    protected $listen = [
+        Login::class => [
+            LogSuccessfulLogin::class,
+        ],
+        Logout::class => [
+            LogSuccessfulLogout::class,
+        ],
+        Failed::class => [
+            LogFailedLogin::class,
+        ],
+    ];
+
     /**
      * Bootstrap any application services.
      */
