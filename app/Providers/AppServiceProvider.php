@@ -4,7 +4,12 @@ namespace App\Providers;
 
 use App\Models\Intervention;
 use App\Models\InterventionPlanifiee;
+use App\Models\Machine;
 use App\Models\User;
+use App\Observers\InterventionObserver;
+use App\Observers\InterventionPlanifieeObserver;
+use App\Observers\MachineObserver;
+use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -16,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // ===== Logger =====
+        Machine::observe(MachineObserver::class);
+        User::observe(UserObserver::class);
+        Intervention::observe(InterventionObserver::class);
+        InterventionPlanifiee::observe(InterventionPlanifieeObserver::class);
+
         // ===== User Gates =====
         // show
         Gate::define('manage-users', function (User $user) {

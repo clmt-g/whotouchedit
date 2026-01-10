@@ -127,6 +127,14 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        // pour le logging des actions utilisateur
+        'user_actions' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/user_actions.log'),
+            'level' => 'info',
+            'days' => 30,
+        ],
+
     ],
 
 ];

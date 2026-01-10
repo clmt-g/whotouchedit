@@ -46,7 +46,7 @@ class MachineController extends Controller
      */
     public function add() {
         // check permission
-        $this->authorize('add-machines');
+        $this->authorize('add-machine');
 
         return view('machine.add');
     }
@@ -58,7 +58,7 @@ class MachineController extends Controller
     public function do_add(AddMachineRequest $request)
     {
         // check permission
-        $this->authorize('add-machines');
+        $this->authorize('add-machine');
 
         $validated = $request->validated();
 
@@ -81,7 +81,7 @@ class MachineController extends Controller
      */
     public function update($id) {
         // check permission
-        $this->authorize('update-machines');
+        $this->authorize('update-machine');
 
         $machine = Machine::find($id);
 
@@ -120,7 +120,7 @@ class MachineController extends Controller
      */
     public function do_update(UpdateMachineRequest $request, $id) {
         // check permission
-        $this->authorize('update-machines');
+        $this->authorize('update-machine');
 
         $validated = $request->validated();
 
@@ -179,7 +179,7 @@ class MachineController extends Controller
      */
     public function do_delete($id) {
         // check permission
-        $this->authorize('delete-machines');
+        $this->authorize('delete-machine');
 
         try {
             $machine = Machine::findOrFail($id);
