@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\NoOverlappingInterventions;
+use App\Rules\NoSimultaneousInterventionsByMachine;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateInterventionPlanifieeRequest extends FormRequest
@@ -30,7 +31,16 @@ class UpdateInterventionPlanifieeRequest extends FormRequest
             'description' => 'nullable|string|max:5000',
             'statut' => 'required|in:planifiee,en_cours,terminee,annulee',
             'frequence' => 'required|in:quotidienne,hebdomadaire,mensuelle,trimestrielle,annuelle,ponctuelle',
-            'idMachine' => 'required|integer|exists:machines,idMachine',
+            'idMachine' => [
+                'required',
+                'exists:machines,idMachine',
+                new noSimultaneousInterventionsByMachine(
+                    $this->input('idMachine'),
+                    $this->input('dateHeureDebut'),
+                    $this->input('dateHeureFin'),
+                    $this->input('idInterventionPlanifiee'),
+                ),
+            ],
             'techniciens' => [
                 'required',
                 'array',
