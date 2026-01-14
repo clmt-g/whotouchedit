@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\NoOverlappingInterventions;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateInterventionRequest extends FormRequest
@@ -29,7 +30,16 @@ class UpdateInterventionRequest extends FormRequest
             'statut' => 'required|in:en_attente,en_cours,terminee,annulee',
             'commentaire' => 'nullable|string|max:5000',
             'idMachine' => 'required|exists:machines,idMachine',
-            'idUser' => 'required|exists:users,id'
+            'idUser' => [
+                'required',
+                'exists:users,id',
+                new NoOverlappingInterventions(
+                    [$this->input('idUser')],
+                    $this->input('dateHeureDebut'),
+                    $this->input('dateHeureFin'),
+                    $this->input('idIntervention')
+                ),
+            ],
         ];
     }
 }

@@ -202,7 +202,7 @@
                                 <option value="{{ $user->id }}"
                                         @if(in_array($user->id, $selectedTechniciens)) selected @endif
                                         class="py-2 hover:bg-slate-700">
-                                    👤 {{ $user->name }} {{ $user->prenom }}
+                                    👤 {{ $user->nom }} {{ $user->prenom }}
                                 </option>
                             @endforeach
                         </select>
@@ -224,7 +224,7 @@
                                         <svg class="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                         </svg>
-                                        {{ $tech->name }} {{ $tech->prenom }}
+                                        {{ $tech->nom }} {{ $tech->prenom }}
                                     </span>
                                 @endforeach
                             </div>

@@ -160,7 +160,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex flex-wrap gap-1.5">
                                     @forelse($intervention->techniciens as $technicien)
-                                        <a @if($technicien->id == Auth::user()->id) href="{{ route('user.detail', $technicien->id )}}"
+                                        <a @if($technicien->id == Auth::user()->id || Auth::user()->role === 'admin') href="{{ route('user.detail', $technicien->id )}}"
                                            @endif
                                            class="inline-flex items-center gap-1.5 px-2 py-1 bg-slate-800 border border-slate-700 rounded-md hover:border-blue-500 hover:bg-slate-750 transition-all group">
                                             <div

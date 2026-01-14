@@ -57,7 +57,7 @@
         <div class="col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-6">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-lg font-bold text-white">Interventions a venir</h3>
-                @can('view-planning')
+                @can('manage-planning')
                     <a href="{{ route('planning') }}" class="text-sm text-blue-500 hover:text-blue-400">Voir planning
                         →</a>
                 @endcan

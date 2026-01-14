@@ -70,7 +70,7 @@ class User extends Authenticatable
         return $this->belongsToMany(
             InterventionPlanifiee::class,
             'intervention_planifiee_techniciens',
-            'idInterventionPlanifiee',
+            'idUser',
             'idInterventionPlanifiee'
         );
     }
