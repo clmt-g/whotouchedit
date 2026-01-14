@@ -27,8 +27,8 @@ class Machine extends Model
     ];
 
     // --- Relations ---
-    // FIXME : quand on clique sur une machine depuis intervention.show, on peut voir toutes les inter d'une machine
-    public function interventions() : HasMany {
+    public function interventions(): HasMany
+    {
         return $this->hasMany(Intervention::class, 'idMachine', 'idMachine');
     }
 
