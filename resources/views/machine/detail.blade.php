@@ -89,7 +89,12 @@
                     <input
                         type="text"
                         name="etat"
-                        value="{{ $machine->etat }}"
+                        value="@if($machine->etat === 'opérationnelle') Opérationnelle
+                                @elseif($machine->etat === 'en_maintenance') En maintenance
+                                @elseif($machine->etat === 'planifiée') Planifiée
+                                @elseif($machine->etat === 'hors_service') Hors service
+                                @else En panne
+                                @endif"
                         class="w-full bg-slate-800 text-white px-4 py-2.5 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                         readonly
                     >

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnalytiqueController;
 use App\Http\Controllers\InterventionController;

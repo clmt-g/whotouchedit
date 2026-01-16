@@ -361,27 +361,41 @@ class AnalytiqueService
     /** return the Mean Time Between Failures (MTBF) in hours (for the all parc)
      * @return float
      */
-    public function mtbf() : float {
-        $interventions = Intervention::all()->where('statut', 'terminee');
+    public function mtbf(): float
+    {
+        // Récupérer toutes les interventions terminées, groupées par machine
+        $interventions = Intervention::where('statut', 'terminee')
+            ->orderBy('idMachine')
+            ->orderBy('dateHeureDebut')
+            ->get()
+            ->groupBy('idMachine');
+
         $totalUptime = 0;
-        $nbInterventions = count($interventions);
+        $totalIntervals = 0;
 
-        foreach ($interventions as $intervention) {
-            $machine = $intervention->machine;
-            $lastIntervention = Intervention::where('idMachine', $machine->id)
-                ->where('statut', 'terminee')
-                ->where('dateHeureFin', '<', $intervention->dateHeureDebut)
-                ->orderBy('dateHeureFin', 'desc')
-                ->first();
+        foreach ($interventions as $idMachine => $machineInterventions) {
+            // Il faut au moins 2 interventions pour calculer un intervalle
+            if ($machineInterventions->count() < 2) {
+                continue;
+            }
 
-            if ($lastIntervention) {
-                $lastEnd = Carbon::parse($lastIntervention->dateHeureFin);
-                $currentStart = Carbon::parse($intervention->dateHeureDebut);
+            // Calculer les intervalles entre interventions consécutives
+            for ($i = 1; $i < $machineInterventions->count(); $i++) {
+                $previous = $machineInterventions[$i - 1];
+                $current = $machineInterventions[$i];
+
+                $lastEnd = Carbon::parse($previous->dateHeureFin);
+                $currentStart = Carbon::parse($current->dateHeureDebut);
+
+                // Ajouter le temps entre la fin de l'intervention précédente
+                // et le début de la suivante
                 $totalUptime += $lastEnd->diffInHours($currentStart);
+                $totalIntervals++;
             }
         }
 
-        $mtbf = $nbInterventions > 0 ? $totalUptime / $nbInterventions : 0;
+        // MTBF = temps total de fonctionnement / nombre d'intervalles
+        $mtbf = $totalIntervals > 0 ? $totalUptime / $totalIntervals : 0;
 
         return round($mtbf, 2);
     }
@@ -389,19 +403,32 @@ class AnalytiqueService
     /** return the Mean Time To Failure (MTTF) in hours (for the all parc)
      * @return float
      */
-    public function mttf() : float {
-        $interventions = Intervention::all()->where('statut', 'terminee');
-        $totalDowntime = 0;
-        $nbInterventions = count($interventions);
+    public function mttf(): float
+    {
+        $mttf = 0;
+        $count = 0;
+        $machines = Machine::all();
 
-        foreach ($interventions as $intervention) {
-            $start = Carbon::parse($intervention->dateHeureDebut);
-            $end = Carbon::parse($intervention->dateHeureFin);
-            $totalDowntime += $start->diffInHours($end);
+        foreach ($machines as $machine) {
+            $machineId = $machine->idMachine;
+            $intervention = Intervention::where('idMachine', $machineId)
+                ->where('statut', 'terminee')
+                ->orderBy('dateHeureDebut', 'asc')
+                ->first();
+
+            if ($intervention && $machine->dateInstallation) {
+                $start = Carbon::parse($machine->dateInstallation);
+                $end = Carbon::parse($intervention->dateHeureDebut);
+                $totalUptime = $start->diffInHours($end);
+
+                if ($totalUptime > 0) { // Évite les valeurs négatives
+                    $mttf += $totalUptime;
+                    $count++;
+                }
+            }
         }
 
-        $mttf = $nbInterventions > 0 ? $totalDowntime / $nbInterventions : 0;
-
-        return round($mttf, 2);
+        // Division pour avoir la moyenne
+        return $count > 0 ? round($mttf / $count, 2) : 0;
     }
 }

@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
         });
         // delete
         Gate::define('delete-user', function (User $user) {
-            return $user->status === 'admin';
+            return $user->role === 'admin';
         });
         // add
         Gate::define('add-user', function (User $user) {

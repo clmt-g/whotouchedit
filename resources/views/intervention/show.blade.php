@@ -162,8 +162,11 @@
                                         </svg>
                                     </div>
                                     <span
-                                        class="text-sm text-blue-400 hover:text-blue-600 font-medium underline decoration-blue-600 hover:decoration-white underline-offset-2 transition-colors">
-                                        <a href="{{ route('user.detail', $intervention->user->id) }}">Tech #{{ $intervention->user->nom }} {{ $intervention->user->prenom }}</a>
+                                        class="text-sm font-medium {{ $intervention->user ? 'text-blue-400 hover:text-blue-600 underline decoration-blue-600 hover:decoration-white underline-offset-2 transition-colors' : 'text-gray-400' }}">                                        @if(!$intervention->user)
+                                            <em class="text-gray-500">Utilisateur supprimé</em>
+                                        @else
+                                            <a href="{{ route('user.detail', $intervention->user->id) }}">Tech #{{ $intervention->user->nom }} {{ $intervention->user->prenom }}</a>
+                                        @endif
                                     </span>
                                 </div>
                             </td>

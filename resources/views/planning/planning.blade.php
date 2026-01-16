@@ -104,16 +104,6 @@
             background: #0c1222;
         }
 
-        /* Événements */
-        .fc-event {
-            border: none !important;
-            border-radius: 6px !important;
-            padding: 0.25rem 0.5rem !important;
-            margin: 0.125rem 0 !important;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
         .fc-event:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -213,6 +203,125 @@
                 display: flex;
                 justify-content: center;
             }
+        }
+
+        /* Événements - Style moderne et cohérent */
+        .fc-event {
+            border: none !important;
+            border-left: 3px solid !important;
+            border-radius: 6px !important;
+            padding: 0.375rem 0.625rem !important;
+            margin: 0.125rem 0.25rem !important;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .fc-event:hover {
+            transform: translateX(2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            filter: brightness(1.1);
+        }
+
+        /* Titre de l'événement */
+        .fc-event-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            line-height: 1.3;
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Heure de l'événement */
+        .fc-event-time {
+            font-weight: 600;
+            font-size: 0.75rem;
+            opacity: 0.9;
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Conteneur principal de l'événement */
+        .fc-event-main {
+            color: #ffffff !important;
+        }
+
+        /* Style spécifique pour chaque statut - À ajouter dans votre PHP */
+        /* En attente - Jaune */
+        .fc-event[style*="rgb(250, 204, 21)"],
+        .fc-event[style*="#facc15"] {
+            background: linear-gradient(135deg, rgba(250, 204, 21, 0.25) 0%, rgba(217, 119, 6, 0.15) 100%) !important;
+            border-left-color: #facc15 !important;
+        }
+
+        /* En cours - Orange */
+        .fc-event[style*="rgb(251, 146, 60)"],
+        .fc-event[style*="#fb923c"] {
+            background: linear-gradient(135deg, rgba(251, 146, 60, 0.25) 0%, rgba(249, 115, 22, 0.15) 100%) !important;
+            border-left-color: #fb923c !important;
+        }
+
+        /* Terminée - Vert */
+        .fc-event[style*="rgb(34, 197, 94)"],
+        .fc-event[style*="#22c55e"] {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(21, 128, 61, 0.15) 100%) !important;
+            border-left-color: #22c55e !important;
+        }
+
+        /* Annulée - Rouge */
+        .fc-event[style*="rgb(239, 68, 68)"],
+        .fc-event[style*="#ef4444"] {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25) 0%, rgba(185, 28, 28, 0.15) 100%) !important;
+            border-left-color: #ef4444 !important;
+        }
+
+        /* Planifiée - Bleu */
+        .fc-event[style*="rgb(59, 130, 246)"],
+        .fc-event[style*="#3b82f6"] {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(37, 99, 235, 0.15) 100%) !important;
+            border-left-color: #3b82f6 !important;
+        }
+
+        /* Vue liste - événements */
+        .fc-list-event:hover td {
+            background: #1e293b !important;
+        }
+
+        .fc-list-event-dot {
+            border-width: 4px !important;
+            border-radius: 50%;
+        }
+
+        /* Vue semaine/jour - événements */
+        .fc-timegrid-event {
+            border-radius: 6px !important;
+            border-left-width: 3px !important;
+            backdrop-filter: blur(8px);
+        }
+
+        .fc-timegrid-event:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            filter: brightness(1.1);
+        }
+
+        /* Badge pour le nombre d'événements */
+        .fc-daygrid-event-dot {
+            display: none;
+        }
+
+        /* Animation subtile au survol */
+        @keyframes pulse-soft {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.9;
+            }
+        }
+
+        .fc-event:hover {
+            animation: pulse-soft 2s ease-in-out infinite;
         }
     </style>
 @endpush

@@ -176,7 +176,7 @@
                                                 class="text-xs text-gray-300 group-hover:text-white font-medium whitespace-nowrap transition-colors">{{ $technicien->nom }} {{ $technicien->prenom }}</span>
                                         </a>
                                     @empty
-                                        <span class="text-sm text-gray-500 italic">Aucun technicien assigné</span>
+                                        <span class="text-sm text-gray-500 italic">Utilisateur supprimé</span>
                                     @endforelse
                                 </div>
                             </td>
