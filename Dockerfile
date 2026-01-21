@@ -7,14 +7,22 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
+    libcurl4-openssl-dev \
+    libevent-dev \
+    libicu-dev \
     zip \
     unzip \
     nodejs \
     npm \
-    default-mysql-client
+    default-mysql-client \
+    && rm -rf /var/lib/apt/lists/*
 
 # Installation des extensions PHP
 RUN docker-php-ext-install pdo_mysql mysqli mbstring exif pcntl bcmath gd
+
+# Installation des extensions PECL pour ext-http
+RUN pecl install raphf propro pecl_http \
+    && docker-php-ext-enable raphf propro http
 
 # Installation de Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
