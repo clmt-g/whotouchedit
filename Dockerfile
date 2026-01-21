@@ -20,9 +20,9 @@ RUN apt-get update && apt-get install -y \
 # Installation des extensions PHP
 RUN docker-php-ext-install pdo_mysql mysqli mbstring exif pcntl bcmath gd
 
-# Installation des extensions PECL pour ext-http
-RUN pecl install raphf propro pecl_http \
-    && docker-php-ext-enable raphf propro http
+# Installation de pecl_http (v4.x compatible avec PHP 8.4)
+RUN pecl install pecl_http \
+    && docker-php-ext-enable http
 
 # Installation de Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
