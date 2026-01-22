@@ -1,0 +1,1 @@
+web: php artisan config:clear && php artisan route:clear && php artisan view:clear && php artisan migrate --force && php -d display_errors=1 -d error_reporting=E_ALL artisan serve --host=0.0.0.0 --port=$PORT
