@@ -1,5 +1,26 @@
 [phases.setup]
-nixPkgs = ["php83", "php83Extensions.pdo", "php83Extensions.pdo_mysql", "php83Extensions.mbstring"]
+nixPkgs = [
+  "php83",
+  "php83Extensions.pdo",
+  "php83Extensions.pdo_mysql",
+  "php83Extensions.mbstring",
+  "php83Extensions.curl",
+  "php83Extensions.dom",
+  "php83Extensions.fileinfo",
+  "php83Extensions.filter",
+  "php83Extensions.hash",
+  "php83Extensions.openssl",
+  "php83Extensions.pcre",
+  "php83Extensions.session",
+  "php83Extensions.tokenizer",
+  "php83Extensions.xml"
+]
+
+[phases.install]
+cmds = ["composer install --no-dev --optimize-autoloader"]
+
+[phases.build]
+cmds = ["php -m"]
 
 [start]
-cmd = "php artisan optimize:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "php artisan optimize:clear && php artisan config:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
