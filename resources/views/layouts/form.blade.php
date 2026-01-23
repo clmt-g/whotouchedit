@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'WhoTouchedIt - Exemple')</title>
-
     <!-- CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
-<body class="bg-slate-950 p-8">
-
+<body class="bg-slate-950">
+<!-- Sidebar fixe -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
     @include('components.sidebar')
 </aside>
 
-<div class="max-w-5xl mx-auto">
-    @yield('content')
+<!-- Contenu principal avec marge à gauche = largeur de la sidebar -->
+<div class="ml-64 p-8">
+    <div class="max-w-5xl mx-auto">
+        @yield('content')
+    </div>
 </div>
-
 </body>
 </html>
-
 @stack('scripts')
