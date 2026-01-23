@@ -3,6 +3,9 @@ FROM dunglas/frankenphp:php8.3-bookworm
 # Installer l'extension PDO MySQL
 RUN install-php-extensions pdo_mysql
 
+# Installer Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
 WORKDIR /app
 
 # Copier les fichiers
@@ -18,4 +21,3 @@ RUN mkdir -p storage/framework/{sessions,views,cache,testing} storage/logs boots
 
 # Commande de démarrage
 CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
-
