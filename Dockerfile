@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:php8.3-bookworm
+FROM php:8.3-cli
 
 # Installer Node.js et les dépendances système
 RUN apt-get update && apt-get install -y \
@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
-    && install-php-extensions pdo_mysql \
+    && docker-php-ext-install pdo_mysql \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Installer Composer
