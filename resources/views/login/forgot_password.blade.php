@@ -27,6 +27,19 @@
         <!-- Card -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl">
 
+            <!-- Dev Warning -->
+            <div class="mb-6 bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
+                <div class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                    </svg>
+                    <p class="text-sm text-yellow-300">
+                        Cette fonctionnalité est disponible uniquement en local. L'envoi d'email en production nécessite un nom de domaine vérifié non disponible dans cette version de démonstration.
+                    </p>
+                </div>
+            </div>
+
             <!-- Success Message -->
             @if (session('success'))
                 <div class="mb-6 bg-green-500/10 border border-green-500/20 rounded-lg p-4">
