@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\MachineController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgotPasswordController;
 
 // ========== Routes d'authentification (HORS middleware auth) ==========
 Route::get('/login', function () {
@@ -18,6 +19,19 @@ Route::get('/login', function () {
 Route::post('/login', [AuthController::class, 'authenticate'])->name('do_login');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('do_logout');
+
+// ========== Routes pour reset le mot de passe ==========
+Route::get('/password/forgot', [ForgotPasswordController::class, 'showForgotForm'])
+    ->name('password.forgot');
+
+Route::post('/password/forgot', [ForgotPasswordController::class, 'sendResetLink'])
+    ->name('password.send');
+
+Route::get('/password/reset/{token}', [ForgotPasswordController::class, 'showResetForm'])
+    ->name('password.reset.form');
+
+Route::post('/password/reset', [ForgotPasswordController::class, 'resetPassword'])
+    ->name('password.reset');
 
 // ========== Routes protégées ==========
 Route::middleware('auth')->group(function () {

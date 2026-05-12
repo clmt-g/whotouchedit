@@ -131,7 +131,7 @@
                             class="text-sm text-gray-400 group-hover:text-gray-300 transition">Se souvenir de moi</span>
                     </label>
 
-                    <a href="#" class="text-sm text-blue-400 hover:text-blue-300 transition">
+                    <a href="{{ route('password.forgot') }}" class="text-sm text-blue-400 hover:text-blue-300 transition">
                         Mot de passe oublié ?
                     </a>
                 </div>
