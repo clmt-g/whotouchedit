@@ -80,13 +80,31 @@
                             :options="$options"
                         />
                         <!-- Statut -->
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                            Statut
-                        </th>
+                        <x-filter-dropdown
+                            id="statut"
+                            label="Statut"
+                            :options="[
+                                '' => 'Tous les statut',
+                                'planifiee' => 'Planifiée',
+                                'en_cours' => 'En cours',
+                                'terminee' => 'Terminée',
+                                'annulee' => 'Annulée',
+                            ]"
+                        />
                         <!-- Frequence -->
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                            Fréquence
-                        </th>
+                        <x-filter-dropdown
+                            id="frequence"
+                            label="Frequence"
+                            :options="[
+                                '' => 'Toutes les fréquences',
+                                'quotidienne' => 'Quotidienne',
+                                'hebdomadaire' => 'Hebdomadaire',
+                                'mensuelle' => 'Mensuelle',
+                                'trimestrielle' => 'Trimestrielle',
+                                'annuelle' => 'Annuelle',
+                                'ponctuelle' => 'Ponctuelle',
+                            ]"
+                        />
                         <!-- Action -->
                         <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Actions
