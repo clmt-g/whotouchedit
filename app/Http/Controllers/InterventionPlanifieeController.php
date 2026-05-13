@@ -24,11 +24,14 @@ class InterventionPlanifieeController extends Controller
 
         $interventions = InterventionPlanifiee::ForUser(Auth::user())->get();
 
+        // Values used for the filters
         $machines = Machine::all();
+        $users = User::all();
 
         return view('intervention_planifiee.show', [
             'interventions' => $interventions,
-            'machines' => $machines
+            'machines' => $machines,
+            'users' => $users,
         ]);
     }
 

@@ -62,16 +62,23 @@
                                 $options[$machine->nom] = $machine->nom;
                             }
                         @endphp
-
                         <x-filter-dropdown
                             id="machine"
                             label="Machine"
                             :options="$options"
                         />
                         <!-- Technicien -->
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                            Technicien
-                        </th>
+                        @php
+                            $options = ['' => 'Tous les techniciens'];
+                            foreach ($users->where('role', 'technicien') as $user) {
+                                $options[$user->nom . " " . $user->prenom] = $user->nom . " " . $user->prenom;
+                            }
+                        @endphp
+                        <x-filter-dropdown
+                            id="technicien"
+                            label="Technicien"
+                            :options="$options"
+                        />
                         <!-- Statut -->
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Statut
