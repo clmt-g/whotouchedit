@@ -24,7 +24,12 @@ class InterventionPlanifieeController extends Controller
 
         $interventions = InterventionPlanifiee::ForUser(Auth::user())->get();
 
-        return view('intervention_planifiee.show', ['interventions' => $interventions]);
+        $machines = Machine::all();
+
+        return view('intervention_planifiee.show', [
+            'interventions' => $interventions,
+            'machines' => $machines
+        ]);
     }
 
     /** display the infos of the intervention_planifiee identified by the key $id
