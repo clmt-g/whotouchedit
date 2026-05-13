@@ -31,24 +31,55 @@
                 <table class="w-full">
                     <thead class="bg-slate-800/50">
                     <tr>
+                        <!-- Number -->
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             #
                         </th>
+                        <!-- Id -->
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Id
                         </th>
+                        <!-- Periode -->
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Période
                         </th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                            Statut
-                        </th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                            Machine
-                        </th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                            Technicien
-                        </th>
+                        <!-- Statut -->
+                        <x-filter-dropdown
+                            id="statut"
+                            label="Statut"
+                            :options="[
+                                '' => 'Tous les statuts',
+                                'en attente' => 'En attente',
+                                'en cours' => 'En cours',
+                                'terminee' => 'Terminée',
+                                'annulee' => 'Annulée',
+                            ]"
+                        />
+                        <!-- Machine -->
+                        @php
+                            $options = ['' => 'Toutes les machines'];
+                            foreach ($machines as $machine) {
+                                $options[$machine->nom] = $machine->nom;
+                            }
+                        @endphp
+                        <x-filter-dropdown
+                            id="machine"
+                            label="Machine"
+                            :options="$options"
+                        />
+                        <!-- Technicien -->
+                        @php
+                            $options = ['' => 'Tous les techniciens'];
+                            foreach ($users->where('role', 'technicien') as $user) {
+                                $options[$user->nom . " " . $user->prenom] = $user->nom . " " . $user->prenom;
+                            }
+                        @endphp
+                        <x-filter-dropdown
+                            id="technicien"
+                            label="Technicien"
+                            :options="$options"
+                        />
+                        <!-- Actions -->
                         <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Actions
                         </th>

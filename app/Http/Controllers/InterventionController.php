@@ -22,7 +22,16 @@ class InterventionController extends Controller
 
         // get all interventions for the connected user
         $interventions = Intervention::ForUser(Auth::user())->get();
-        return view('intervention.show', ['interventions' => $interventions]);
+
+        // values for filter
+        $machines = Machine::all();
+        $users = User::all();
+
+        return view('intervention.show', [
+            'interventions' => $interventions,
+            'machines' => $machines,
+            'users' => $users,
+        ]);
     }
 
     /** display the detail page of an intervention according to the key $id
