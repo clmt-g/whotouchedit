@@ -168,6 +168,18 @@
                                                 </svg>
                                             </a>
                                         @endcan
+
+                                        @can('impersonnifier-user', $user)
+                                                <a href="{{ route('impersonate', $user->id) }}"
+                                                   title="Impersonnifier cet utilisateur"
+                                                   class="p-2 text-gray-400 hover:text-orange-400 hover:bg-orange-500/10 rounded-lg transition-all duration-200 hover:scale-110">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                              d="M17 20h5V4h-5m0 0l3 3m-3-3l3-3M9 16a4 4 0 100-8 4 4 0 000 8zm0 0c-3.314 0-6 1.343-6 3v1h12v-1c0-1.657-2.686-3-6-3z"/>
+                                                    </svg>
+                                                </a>
+                                        @endcan
+
                                         @can('update-password-user', $user)
                                             <a href="{{ route('user.update_password', $user->id) }}"
                                                title="Modifier le mot de passe"

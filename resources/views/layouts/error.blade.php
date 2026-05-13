@@ -10,17 +10,19 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon-192.png') }}">
     <link rel="apple-touch-icon" sizes="512x512" href="{{ asset('favicon-512.png') }}">
 
-    <!-- CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
-<body class="bg-slate-950 p-8">
+<body class="bg-slate-950 min-h-screen flex flex-col">
 
-<div class="max-w-5xl mx-auto">
-    @yield('content')
+@include('components.impersonate-bar')
+
+<div class="p-8 flex-1">
+    <div class="max-w-5xl mx-auto">
+        @yield('content')
+    </div>
 </div>
 
+@stack('scripts')
 </body>
 </html>
-
-@stack('scripts')

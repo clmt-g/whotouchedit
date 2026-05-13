@@ -82,6 +82,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('add-user', function (User $user) {
             return $user->role === 'admin';
         });
+        // impersonnifier
+        Gate::define('impersonnifier-user', function (User $currentUser, User $targetUser) {
+            return $currentUser->role === 'admin' && $targetUser->role !== 'admin';
+        });
 
         // ===== Machine Gates =====
         // show

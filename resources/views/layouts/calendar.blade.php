@@ -23,6 +23,7 @@
     @include('components.sidebar')
 </aside>
 <main class="ml-64 min-h-screen">
+    @include('components.impersonate-bar')
     @include('components.header')
     <div class="p-8">
         @include('components.toast')

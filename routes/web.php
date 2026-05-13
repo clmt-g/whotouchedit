@@ -33,6 +33,9 @@ Route::get('/password/reset/{token}', [ForgotPasswordController::class, 'showRes
 Route::post('/password/reset', [ForgotPasswordController::class, 'resetPassword'])
     ->name('password.reset');
 
+// ========== Route d'impersonnification ==========
+Route::impersonate();
+
 // ========== Routes protégées ==========
 Route::middleware('auth')->group(function () {
 

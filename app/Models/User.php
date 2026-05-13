@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Lab404\Impersonate\Models\Impersonate;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, softDeletes;
+    use HasFactory, Notifiable, softDeletes, Impersonate;
 
     protected $table = 'users';
     protected $primaryKey = 'id';
@@ -73,5 +74,17 @@ class User extends Authenticatable
             'idUser',
             'idInterventionPlanifiee'
         );
+    }
+
+    // Définit qui peut être impersonnifié
+    public function canBeImpersonated(): bool
+    {
+        return $this->role !== 'admin';
+    }
+
+    // Définit qui peut impersonnifier
+    public function canImpersonate(): bool
+    {
+        return $this->role === 'admin';
     }
 }
