@@ -47,12 +47,28 @@
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Date installation
                         </th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                            Etat
-                        </th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                            Criticite
-                        </th>
+                        <x-filter-dropdown
+                            id="etat"
+                            label="Etat"
+                            :options="[
+                                '' => 'Tous les etats',
+                                'opérationnelle' => 'Opérationnelle',
+                                'en maintenance' => 'En maintenance',
+                                'planifiée' => 'Planifiée',
+                                'en panne' => 'En panne',
+                                'hors service' => 'Hors service',
+                            ]"
+                        />
+                        <x-filter-dropdown
+                            id="criticite"
+                            label="Criticite"
+                            :options="[
+                                '' => 'Tous les etats',
+                                'faible' => 'Faible',
+                                'moyen' => 'Moyen',
+                                'critique' => 'Critique',
+                            ]"
+                        />
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Localisation
                         </th>
