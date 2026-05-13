@@ -31,15 +31,19 @@
                 <table class="w-full">
                     <thead class="bg-slate-800/50">
                     <tr>
+                        <!-- Number -->
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             #
                         </th>
+                        <!-- Id -->
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Id
                         </th>
+                        <!-- Période -->
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Période
                         </th>
+                        <!-- Type -->
                         <x-filter-dropdown
                             id="type"
                             label="Type"
@@ -51,19 +55,32 @@
                                 'amelioration' => 'Amélioration',
                             ]"
                         />
+                        <!-- Machine -->
+                        @php
+                            $options = ['' => 'Toutes les machines'];
+                            foreach ($machines as $machine) {
+                                $options[$machine->nom] = $machine->nom;
+                            }
+                        @endphp
 
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                            Machine
-                        </th>
+                        <x-filter-dropdown
+                            id="machine"
+                            label="Machine"
+                            :options="$options"
+                        />
+                        <!-- Technicien -->
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Technicien
                         </th>
+                        <!-- Statut -->
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Statut
                         </th>
+                        <!-- Frequence -->
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Fréquence
                         </th>
+                        <!-- Action -->
                         <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Actions
                         </th>

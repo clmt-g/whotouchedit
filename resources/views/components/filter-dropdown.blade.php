@@ -1,5 +1,13 @@
 @props(['id', 'label', 'options'])
 
+@php
+    $limit = 5;
+    $allOptions = collect($options);
+    $visibleOptions = $allOptions->take($limit);
+    $hiddenOptions = $allOptions->skip($limit);
+    $hasMore = $hiddenOptions->count() > 0;
+@endphp
+
 <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
     <div class="relative inline-flex items-center gap-2">
         {{ $label }}
@@ -21,7 +29,7 @@
                 </div>
 
                 <div class="p-1.5 flex flex-col gap-0.5">
-                    @foreach($options as $val => $optionLabel)
+                    @foreach($visibleOptions as $val => $optionLabel)
                         <button onclick="setFilter('filter-{{ $id }}', '{{ $val }}')"
                                 data-value="{{ $val }}"
                                 class="filter-option w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-sm text-slate-300
@@ -35,6 +43,31 @@
                             </svg>
                         </button>
                     @endforeach
+
+                    @if($hasMore)
+                        <!-- Options cachées -->
+                        <div id="filter-{{ $id }}-more" class="hidden flex flex-col gap-0.5">
+                            @foreach($hiddenOptions as $val => $optionLabel)
+                                <button onclick="setFilter('filter-{{ $id }}', '{{ $val }}')"
+                                        data-value="{{ $val }}"
+                                        class="filter-option w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-sm text-slate-300
+                                               hover:bg-slate-800 hover:text-white transition-all text-left">
+                                    <span class="w-2 h-2 rounded-full flex-shrink-0 bg-slate-500"></span>
+                                    {{ $optionLabel }}
+                                    <svg class="check-icon ml-auto w-3.5 h-3.5 text-indigo-400 opacity-0"
+                                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                </button>
+                            @endforeach
+                        </div>
+
+                        <!-- Bouton voir plus / voir moins -->
+                        <button onclick="toggleMore('filter-{{ $id }}-more', this)"
+                                class="w-full mt-1 py-1.5 text-xs text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-all text-center">
+                            Voir plus ({{ $hiddenOptions->count() }})
+                        </button>
+                    @endif
                 </div>
 
                 <div class="p-1.5 border-t border-slate-700/40 flex gap-1.5">

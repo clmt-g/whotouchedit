@@ -18,6 +18,20 @@ function toggleDropdown(id) {
 }
 
 /**
+ * If option.length > 5 the user can click on 'voir plus' / 'voir moins'
+ * This function is used to either show all the options or only five
+ * @param id
+ * @param btn
+ */
+function toggleMore(id, btn) {
+    const el = document.getElementById(id);
+    const isHidden = el.classList.toggle('hidden');
+    btn.textContent = isHidden
+        ? btn.textContent.replace('Voir moins', 'Voir plus (' + el.querySelectorAll('button').length + ')')
+        : 'Voir moins';
+}
+
+/**
  * Add the filter to the activeFilters variable
  * And change the style of the active filter (UI)
  * @param filterId
