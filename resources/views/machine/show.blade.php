@@ -32,28 +32,28 @@
                 <table class="w-full">
                     <thead class="bg-gradient-to-r from-slate-800/80 to-slate-800/60 backdrop-blur-sm">
                     <tr>
-                        <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             #
                         </th>
-                        <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Id
                         </th>
-                        <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Nom
                         </th>
-                        <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Référence
                         </th>
-                        <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Date installation
                         </th>
-                        <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Etat
                         </th>
-                        <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Criticite
                         </th>
-                        <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Localisation
                         </th>
                         <th class="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
