@@ -31,3 +31,6 @@
 @stack('scripts')
 </body>
 </html>
+
+<script src="{{ asset('js/table-filter.js') }}"></script>
+

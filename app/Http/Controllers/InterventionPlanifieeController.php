@@ -23,6 +23,7 @@ class InterventionPlanifieeController extends Controller
         $this->authorize('manage-interventions-planifiees');
 
         $interventions = InterventionPlanifiee::ForUser(Auth::user())->get();
+
         return view('intervention_planifiee.show', ['interventions' => $interventions]);
     }
 

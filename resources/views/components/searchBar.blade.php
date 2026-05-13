@@ -1,7 +1,7 @@
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 mb-6">
     <div class="relative">
         <input
-            id="machine-search"
+            id="search-input"
             type="text"
             placeholder="Rechercher..."
             class="w-full bg-slate-800 text-white pl-12 pr-4 py-3 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 transition"
@@ -29,7 +29,7 @@
 
 @push('scripts')
     <script>
-        const searchInput = document.getElementById('machine-search');
+        const searchInput = document.getElementById('search-input');
         const clearButton = document.getElementById('clear-search');
         const rows = document.querySelectorAll('#search-table tr');
 
