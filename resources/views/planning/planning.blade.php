@@ -643,7 +643,7 @@
         }
 
         /**
-         * Function to download the calendar to pdf
+         * Used to download the calendar to pdf
          */
         document.getElementById('btn-export-pdf').addEventListener('click', async function () {
             const btn = this;
@@ -660,7 +660,7 @@
 
                 const canvas = await html2canvas(calendarEl, {
                     backgroundColor: '#0f172a',
-                    scale: 2, // meilleure résolution
+                    scale: 2,
                     useCORS: true,
                     logging: false,
                 });
