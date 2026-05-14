@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/intervention/update/{id}', [InterventionController::class, 'update'])->name('intervention.update');
     Route::put('intervention/update/{id}', [InterventionController::class, 'do_update'])->name('intervention.do_update');
     Route::delete('/intervention/delete/{id}', [InterventionController::class, 'do_delete'])->name('intervention.do_delete');
+    Route::patch('/intervention/{id}/move', [InterventionController::class, 'move'])->name('intervention.move');
 
     // ========== User ==========
     Route::get('/user', [UserController::class, 'show'])->name('user');
@@ -83,6 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('intervention_planifiee/delete/{id}', [InterventionPlanifieeController::class, 'do_delete'])->name('intervention_planifiee.do_delete');
     Route::get('/intervention_planifiee/update_statut/{id}', [InterventionPlanifieeController::class, 'update_statut'])->name('intervention_planifiee.update_statut');
     Route::put('/intervention_planifiee/do_update_statut/{id}', [InterventionPlanifieeController::class, 'do_update_statut'])->name('intervention_planifiee.do_update_statut');
+    Route::patch('/intervention-planifiee/{id}/move', [InterventionPlanifieeController::class, 'move'])->name('intervention_planifiee.move');
 
     // ========== Planning ===========
     Route::get('/planning', [PlanningController::class, 'planning'])->name('planning');

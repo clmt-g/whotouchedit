@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddInterventionPlanifieeRequest;
+use App\Http\Requests\MoveInterventionPlanifieeRequest;
 use App\Http\Requests\UpdateInterventionPlanifieeRequest;
 use App\Models\InterventionPlanifiee;
 use App\Models\Machine;
@@ -252,4 +253,28 @@ class InterventionPlanifieeController extends Controller
         }
     }
 
+    /** Change the date of the intervention when draged and droped
+     * @param MoveInterventionPlanifieeRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    // InterventionPlanifieeController
+    public function move(MoveInterventionPlanifieeRequest $request, $id)
+    {
+        $this->authorize('update-intervention-planifiee');
+
+        $validated = $request->validated();
+
+        try {
+            InterventionPlanifiee::findOrFail($id)->update([
+                'dateDebut' => $validated['dateDebut'],
+                'dateFin'   => $validated['dateFin'],
+            ]);
+
+            return response()->json(['success' => true]);
+
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
 }

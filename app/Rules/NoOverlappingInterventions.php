@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * vérifie qu'aucun technicien assigné n'a déjà une intervention sur le créneau demandé
+ */
+
 namespace App\Rules;
 
 use App\Models\Intervention;

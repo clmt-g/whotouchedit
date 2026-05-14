@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * vérifie que la machine n'a pas déjà une intervention sur ce créneau
+ */
+
 namespace App\Rules;
 
 use App\Models\Intervention;

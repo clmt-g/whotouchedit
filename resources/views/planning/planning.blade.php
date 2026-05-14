@@ -435,7 +435,11 @@
                 borderColor: '{{ $c['border'] }}',
                 textColor: '#ffffff',
                 url: '{{ route('intervention.detail', $intervention->idIntervention) }}',
-                status: '{{ $intervention->statut }}'
+                status: '{{ $intervention->statut }}',
+                extendedProps: {
+                    type: 'corrective',
+                    id: {{ $intervention->idIntervention }}
+                },
             },
                 @endforeach
 
@@ -458,7 +462,11 @@
                 borderColor: '{{ $c['border'] }}',
                 textColor: '#ffffff',
                 url: '{{ route('intervention_planifiee.detail', $inter->idInterventionPlanifiee) }}',
-                status: '{{ $inter->statut }}'
+                status: '{{ $inter->statut }}',
+                extendedProps: {
+                    type: 'planifiee',
+                    id: {{ $inter->idInterventionPlanifiee }}
+                },
             },
             @endforeach
         ];
@@ -498,10 +506,66 @@
                     window.open(info.event.url, '_self');
                 },
 
-                // Drag & drop (déplacement) FIXME
+                // Drag & drop
                 eventDrop: function (info) {
-                    console.log('Événement déplacé:', info.event.title);
-                    // Appeler votre API Laravel pour mettre à jour
+                    const event = info.event;
+                    const type  = event.extendedProps.type;
+                    const id    = event.extendedProps.id;
+
+                    const start = event.start.toISOString().slice(0, 19).replace('T', ' ');
+                    const end   = event.end
+                        ? event.end.toISOString().slice(0, 19).replace('T', ' ')
+                        : null;
+
+                    if (!end) {
+                        info.revert();
+                        showToast('error', "Impossible de déplacer : date de fin manquante.");
+                        return;
+                    }
+
+                    const routes = {
+                        corrective: `intervention/${id}/move`,
+                        planifiee:  `intervention-planifiee/${id}/move`,
+                    };
+
+                    const body = type === 'corrective'
+                        ? { dateHeureDebut: start, dateHeureFin: end }
+                        : { dateDebut: start,      dateFin: end      };
+
+                    fetch(routes[type], {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify(body),
+                    })
+                        .then(async res => {
+                            const data = await res.json();
+
+                            if (!res.ok) {
+                                const errors = data.errors ?? {};
+                                const firstError = Object.values(errors).flat()[0]
+                                    ?? data.message
+                                    ?? "Déplacement impossible : conflit détecté.";
+                                showToast('error', firstError);
+                                info.revert();
+                                return;
+                            }
+
+                            if (!data.success) {
+                                info.revert();
+                                showToast('error', data.message ?? "Erreur lors du déplacement.");
+                                return;
+                            }
+
+                            showToast('success', "Intervention déplacée avec succès.");
+                        })
+                        .catch(() => {
+                            info.revert();
+                            showToast('error', "Erreur réseau, veuillez réessayer.");
+                        });
                 },
 
                 // clic sur case vide
@@ -517,7 +581,8 @@
             calendar.render();
         });
 
-        // filtres
+        // === filtres ===
+        // Filters names
         const filtres = [
             'filtre-terminee',
             'filtre-annulee',
@@ -525,6 +590,7 @@
             'filtre-en_attente'
         ];
 
+        // Display the right events according to which filter button is clickec
         filtres.forEach((filtre) => document.getElementById(filtre).addEventListener('click', function () {
             let status = this.dataset.status;
 
@@ -536,31 +602,34 @@
             calendar.addEventSource(filteredEvents);
         }));
 
+        // Display all the events
         document.getElementById('filtre-tout').addEventListener('click', function () {
             calendar.removeAllEvents();
             calendar.addEventSource(allEvents);
         });
 
-        // modal
+        // === Modal ===
+        /* Open the modal */
+        function openInterventionModal() {
+            const modal = document.getElementById('interventionModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        /* Close the modal */
         function closeInterventionModal() {
             const modal = document.getElementById('interventionModal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
 
+        /* Display the right page */
         function goToIntervention(type) {
             let url = '';
             if (type === 'curative') url = "{{ route('intervention.add') }}";
             if (type === 'preventive') url = "{{ route('intervention_planifiee.add') }}";
 
-            // ajoute la date dans l'URL si tu veux
             window.location.href = url + '?date=' + window.selectedDate;
-        }
-
-        function openInterventionModal() {
-            const modal = document.getElementById('interventionModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
         }
 
     </script>

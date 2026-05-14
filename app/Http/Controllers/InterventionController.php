@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddInterventionRequest;
+use App\Http\Requests\MoveInterventionRequest;
 use App\Http\Requests\UpdateInterventionRequest;
 use App\Models\Intervention;
 use App\Models\Machine;
@@ -175,6 +176,30 @@ class InterventionController extends Controller
             return redirect()
             ->route('intervention')
             ->with('error', 'Une erreur est survenue lors de la suppression de l\'intervention');
+        }
+    }
+
+    /** Changed the date of the intervention when draged and droped
+     * @param MoveInterventionRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function move(MoveInterventionRequest $request, $id)
+    {
+        $this->authorize('update-intervention');
+
+        $validated = $request->validated();
+
+        try {
+            Intervention::findOrFail($id)->update([
+                'dateHeureDebut' => $validated['dateHeureDebut'],
+                'dateHeureFin'   => $validated['dateHeureFin'],
+            ]);
+
+            return response()->json(['success' => true]);
+
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
 }
