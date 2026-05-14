@@ -343,31 +343,41 @@
     </div>
 
     <!-- Filtres -->
-    <div class="mb-6 flex gap-2 flex-wrap">
-        <button id="filtre-annulee" data-status="annulee"
-                class="px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-red-400 rounded-lg text-sm font-medium hover:bg-yellow-500/20 transition">
-            <span class="inline-block w-2 h-2 rounded-full bg-red-400 mr-2"></span>
-            Annulee
-        </button>
-        <button id="filtre-en_attente" data-status="en_attente"
-                class="px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded-lg text-sm font-medium hover:bg-yellow-500/20 transition">
-            <span class="inline-block w-2 h-2 rounded-full bg-yellow-400 mr-2"></span>
-            En attente
-        </button>
-        <button id="filtre-en_cours" data-status="en_cours"
-                class="px-3 py-1.5 bg-orange-500/10 border border-orange-500/20 text-orange-400 rounded-lg text-sm font-medium hover:bg-orange-500/20 transition">
-            <span class="inline-block w-2 h-2 rounded-full bg-orange-400 mr-2"></span>
-            En cours
-        </button>
-        <button id="filtre-terminee" data-status="terminee"
-                class="px-3 py-1.5 bg-green-500/10 border border-green-500/20 text-green-400 rounded-lg text-sm font-medium hover:bg-green-500/20 transition">
-            <span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-2"></span>
-            Terminée
-        </button>
-        <button id="filtre-tout" data-status="tout"
-                class="px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-500/20 transition">
-            <span class="inline-block w-2 h-2 rounded-full bg-blue-400 mr-2"></span>
-            Tout affiché
+    <div class="mb-6 flex items-center justify-between gap-2 flex-wrap">
+        <div class="flex gap-2 flex-wrap">
+            <button id="filtre-annulee" data-status="annulee"
+                    class="px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-red-400 rounded-lg text-sm font-medium hover:bg-yellow-500/20 transition">
+                <span class="inline-block w-2 h-2 rounded-full bg-red-400 mr-2"></span>
+                Annulee
+            </button>
+            <button id="filtre-en_attente" data-status="en_attente"
+                    class="px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded-lg text-sm font-medium hover:bg-yellow-500/20 transition">
+                <span class="inline-block w-2 h-2 rounded-full bg-yellow-400 mr-2"></span>
+                En attente
+            </button>
+            <button id="filtre-en_cours" data-status="en_cours"
+                    class="px-3 py-1.5 bg-orange-500/10 border border-orange-500/20 text-orange-400 rounded-lg text-sm font-medium hover:bg-orange-500/20 transition">
+                <span class="inline-block w-2 h-2 rounded-full bg-orange-400 mr-2"></span>
+                En cours
+            </button>
+            <button id="filtre-terminee" data-status="terminee"
+                    class="px-3 py-1.5 bg-green-500/10 border border-green-500/20 text-green-400 rounded-lg text-sm font-medium hover:bg-green-500/20 transition">
+                <span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-2"></span>
+                Terminée
+            </button>
+            <button id="filtre-tout" data-status="tout"
+                    class="px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-500/20 transition">
+                <span class="inline-block w-2 h-2 rounded-full bg-blue-400 mr-2"></span>
+                Tout affiché
+            </button>
+        </div>
+        <button id="btn-export-pdf"
+                class="px-3 py-1.5 bg-slate-700 border border-slate-600 text-slate-200 rounded-lg text-sm font-medium hover:bg-slate-600 transition inline-flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            </svg>
+            Exporter PDF
         </button>
     </div>
 
@@ -632,5 +642,80 @@
             window.location.href = url + '?date=' + window.selectedDate;
         }
 
+        /**
+         * Function to download the calendar to pdf
+         */
+        document.getElementById('btn-export-pdf').addEventListener('click', async function () {
+            const btn = this;
+            btn.disabled = true;
+            btn.innerHTML = `
+        <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        Export en cours...`;
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const calendarEl = document.getElementById('calendar');
+
+                const canvas = await html2canvas(calendarEl, {
+                    backgroundColor: '#0f172a',
+                    scale: 2, // meilleure résolution
+                    useCORS: true,
+                    logging: false,
+                });
+
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'mm',
+                    format: 'a4',
+                });
+
+                const pdfWidth  = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const ratio     = canvas.width / canvas.height;
+                const imgHeight = pdfWidth / ratio;
+
+                // Titre + date
+                const title = document.querySelector('.fc-toolbar-title')?.textContent ?? 'Planning';
+                const today = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+                pdf.setFillColor(15, 23, 42); // bg-slate-950
+                pdf.rect(0, 0, pdfWidth, pdfHeight, 'F');
+
+                pdf.setFont('helvetica', 'bold');
+                pdf.setFontSize(16);
+                pdf.setTextColor(255, 255, 255);
+                pdf.text(`Planning des interventions — ${title}`, 10, 12);
+
+                pdf.setFont('helvetica', 'normal');
+                pdf.setFontSize(9);
+                pdf.setTextColor(148, 163, 184); // slate-400
+                pdf.text(`Exporté le ${today}`, 10, 19);
+
+                // Calendrier
+                const yOffset = 24;
+                const availableHeight = pdfHeight - yOffset - 5;
+                const finalHeight = Math.min(imgHeight, availableHeight);
+
+                pdf.addImage(imgData, 'PNG', 0, yOffset, pdfWidth, finalHeight);
+
+                pdf.save(`planning-${new Date().toISOString().slice(0, 10)}.pdf`);
+                showToast('success', 'Planning exporté avec succès !');
+
+            } catch (e) {
+                console.error(e);
+                showToast('error', "Erreur lors de l'export PDF.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            </svg>
+            Exporter PDF`;
+            }
+        });
     </script>
 @endpush
