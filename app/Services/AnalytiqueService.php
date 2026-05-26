@@ -239,12 +239,14 @@ class AnalytiqueService
 
         foreach ($interventionsPlanifiees as $interventionPlanifiee) {
             foreach ($interventionPlanifiee->techniciens as $technicien) {
-                if (!isset($nbInterPerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom])) {
-                    $nbInterPerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom] = 0;
+                $key = $technicien->nom . ' ' . $technicien->prenom;
+                if (!isset($nbInterPerTechnicien[$key])) {
+                    $nbInterPerTechnicien[$key] = 0;
                 }
-                $nbInterPerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom] += 1;
+                $nbInterPerTechnicien[$key] += 1;
             }
         }
+
         arsort($nbInterPerTechnicien); // Tri décroissant
         return $nbInterPerTechnicien ?? [];
     }
@@ -275,7 +277,9 @@ class AnalytiqueService
             }
             // moyenne du temps de rétablissement par technicien
             $nbInterventions = count($technicien->interventions) + count($technicien->interventionsPlanifiees);
-            $avgTimePerTechnicien[$intervention->user->nom . ' ' . $intervention->user->prenom] = $nbInterventions > 0 ? round($totalTime / $nbInterventions, 2) : 0;
+            $avgTimePerTechnicien[$technicien->nom . ' ' . $technicien->prenom] = $nbInterventions > 0
+                ? round($totalTime / $nbInterventions, 2)
+                : 0;
         }
         return $avgTimePerTechnicien ?? [];
     }
