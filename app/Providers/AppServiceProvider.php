@@ -120,7 +120,8 @@ class AppServiceProvider extends ServiceProvider
         });
         // detail
         Gate::define('detail-intervention', function (User $user, Intervention $intervention) {
-            return (in_array($user->role, ['admin', 'responsable'])) || (($user->role === 'technicien' && $intervention->technicien_id === $user->id));
+            return (in_array($user->role, ['admin', 'responsable']))
+                || ($user->role === 'technicien' && $intervention->idUser === $user->id);
         });
         // add
         Gate::define('add-intervention', function (User $user) {
