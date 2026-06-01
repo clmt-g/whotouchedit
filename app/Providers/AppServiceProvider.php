@@ -112,6 +112,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('delete-machine', function (User $user) {
             return in_array($user->role, ['admin', 'direction']);
         });
+        // historique
+        Gate::define('historique-machine', function (User $user) {
+            return in_array($user->role, ['admin', 'responsable', 'technicien']);
+        });
 
         // ===== Intervention Gates =====
         // show

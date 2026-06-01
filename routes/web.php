@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/machine/update_etat/{id}', [MachineController::class, 'update_etat'])->name('machine.update_etat');
     Route::put('/machine/update_etat/{id}', [MachineController::class, 'do_update_etat'])->name('machine.do_update_etat');
     Route::delete('/machine/delete/{id}', [MachineController::class, 'do_delete'])->name('machine.do_delete');
+    Route::get('/machine/historique/{id}', [MachineController::class, 'historique'])->name('machine.historique');
 
     // ========== Interventions ==========
     Route::get('/intervention', [InterventionController::class, 'show'])->name('intervention');

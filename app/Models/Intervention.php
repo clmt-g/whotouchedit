@@ -25,7 +25,7 @@ class Intervention extends Model
         'commentaire',
         'idMachine',
         'idUser'
-        ];
+    ];
 
     // --- Scopes ---
     public function scopeForUser($query, $user)

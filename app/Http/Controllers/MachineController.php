@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddMachineRequest;
 use App\Http\Requests\UpdateMachineRequest;
+use App\Models\Intervention;
+use App\Models\InterventionPlanifiee;
 use App\Models\Machine;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -192,5 +194,25 @@ class MachineController extends Controller
                 ->route('machine')
                 ->with('error', 'Impossible de trouver la machine');
         }
+    }
+
+    /** Return all the interventions and interventions_planifiees for a machine
+     * @param $id
+     * @return Factory|View|\Illuminate\View\View
+     */
+    public function historique($id) {
+        // check permission
+        $this->authorize('historique-machine');
+
+        // get the interventions
+        $interventions = Intervention::where('idMachine', $id)->get();
+        $interventions_planifiees = InterventionPlanifiee::where('idMachine', $id)->get();
+        $machine = Machine::findOrFail($id);
+
+        return view('machine.historique', [
+            'interventions' => $interventions,
+            'interventions_planifiees' => $interventions_planifiees,
+            'machine' => $machine
+        ]);
     }
 }
