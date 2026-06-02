@@ -337,6 +337,13 @@
                     </tbody>
                 </table>
             </div>
+
+            <x-paginator
+                tableId="search-table"
+                :defaultSize="10"
+                :pageSizes="[5, 10, 25]"
+            />
+
         </div>
     </div>
 @endsection
