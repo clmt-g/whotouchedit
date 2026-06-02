@@ -9,6 +9,7 @@
         updateVisibility() {
             const rows = document.querySelectorAll('#{{ $tableId }} tr');
             rows.forEach((row, i) => {
+                // affiche la ligne si sont nombre (i) est compris entre le debut de la page actuelle et le debut de la page suivante
                 row.style.display = (i >= (this.currentPage - 1) * this.pageSize && i < this.currentPage * this.pageSize)
                     ? '' : 'none';
             });
@@ -23,10 +24,16 @@
             this.currentPage = 1;
             this.updateVisibility();
         },
+        // genere la liste des numeros de pages à afficher autour de la page actuelle
         get pages() {
+            // les numeros de pages
             const range = [];
+            // nombre de page affiche autour de la page actuelle
             const delta = 2;
-            for (let i = Math.max(1, this.currentPage - delta); i <= Math.min(this.totalPages, this.currentPage + delta); i++) {
+
+            for (let i = Math.max(1, this.currentPage - delta);
+                    i <= Math.min(this.totalPages, this.currentPage + delta);
+                    i++) {
                 range.push(i);
             }
             return range;
