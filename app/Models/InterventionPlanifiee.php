@@ -30,7 +30,7 @@ class InterventionPlanifiee extends Model
         'dateFin' => 'datetime',
     ];
 
-    // RelationMany-to-Many avec User (techniciens)
+    // Relation Many-to-Many avec User (techniciens)
     public function techniciens()
     {
         return $this->belongsToMany(
@@ -41,7 +41,13 @@ class InterventionPlanifiee extends Model
         );
     }
 
-    // -- Scopes ---
+    /** For 'admin' or 'responsable' returns all the interventions
+     * For other roles, (such as 'operateur') returns the interventions created by the user
+     * Is refered to as 'ForUser' when called
+     * @param $query - The query in whitch the function was caller
+     * @param $user - The user logged in
+     * @return \LaravelIdea\Helper\App\Models\_IH_Intervention_QB
+     */
     public function scopeForUser($query, $user) {
         if ($user->role === 'admin' || $user->role === 'responsable') {
             return $query;

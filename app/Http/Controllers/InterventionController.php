@@ -22,7 +22,9 @@ class InterventionController extends Controller
         $this->authorize('manage-interventions');
 
         // get all interventions for the connected user
-        $interventions = Intervention::ForUser(Auth::user())->get();
+        $interventions = Intervention::ForUser(Auth::user())
+            ->orderBy('dateHeureDebut', 'desc')
+            ->get();
 
         // values for filter
         $machines = Machine::all();

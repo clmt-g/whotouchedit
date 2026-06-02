@@ -23,7 +23,9 @@ class InterventionPlanifieeController extends Controller
         // check permission
         $this->authorize('manage-interventions-planifiees');
 
-        $interventions = InterventionPlanifiee::ForUser(Auth::user())->get();
+        $interventions = InterventionPlanifiee::ForUser(Auth::user())
+            ->orderBy('dateDebut', 'desc')
+            ->get();
 
         // Values used for the filters
         $machines = Machine::all();
