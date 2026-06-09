@@ -188,5 +188,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-analytique', function (User $user) {
             return in_array($user->role, ['admin', 'responsable', 'direction']);
         });
+
+        // ===== Historique Gates =====
+        Gate::define('see-historique', function (User $user) {
+            return $user->role === 'direction';
+        });
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HistoriqueController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnalytiqueController;
 use App\Http\Controllers\InterventionController;
@@ -98,6 +99,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/analytique/analyse_intervention_planifiee', [AnalytiqueController::class, 'analyse_intervention_planifiee'])->name('analytique.analyse_intervention_planifiee');
     Route::get('/analytique/performance_technicien', [AnalytiqueController::class, 'performance_technicien'])->name('analytique.performance_technicien');
     Route::get('/analytique/predictif', [AnalytiqueController::class, 'predictif'])->name('analytique.predictif');
+
+    // ========== Historique ==========
+    Route::get('/historique', [HistoriqueController::class, 'show'])->name('historique');
 
     // ========== Error 404 : doit être la dernière route ==========
     Route::fallback(function () {
